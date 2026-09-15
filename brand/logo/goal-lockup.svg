@@ -10,9 +10,8 @@
       <path d="m278 234 94-94" stroke-width="24"/>
     </g>
     <path d="m256 256 11-33 22 22Z" fill="#1C1917"/>
-    <path d="m372 140-17-48 28-27 8 58Z" fill="#1C1917"/>
-    <path d="m382 132 28-31q17 7 23 22l-31 27Z" fill="#1C1917"/>
-    <path d="m380 145 49 12-28 28-41-31Z" fill="#1C1917"/>
+    <path d="m370 142-16-46 28-28 7 56Z" fill="#1C1917"/>
+    <path d="m370 142 46 16-27 27-29-31Z" fill="#1C1917"/>
   </g>
   <g fill="#1C1917">
     <text x="298" y="136" font-family="Avenir Next, Inter, ui-sans-serif, system-ui, sans-serif" font-size="52" font-weight="700" letter-spacing="-2.1">Disciplined Stakes</text>
