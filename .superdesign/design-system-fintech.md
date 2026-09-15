@@ -45,7 +45,10 @@ Geometric grotesque: Plus Jakarta Sans (Satoshi / Geist stand-in). Extra-bold ti
 - Lime 40px rounded-square icon tile for one promo row
 - Circular avatars / marks in the activity list
 - No 80/20 conic ring, no graphite cards, no 52pt electric-blue rectangles, no Manrope-on-graphite
-- Light tab bar: hairline top, ink on Today, muted on the rest
+- Floating white capsule bottom nav, 72pt tall, 36pt corners, soft shadow
+- Raised black 56pt plus button for New commitment
+- Active tab: ink icon, bold 11pt label, lime 4pt dot
+- Inactive tabs: `#6F6B76`, medium label, no dot
 
 ### Layout (390 × 844)
 
@@ -54,7 +57,7 @@ Geometric grotesque: Plus Jakarta Sans (Satoshi / Geist stand-in). Extra-bold ti
 - One black stake card (the only dark surface)
 - One promo row
 - Recent list (deadline, verifier, miss allocation)
-- Pill CTA row and light tabs
+- Floating bottom nav; no second CTA row above it
 
 ## Screen — Today
 
@@ -63,6 +66,7 @@ Geometric grotesque: Plus Jakarta Sans (Satoshi / Geist stand-in). Extra-bold ti
 - Black card: “Discipline” · **€25.00** · “Held on Run 5 km” · pills Submit proof / Details
 - Promo: lime tile · “Your next proof” · “Tomorrow, 7:30 AM · Alex Chen”
 - Recent: verifier, deadline, if missed €20 / €5
-- Tabs: Today, Commitments, Profile
+- Bottom nav: Today (active, lime dot), Commitments, raised +, You
+- New commitment is the center plus; Submit proof stays on the stake card
 
 Use only these fonts, colors, and pill/card styles. Do not revive the graphite onboarding Today.
