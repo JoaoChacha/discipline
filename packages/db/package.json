@@ -26,6 +26,7 @@
     "generate": "pnpm with-env drizzle-kit generate",
     "push": "pnpm with-env drizzle-kit push",
     "studio": "pnpm with-env drizzle-kit studio",
+    "test": "node --experimental-strip-types --test src/money.test.ts",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
     "with-env": "dotenv -e ../../.env --"
   },

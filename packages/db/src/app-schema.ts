@@ -47,20 +47,61 @@ export const verdictOutcome = pgEnum("verdict_outcome", [
   "not_fulfilled",
 ]);
 
-export const profile = pgTable("profile", (t) => ({
-  userId: t
-    .text()
-    .primaryKey()
-    .references(() => user.id, { onDelete: "cascade" }),
-  timezone: t.text().notNull().default("UTC"),
-  currency: t.char({ length: 3 }).notNull().default("EUR"),
-  createdAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
-  updatedAt: t
-    .timestamp({ withTimezone: true })
-    .defaultNow()
-    .$onUpdate(() => new Date())
-    .notNull(),
-}));
+export const onboardingStatus = pgEnum("onboarding_status", [
+  "required",
+  "completed",
+]);
+
+export const consentKind = pgEnum("consent_kind", [
+  "onboarding",
+  "commitment_confirm",
+]);
+
+export const profile = pgTable(
+  "profile",
+  (t) => ({
+    userId: t
+      .text()
+      .primaryKey()
+      .references(() => user.id, { onDelete: "cascade" }),
+    timezone: t.text().notNull().default("UTC"),
+    currency: t.char({ length: 3 }).notNull().default("EUR"),
+    onboardingStatus: onboardingStatus().notNull().default("required"),
+    onboardingCompletedAt: t.timestamp({ withTimezone: true }),
+    createdAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
+    updatedAt: t
+      .timestamp({ withTimezone: true })
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  }),
+  (t) => [
+    check(
+      "profile_onboarding_completed_at_matches",
+      sql`(${t.onboardingStatus} = 'required' AND ${t.onboardingCompletedAt} IS NULL) OR (${t.onboardingStatus} = 'completed' AND ${t.onboardingCompletedAt} IS NOT NULL)`,
+    ),
+  ],
+);
+
+export const charity = pgTable(
+  "charity",
+  (t) => ({
+    id: t.uuid().primaryKey().defaultRandom(),
+    slug: t.text().notNull().unique(),
+    name: t.text().notNull(),
+    mission: t.text().notNull(),
+    websiteUrl: t.text(),
+    isActive: t.boolean().notNull().default(true),
+    sortOrder: t.integer().notNull().default(0),
+    createdAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
+    updatedAt: t
+      .timestamp({ withTimezone: true })
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  }),
+  (t) => [index("charity_active_sort_idx").on(t.isActive, t.sortOrder)],
+);
 
 export const invitation = pgTable(
   "invitation",
@@ -133,6 +174,11 @@ export const action = pgTable(
     amountCents: t.integer().notNull(),
     currency: t.char({ length: 3 }).notNull(),
     stakeStatus: stakeStatus().notNull().default("none"),
+    donationBps: t.integer().notNull().default(8000),
+    platformFeeBps: t.integer().notNull().default(2000),
+    confirmedAt: t.timestamp({ withTimezone: true }),
+    donationCents: t.integer(),
+    platformFeeCents: t.integer(),
     settledAt: t.timestamp({ withTimezone: true }),
     createdAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
     updatedAt: t
@@ -144,9 +190,45 @@ export const action = pgTable(
   (t) => [
     check("action_not_self_review", sql`${t.ownerId} <> ${t.verifierId}`),
     check("action_amount_positive", sql`${t.amountCents} > 0`),
+    check(
+      "action_split_covers_stake",
+      sql`${t.donationBps} >= 0 AND ${t.platformFeeBps} >= 0 AND ${t.donationBps} + ${t.platformFeeBps} = 10000`,
+    ),
+    check(
+      "action_settlement_cents_nonnegative",
+      sql`(${t.donationCents} IS NULL OR ${t.donationCents} >= 0) AND (${t.platformFeeCents} IS NULL OR ${t.platformFeeCents} >= 0)`,
+    ),
     index("action_owner_status_idx").on(t.ownerId, t.status),
     index("action_verifier_status_idx").on(t.verifierId, t.status),
     index("action_due_at_idx").on(t.dueAt),
+  ],
+);
+
+export const actionCharityAllocation = pgTable(
+  "action_charity_allocation",
+  (t) => ({
+    id: t.uuid().primaryKey().defaultRandom(),
+    actionId: t
+      .uuid()
+      .notNull()
+      .references(() => action.id, { onDelete: "cascade" }),
+    charityId: t
+      .uuid()
+      .notNull()
+      .references(() => charity.id, { onDelete: "restrict" }),
+    allocationBps: t.integer().notNull(),
+    createdAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
+  }),
+  (t) => [
+    uniqueIndex("action_charity_allocation_action_charity_uidx").on(
+      t.actionId,
+      t.charityId,
+    ),
+    check(
+      "action_charity_allocation_bps_range",
+      sql`${t.allocationBps} > 0 AND ${t.allocationBps} <= 10000`,
+    ),
+    index("action_charity_allocation_action_idx").on(t.actionId),
   ],
 );
 
@@ -186,8 +268,36 @@ export const verdict = pgTable("verdict", (t) => ({
   decidedAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
 }));
 
-export const profileRelations = relations(profile, ({ one }) => ({
+export const userConsent = pgTable(
+  "user_consent",
+  (t) => ({
+    id: t.uuid().primaryKey().defaultRandom(),
+    userId: t
+      .text()
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    kind: consentKind().notNull(),
+    termsVersion: t.text().notNull(),
+    actionId: t.uuid().references(() => action.id, { onDelete: "cascade" }),
+    acceptedAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
+  }),
+  (t) => [
+    check(
+      "user_consent_action_matches_kind",
+      sql`(${t.kind} = 'onboarding' AND ${t.actionId} IS NULL) OR (${t.kind} = 'commitment_confirm' AND ${t.actionId} IS NOT NULL)`,
+    ),
+    index("user_consent_user_kind_idx").on(t.userId, t.kind),
+    index("user_consent_action_idx").on(t.actionId),
+  ],
+);
+
+export const profileRelations = relations(profile, ({ one, many }) => ({
   user: one(user, { fields: [profile.userId], references: [user.id] }),
+  consents: many(userConsent),
+}));
+
+export const charityRelations = relations(charity, ({ many }) => ({
+  allocations: many(actionCharityAllocation),
 }));
 
 export const invitationRelations = relations(invitation, ({ one }) => ({
@@ -228,7 +338,23 @@ export const actionRelations = relations(action, ({ one, many }) => ({
     relationName: "verifyingActions",
   }),
   proofs: many(proof),
+  charityAllocations: many(actionCharityAllocation),
+  consents: many(userConsent),
 }));
+
+export const actionCharityAllocationRelations = relations(
+  actionCharityAllocation,
+  ({ one }) => ({
+    action: one(action, {
+      fields: [actionCharityAllocation.actionId],
+      references: [action.id],
+    }),
+    charity: one(charity, {
+      fields: [actionCharityAllocation.charityId],
+      references: [charity.id],
+    }),
+  }),
+);
 
 export const proofRelations = relations(proof, ({ one }) => ({
   action: one(action, { fields: [proof.actionId], references: [action.id] }),
@@ -249,8 +375,25 @@ export const verdictRelations = relations(verdict, ({ one }) => ({
   }),
 }));
 
+export const userConsentRelations = relations(userConsent, ({ one }) => ({
+  user: one(user, {
+    fields: [userConsent.userId],
+    references: [user.id],
+    relationName: "consents",
+  }),
+  profile: one(profile, {
+    fields: [userConsent.userId],
+    references: [profile.userId],
+  }),
+  action: one(action, {
+    fields: [userConsent.actionId],
+    references: [action.id],
+  }),
+}));
+
 export const userRelations = relations(user, ({ one, many }) => ({
   profile: one(profile),
+  consents: many(userConsent, { relationName: "consents" }),
   sentInvitations: many(invitation, { relationName: "sentInvitations" }),
   acceptedInvitations: many(invitation, {
     relationName: "acceptedInvitations",
