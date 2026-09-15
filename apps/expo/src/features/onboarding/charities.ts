@@ -69,6 +69,10 @@ export function setAllocationPercent(
   charityId: string,
   nextPercent: number,
 ): CharityAllocation[] {
+  if (!Number.isFinite(nextPercent)) {
+    return allocations;
+  }
+
   const target = allocations.find((item) => item.charityId === charityId);
   if (!target || allocations.length === 1) {
     return allocations.map((item) =>

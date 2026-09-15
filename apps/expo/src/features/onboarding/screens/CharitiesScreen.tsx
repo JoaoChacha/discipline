@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import type { GestureResponderEvent } from "react-native";
+import { useMemo, useRef, useState } from "react";
 import {
   Modal,
   Pressable,
@@ -15,6 +16,22 @@ import { allocationTotal, CHARITY_CATALOG, getCharity } from "../charities";
 import { CharityGlyph, OnboardingIcon } from "../components/OnboardingIcon";
 import { useOnboarding } from "../OnboardingProvider";
 
+function readTrackX(event: GestureResponderEvent): number | null {
+  const native = event.nativeEvent as GestureResponderEvent["nativeEvent"] & {
+    offsetX?: number;
+  };
+  if (
+    typeof native.locationX === "number" &&
+    Number.isFinite(native.locationX)
+  ) {
+    return native.locationX;
+  }
+  if (typeof native.offsetX === "number" && Number.isFinite(native.offsetX)) {
+    return native.offsetX;
+  }
+  return null;
+}
+
 function AllocationTrack({
   percent,
   onChange,
@@ -22,38 +39,66 @@ function AllocationTrack({
   percent: number;
   onChange: (next: number) => void;
 }) {
-  const [width, setWidth] = useState(0);
+  const trackRef = useRef<View>(null);
+  const widthRef = useRef(0);
 
-  const updateFromX = (x: number) => {
-    if (width <= 0) {
+  const applyX = (x: number, width: number) => {
+    if (width <= 0 || !Number.isFinite(x)) {
       return;
     }
-    onChange(Math.round((x / width) * 100));
+    onChange(Math.round(Math.max(0, Math.min(1, x / width)) * 100));
+  };
+
+  const updateFromEvent = (event: GestureResponderEvent) => {
+    const localX = readTrackX(event);
+    if (localX !== null) {
+      applyX(localX, widthRef.current);
+      return;
+    }
+
+    const eventPageX = event.nativeEvent.pageX;
+    trackRef.current?.measureInWindow((pageX, _pageY, measuredWidth) => {
+      applyX(eventPageX - pageX, measuredWidth || widthRef.current);
+    });
   };
 
   return (
-    <Pressable
+    <View
+      ref={trackRef}
       accessibilityRole="adjustable"
       accessibilityValue={{ min: 0, max: 100, now: percent }}
-      onLayout={(event) => setWidth(event.nativeEvent.layout.width)}
-      onPress={(event) => updateFromX(event.nativeEvent.locationX)}
+      onLayout={(event) => {
+        widthRef.current = event.nativeEvent.layout.width;
+      }}
+      onStartShouldSetResponder={() => true}
+      onMoveShouldSetResponder={() => true}
+      onResponderGrant={updateFromEvent}
+      onResponderMove={updateFromEvent}
       style={{
         marginTop: 12,
-        height: 8,
-        overflow: "hidden",
-        borderRadius: 999,
-        backgroundColor: colors.separator,
+        height: 24,
+        justifyContent: "center",
       }}
     >
       <View
+        pointerEvents="none"
         style={{
-          height: "100%",
-          width: `${percent}%`,
+          height: 8,
+          overflow: "hidden",
           borderRadius: 999,
-          backgroundColor: colors.tint,
+          backgroundColor: colors.separator,
         }}
-      />
-    </Pressable>
+      >
+        <View
+          style={{
+            height: "100%",
+            width: `${Number.isFinite(percent) ? percent : 0}%`,
+            borderRadius: 999,
+            backgroundColor: colors.tint,
+          }}
+        />
+      </View>
+    </View>
   );
 }
 
@@ -118,7 +163,7 @@ function SelectedCharityRow({
             fontVariant: ["tabular-nums"],
           }}
         >
-          {allocation.percent}%
+          {Number.isFinite(allocation.percent) ? allocation.percent : 0}%
         </Text>
       </View>
       <AllocationTrack percent={allocation.percent} onChange={onChange} />
