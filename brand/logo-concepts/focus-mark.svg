@@ -3,15 +3,15 @@
   <desc id="description">A focused open ring resolving into a precise check beside the Disciplined Stakes wordmark.</desc>
   <rect width="960" height="280" rx="32" fill="#F7F5F2"/>
   <g transform="translate(48 40)">
-    <rect width="200" height="200" rx="46" fill="#1F104A"/>
+    <rect width="200" height="200" rx="46" fill="#FEE2E2"/>
     <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M143 64a56 56 0 1 0 2 69" stroke="#F7F5F2" stroke-width="15"/>
-      <path d="m70 101 21 21 52-58" stroke="#7C3AED" stroke-width="15"/>
+      <path d="M143 64a56 56 0 1 0 2 69" stroke="#7F1D1D" stroke-width="15"/>
+      <path d="m70 101 21 21 52-58" stroke="#DC2626" stroke-width="15"/>
     </g>
   </g>
   <g fill="#18181B">
     <text x="298" y="136" font-family="Avenir Next, Inter, ui-sans-serif, system-ui, sans-serif" font-size="52" font-weight="700" letter-spacing="-2.1">Disciplined Stakes</text>
-    <path d="M302 158h42" stroke="#7C3AED" stroke-width="4" stroke-linecap="round"/>
+    <path d="M302 158h42" stroke="#DC2626" stroke-width="4" stroke-linecap="round"/>
     <text x="356" y="164" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" font-weight="650" letter-spacing="3.2" fill="#615A68">REFINED FOCUS MARK</text>
   </g>
 </svg>
