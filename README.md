@@ -59,14 +59,18 @@ On your own Wi‑Fi (not a Cloud Agent), you can instead run `pnpm dev:next` plu
 
 Postgres is defined in `docker-compose.yml`. Drizzle lives in `packages/db`:
 
-| Command | What it does |
-| --- | --- |
-| `pnpm db:up` | Start local Postgres |
-| `pnpm db:push` | Push the Drizzle schema to the database |
-| `pnpm db:generate` | Generate a SQL migration |
-| `pnpm db:studio` | Open Drizzle Studio |
+| Command            | What it does                            |
+| ------------------ | --------------------------------------- |
+| `pnpm db:up`       | Start local Postgres                    |
+| `pnpm db:push`     | Push the Drizzle schema to the database |
+| `pnpm db:generate` | Generate a SQL migration                |
+| `pnpm db:studio`   | Open Drizzle Studio                     |
 
 `POSTGRES_URL` can also point at Supabase, Neon, or any other Postgres host.
+
+## Money rules
+
+A forfeited stake is split **80% to the selected charities** and **20% Disciplined stake**. That 20% covers Stripe and Goodstack fees, so charities receive the full 80%. The minimum stake is 500 cents (€5) so the Disciplined stake still covers typical processing. Shared copy and split math live in `@discipline/validators`.
 
 ## Why this starter
 
@@ -74,14 +78,14 @@ Postgres is defined in `docker-compose.yml`. Drizzle lives in `packages/db`:
 
 ## Scripts
 
-| Command | What it does |
-| --- | --- |
-| `pnpm dev` | Expo + Next.js together |
-| `pnpm dev:expo` | Expo only |
-| `pnpm dev:next` | Next.js / tRPC only |
+| Command          | What it does                   |
+| ---------------- | ------------------------------ |
+| `pnpm dev`       | Expo + Next.js together        |
+| `pnpm dev:expo`  | Expo only                      |
+| `pnpm dev:next`  | Next.js / tRPC only            |
 | `pnpm typecheck` | TypeScript across the monorepo |
-| `pnpm lint` | ESLint |
-| `pnpm format` | Prettier check |
+| `pnpm lint`      | ESLint                         |
+| `pnpm format`    | Prettier check                 |
 
 ## Production
 

@@ -40,7 +40,7 @@ export function WelcomeScreen({
         }}
       >
         <StakeRing size={32} label="80" />
-        <Text style={type.brand}>Discipline Stake</Text>
+        <Text style={type.brand}>Disciplined Stake</Text>
       </View>
 
       <View style={{ flex: 1, justifyContent: "center", paddingBottom: 32 }}>

@@ -1,8 +1,16 @@
-import { z } from "zod/v4";
-
-export const unused = z.string().describe(
-  `This lib is currently not used as we use drizzle-zod for simple schemas
-   But as your application grows and you need other validators to share
-   with back and frontend, you can put them in here
-  `,
-);
+export {
+  allocateDonationPool,
+  assertAllocationShares,
+  CHARITY_SHARE_BPS,
+  DISCIPLINED_STAKE_BPS,
+  donationAllocationSchema,
+  donationShareSchema,
+  MIN_STAKE_CENTS,
+  SETTLEMENT_COPY,
+  SETTLEMENT_POLICY_VERSION,
+  settleForfeit,
+  SettlementError,
+  splitStake,
+  stakeAmountSchema,
+} from "./settlement";
+export type { DonationPayout, DonationShare, StakeSplit } from "./settlement";

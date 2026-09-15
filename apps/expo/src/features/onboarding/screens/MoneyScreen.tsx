@@ -69,13 +69,13 @@ export function MoneyScreen({ reduceMotion }: { reduceMotion: boolean }) {
               icon="heart"
               iconColor={colors.pending}
               title="Miss it"
-              body="€20 (80%) goes to that commitment’s selected cause."
+              body="€20 (80%) goes in full to that commitment’s selected cause."
             />
             <OutcomeRow
               icon="phone-portrait-outline"
               iconColor={colors.tint}
-              title="Platform fee"
-              body="€5 (20%) supports the app."
+              title="Disciplined stake"
+              body="€5 (20%) covers payment and donation processing."
               last
             />
           </View>
