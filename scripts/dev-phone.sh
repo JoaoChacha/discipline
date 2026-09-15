@@ -76,4 +76,5 @@ echo "Scan the Expo QR with Expo Go. Each environment gets its own tunnels."
 echo
 
 export EXPO_PUBLIC_API_URL="$API_URL"
-exec pnpm --filter @discipline/expo exec expo start --go --tunnel --port 8081
+export CI=1
+exec pnpm --filter @discipline/expo exec expo start --go --tunnel --port 8081 --non-interactive
