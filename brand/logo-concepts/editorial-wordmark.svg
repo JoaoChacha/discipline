@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="280" viewBox="0 0 960 280" role="img" aria-labelledby="title description">
-  <title id="title">Discipline editorial grid logo</title>
-  <desc id="description">A modular dot-grid D paired with a tightly composed editorial Discipline wordmark.</desc>
+  <title id="title">Disciplined Stakes editorial grid logo</title>
+  <desc id="description">A modular dot-grid D paired with a tightly composed editorial Disciplined Stakes wordmark.</desc>
   <rect width="960" height="280" rx="32" fill="#F7F5F2"/>
   <g transform="translate(48 40)">
     <rect width="200" height="200" rx="46" fill="#1F104A"/>
@@ -19,7 +19,7 @@
     <rect x="80" y="74" width="24" height="24" rx="5" fill="#7C3AED"/>
   </g>
   <g fill="#18181B">
-    <text x="298" y="136" font-family="Arial, Helvetica, ui-sans-serif, sans-serif" font-size="72" font-weight="800" letter-spacing="-4.1">DISCIPLINE</text>
+    <text x="298" y="136" font-family="Arial, Helvetica, ui-sans-serif, sans-serif" font-size="43" font-weight="800" letter-spacing="-2.2">DISCIPLINED STAKES</text>
     <path d="M302 153h530" stroke="#18181B" stroke-width="3"/>
     <text x="302" y="184" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="15" font-weight="600" letter-spacing="3.4" fill="#7C3AED">EDITORIAL GRID / 03</text>
   </g>

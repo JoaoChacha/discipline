@@ -16,13 +16,13 @@ export const metadata: Metadata = {
       ? "https://discipline.app"
       : "http://localhost:3000",
   ),
-  title: "Discipline",
+  title: "Disciplined Stakes",
   description: "Native-first app with Expo, tRPC, and Drizzle",
   openGraph: {
-    title: "Discipline",
+    title: "Disciplined Stakes",
     description: "Native-first app with Expo, tRPC, and Drizzle",
     url: "http://localhost:3000",
-    siteName: "Discipline",
+    siteName: "Disciplined Stakes",
   },
 };
 
