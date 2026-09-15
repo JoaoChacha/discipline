@@ -37,6 +37,24 @@ pnpm dev
 
 That starts the Next.js API on `http://localhost:3000` and Expo. Open the Expo app with Expo Go, or run `pnpm --filter @discipline/expo dev:ios` / `dev:android` if you have a simulator.
 
+## Test on your phone
+
+Cursor Cloud Agent port-forward only reaches **your laptop** (`localhost`). A phone cannot use that. Each environment needs its own public tunnels.
+
+```bash
+pnpm dev:phone
+```
+
+That starts:
+
+1. Next.js on port 3000
+2. A Cloudflare quick tunnel for the tRPC API (`EXPO_PUBLIC_API_URL`)
+3. Expo Go in **tunnel** mode (Metro is reachable off the LAN)
+
+Scan the QR with [Expo Go](https://expo.dev/go). The JS bundle comes from Expo's tunnel; API calls go to that environment's `trycloudflare.com` URL.
+
+On your own Wi‑Fi (not a Cloud Agent), you can instead run `pnpm dev:next` plus `pnpm --filter @discipline/expo exec expo start --go --lan` and stay on the LAN.
+
 ## Database
 
 Postgres is defined in `docker-compose.yml`. Drizzle lives in `packages/db`:
