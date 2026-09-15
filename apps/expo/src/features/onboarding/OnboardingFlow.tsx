@@ -1,5 +1,12 @@
+import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
-import { AccessibilityInfo, Pressable, ScrollView, Text } from "react-native";
+import {
+  AccessibilityInfo,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import Animated, {
   Easing,
   FadeInLeft,
@@ -218,10 +225,26 @@ function OnboardingStepper() {
   );
 }
 
+function PhoneFrame({ children }: { children: ReactNode }) {
+  return (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: colors.background,
+        alignItems: "center",
+      }}
+    >
+      <View style={{ flex: 1, width: "100%", maxWidth: 390 }}>{children}</View>
+    </View>
+  );
+}
+
 export function OnboardingFlow() {
   return (
     <OnboardingProvider>
-      <OnboardingStepper />
+      <PhoneFrame>
+        <OnboardingStepper />
+      </PhoneFrame>
     </OnboardingProvider>
   );
 }
