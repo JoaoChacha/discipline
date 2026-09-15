@@ -11,8 +11,6 @@ import Animated, {
   Easing,
   FadeInLeft,
   FadeInRight,
-  FadeOutLeft,
-  FadeOutRight,
 } from "react-native-reanimated";
 import { useRouter } from "expo-router";
 
@@ -132,16 +130,6 @@ function OnboardingStepper() {
           Easing.bezier(...motion.easing),
         );
 
-  const exiting = reduceMotion
-    ? undefined
-    : direction > 0
-      ? FadeOutLeft.duration(motion.duration).easing(
-          Easing.bezier(...motion.easing),
-        )
-      : FadeOutRight.duration(motion.duration).easing(
-          Easing.bezier(...motion.easing),
-        );
-
   if (step === WELCOME_STEP) {
     return (
       <WelcomeScreen
@@ -180,7 +168,7 @@ function OnboardingStepper() {
             }}
             testID="onboarding-replay"
             style={{
-              marginTop: 4,
+              marginTop: 12,
               minHeight: 44,
               flexDirection: "row",
               alignItems: "center",
@@ -210,7 +198,6 @@ function OnboardingStepper() {
       <Animated.View
         key={step}
         entering={entering}
-        exiting={exiting}
         style={{ flex: 1, backgroundColor: colors.background }}
       >
         <ScrollView
