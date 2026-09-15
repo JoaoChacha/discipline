@@ -3,6 +3,7 @@ import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { colors, spacing } from "~/theme/tokens";
+import { type } from "~/theme/typography";
 import { OnboardingIcon } from "./OnboardingIcon";
 import { PrimaryButton } from "./PrimaryButton";
 import { ProgressBar } from "./ProgressBar";
@@ -11,27 +12,27 @@ export function OnboardingShell({
   step,
   total,
   reduceMotion,
-  onBack,
-  onClose,
+  leading = "back",
+  onLeading,
   onSkip,
   ctaLabel,
   onCta,
   ctaDisabled,
   ctaTestID,
-  footerNote,
+  footer,
   children,
 }: {
   step: number;
   total: number;
   reduceMotion: boolean;
-  onBack?: () => void;
-  onClose?: () => void;
+  leading?: "back" | "close";
+  onLeading: () => void;
   onSkip?: () => void;
   ctaLabel: string;
   onCta: () => void;
   ctaDisabled?: boolean;
   ctaTestID?: string;
-  footerNote?: string;
+  footer?: ReactNode;
   children: ReactNode;
 }) {
   const insets = useSafeAreaInsets();
@@ -54,51 +55,28 @@ export function OnboardingShell({
           justifyContent: "space-between",
         }}
       >
-        {onClose ? (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Close onboarding"
-            onPress={onClose}
-            hitSlop={8}
-            style={{
-              height: 44,
-              width: 44,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 999,
-            }}
-          >
-            <OnboardingIcon
-              name="close"
-              size={22}
-              color={colors.secondaryLabel}
-            />
-          </Pressable>
-        ) : (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Back"
-            onPress={onBack}
-            hitSlop={8}
-            style={{
-              height: 44,
-              width: 44,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 999,
-            }}
-          >
-            <OnboardingIcon name="chevron-back" size={26} color={colors.tint} />
-          </Pressable>
-        )}
-
-        <Text
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={leading === "close" ? "Close onboarding" : "Back"}
+          onPress={onLeading}
+          hitSlop={8}
+          testID="onboarding-back"
           style={{
-            fontSize: 13,
-            fontWeight: "600",
-            color: colors.secondaryLabel,
+            height: 44,
+            width: 44,
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 999,
           }}
         >
+          <OnboardingIcon
+            name={leading === "close" ? "close" : "chevron-back"}
+            size={leading === "close" ? 22 : 26}
+            color={leading === "close" ? colors.secondaryLabel : colors.tint}
+          />
+        </Pressable>
+
+        <Text style={type.stepLabel}>
           {step} of {total}
         </Text>
 
@@ -108,13 +86,18 @@ export function OnboardingShell({
             accessibilityLabel="Skip"
             onPress={onSkip}
             hitSlop={8}
+            testID="onboarding-skip"
             style={{
               minHeight: 44,
               justifyContent: "center",
               paddingHorizontal: 8,
             }}
           >
-            <Text style={{ fontSize: 15, color: colors.tint }}>Skip</Text>
+            <Text
+              style={{ ...type.callout, color: colors.tint, fontWeight: "400" }}
+            >
+              Skip
+            </Text>
           </Pressable>
         ) : (
           <View style={{ height: 44, width: 44 }} />
@@ -134,19 +117,7 @@ export function OnboardingShell({
           disabled={ctaDisabled}
           testID={ctaTestID}
         />
-        {footerNote ? (
-          <Text
-            style={{
-              marginTop: 12,
-              textAlign: "center",
-              fontSize: 12,
-              lineHeight: 16,
-              color: colors.secondaryLabel,
-            }}
-          >
-            {footerNote}
-          </Text>
-        ) : null}
+        {footer}
       </View>
     </View>
   );

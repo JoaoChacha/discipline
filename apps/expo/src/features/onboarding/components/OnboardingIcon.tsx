@@ -8,9 +8,6 @@ type IconName = ComponentProps<typeof Ionicons>["name"];
 const CHARITY_ICONS: Record<CharityIcon, IconName> = {
   droplets: "water-outline",
   code: "code-slash-outline",
-  heart: "heart-outline",
-  bug: "bug-outline",
-  book: "book-outline",
 };
 
 export function OnboardingIcon({

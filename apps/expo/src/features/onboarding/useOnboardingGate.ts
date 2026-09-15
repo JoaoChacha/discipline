@@ -1,7 +1,6 @@
 import { useCallback, useSyncExternalStore } from "react";
 
 import type { OnboardingState } from "./storage";
-import { DEFAULT_ALLOCATIONS } from "./charities";
 import { loadOnboardingState, resetOnboardingState } from "./storage";
 
 const listeners = new Set<() => void>();
@@ -51,10 +50,7 @@ export function useOnboardingGate() {
 
   const replay = useCallback(async () => {
     await resetOnboardingState();
-    snapshot = {
-      status: "pending",
-      allocations: DEFAULT_ALLOCATIONS,
-    };
+    snapshot = { status: "pending" };
     emit();
   }, []);
 

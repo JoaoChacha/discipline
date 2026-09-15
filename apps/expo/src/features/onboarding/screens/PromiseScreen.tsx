@@ -1,95 +1,58 @@
 import { Text, View } from "react-native";
-import Animated, { FadeInDown } from "react-native-reanimated";
 
 import { colors } from "~/theme/tokens";
+import { type } from "~/theme/typography";
+import { BrandCard } from "../components/BrandCard";
 import { OnboardingIcon } from "../components/OnboardingIcon";
+import { Reveal } from "../components/Reveal";
 
 export function PromiseScreen({ reduceMotion }: { reduceMotion: boolean }) {
-  const entering = (delay: number) =>
-    reduceMotion ? undefined : FadeInDown.duration(420).delay(delay);
-
   return (
     <View>
-      <Animated.Text
-        entering={entering(0)}
-        style={{
-          marginBottom: 12,
-          fontSize: 15,
-          fontWeight: "600",
-          color: colors.tint,
-        }}
-      >
-        ACCOUNTABILITY THAT FEELS FAIR
-      </Animated.Text>
-      <Animated.Text
-        entering={entering(70)}
-        style={{
-          maxWidth: 340,
-          fontSize: 34,
-          fontWeight: "700",
-          lineHeight: 40,
-          letterSpacing: -0.8,
-          color: colors.label,
-        }}
-      >
-        Your commitment, backed by you.
-      </Animated.Text>
-      <Animated.Text
-        entering={entering(70)}
-        style={{
-          marginTop: 12,
-          maxWidth: 340,
-          fontSize: 15,
-          lineHeight: 22,
-          color: colors.secondaryLabel,
-        }}
-      >
-        Choose an action that matters and put money behind it. Follow through
-        and keep every euro. Miss it, and most of the stake supports causes you
-        chose.
-      </Animated.Text>
+      <Reveal reduceMotion={reduceMotion} style={{ marginBottom: 12 }}>
+        <Text style={type.eyebrow}>ACCOUNTABILITY THAT FEELS FAIR</Text>
+      </Reveal>
+      <Reveal reduceMotion={reduceMotion} delay={90}>
+        <Text style={type.title}>Your commitment, backed by you.</Text>
+      </Reveal>
+      <Reveal reduceMotion={reduceMotion} delay={90} style={{ marginTop: 12 }}>
+        <Text style={type.body}>
+          For every commitment, choose a charity or charity group that receives
+          80% if you miss it.
+        </Text>
+      </Reveal>
 
-      <Animated.View
-        entering={entering(130)}
-        accessibilityLabel="Accountability promise"
-        style={{
-          marginTop: 28,
-          borderRadius: 16,
-          backgroundColor: colors.surface,
-          padding: 16,
-        }}
-      >
-        <View
-          style={{ flexDirection: "row", alignItems: "flex-start", gap: 12 }}
-        >
-          <View style={{ marginTop: 2 }}>
-            <OnboardingIcon name="heart" size={23} color={colors.success} />
-          </View>
-          <View style={{ flex: 1 }}>
-            <Text
+      <Reveal reduceMotion={reduceMotion} delay={170} style={{ marginTop: 28 }}>
+        <BrandCard>
+          <View
+            accessibilityLabel="Accountability promise"
+            style={{ flexDirection: "row", alignItems: "flex-start", gap: 12 }}
+          >
+            <View
               style={{
-                fontSize: 17,
-                fontWeight: "600",
-                lineHeight: 22,
-                color: colors.label,
+                height: 40,
+                width: 40,
+                borderRadius: 12,
+                backgroundColor: colors.tintContainer,
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              A promise, not a punishment
-            </Text>
-            <Text
-              style={{
-                marginTop: 4,
-                fontSize: 15,
-                lineHeight: 20,
-                color: colors.secondaryLabel,
-              }}
-            >
-              The goal is to make your intention concrete—not to shame you when
-              plans change.
-            </Text>
+              <OnboardingIcon
+                name="shield-checkmark"
+                size={22}
+                color={colors.tint}
+              />
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={type.headline}>A promise, not a punishment</Text>
+              <Text style={[type.bodyTight, { marginTop: 4 }]}>
+                Make your intention concrete with fair rules you understand.
+              </Text>
+            </View>
           </View>
-        </View>
-      </Animated.View>
+        </BrandCard>
+      </Reveal>
     </View>
   );
 }

@@ -1,13 +1,6 @@
 import type { ReactNode } from "react";
 import { createContext, use, useCallback, useMemo, useState } from "react";
 
-import type { CharityAllocation } from "./charities";
-import {
-  addCharity,
-  DEFAULT_ALLOCATIONS,
-  removeCharity,
-  setAllocationPercent,
-} from "./charities";
 import {
   loadOnboardingState,
   resetOnboardingState,
@@ -15,34 +8,31 @@ import {
 } from "./storage";
 import { publishOnboardingState } from "./useOnboardingGate";
 
+export const WELCOME_STEP = 0;
+export const FIRST_STEP = 1;
+export const LAST_STEP = 5;
+
 interface OnboardingContextValue {
   step: number;
-  allocations: CharityAllocation[];
   consented: boolean;
   goTo: (step: number) => void;
   next: () => void;
   back: () => void;
   skip: () => void;
+  replay: () => void;
   setConsented: (value: boolean) => void;
-  updatePercent: (charityId: string, percent: number) => void;
-  selectCharity: (charityId: string) => void;
-  unselectCharity: (charityId: string) => void;
   complete: () => Promise<void>;
   dismiss: () => Promise<void>;
 }
 
 const OnboardingContext = createContext<OnboardingContextValue | null>(null);
 
-const LAST_STEP = 5;
-
 export function OnboardingProvider({ children }: { children: ReactNode }) {
-  const [step, setStep] = useState(1);
-  const [allocations, setAllocations] =
-    useState<CharityAllocation[]>(DEFAULT_ALLOCATIONS);
+  const [step, setStep] = useState(WELCOME_STEP);
   const [consented, setConsented] = useState(false);
 
   const goTo = useCallback((nextStep: number) => {
-    setStep(Math.max(1, Math.min(LAST_STEP, nextStep)));
+    setStep(Math.max(WELCOME_STEP, Math.min(LAST_STEP, nextStep)));
   }, []);
 
   const next = useCallback(() => {
@@ -50,75 +40,44 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const back = useCallback(() => {
-    setStep((current) => Math.max(1, current - 1));
+    setStep((current) => Math.max(WELCOME_STEP, current - 1));
   }, []);
 
   const skip = useCallback(() => {
     setStep(LAST_STEP);
   }, []);
 
-  const updatePercent = useCallback((charityId: string, percent: number) => {
-    setAllocations((current) =>
-      setAllocationPercent(current, charityId, percent),
-    );
-  }, []);
-
-  const selectCharity = useCallback((charityId: string) => {
-    setAllocations((current) => addCharity(current, charityId));
-  }, []);
-
-  const unselectCharity = useCallback((charityId: string) => {
-    setAllocations((current) => removeCharity(current, charityId));
+  const replay = useCallback(() => {
+    setConsented(false);
+    setStep(WELCOME_STEP);
   }, []);
 
   const complete = useCallback(async () => {
-    const next = {
-      status: "completed" as const,
-      allocations,
-    };
-    await saveOnboardingState(next);
-    publishOnboardingState(next);
-  }, [allocations]);
+    const nextState = { status: "completed" as const };
+    await saveOnboardingState(nextState);
+    publishOnboardingState(nextState);
+  }, []);
 
   const dismiss = useCallback(async () => {
-    const next = {
-      status: "dismissed" as const,
-      allocations,
-    };
-    await saveOnboardingState(next);
-    publishOnboardingState(next);
-  }, [allocations]);
+    const nextState = { status: "dismissed" as const };
+    await saveOnboardingState(nextState);
+    publishOnboardingState(nextState);
+  }, []);
 
   const value = useMemo(
     () => ({
       step,
-      allocations,
       consented,
       goTo,
       next,
       back,
       skip,
+      replay,
       setConsented,
-      updatePercent,
-      selectCharity,
-      unselectCharity,
       complete,
       dismiss,
     }),
-    [
-      allocations,
-      back,
-      complete,
-      consented,
-      dismiss,
-      goTo,
-      next,
-      selectCharity,
-      skip,
-      step,
-      unselectCharity,
-      updatePercent,
-    ],
+    [back, complete, consented, dismiss, goTo, next, replay, skip, step],
   );
 
   return <OnboardingContext value={value}>{children}</OnboardingContext>;

@@ -1,21 +1,16 @@
 import { Platform } from "react-native";
 import * as SecureStore from "expo-secure-store";
 
-import type { CharityAllocation } from "./charities";
-import { DEFAULT_ALLOCATIONS } from "./charities";
-
-const STORAGE_KEY = "discipline.onboarding.v1";
+const STORAGE_KEY = "discipline.onboarding.v2";
 
 export type OnboardingStatus = "pending" | "completed" | "dismissed";
 
 export interface OnboardingState {
   status: OnboardingStatus;
-  allocations: CharityAllocation[];
 }
 
 const DEFAULT_STATE: OnboardingState = {
   status: "pending",
-  allocations: DEFAULT_ALLOCATIONS,
 };
 
 function canUseSecureStore() {
@@ -64,10 +59,6 @@ export async function loadOnboardingState(): Promise<OnboardingState> {
         parsed.status === "completed" || parsed.status === "dismissed"
           ? parsed.status
           : "pending",
-      allocations:
-        Array.isArray(parsed.allocations) && parsed.allocations.length > 0
-          ? parsed.allocations
-          : DEFAULT_ALLOCATIONS,
     };
   } catch {
     return DEFAULT_STATE;
