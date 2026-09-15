@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "targets": {
+    "onboarding:trust-first": {
+      "targetKind": "new-ui",
+      "projectId": "54813c85-ff34-4473-b1f7-549df56b85fd",
+      "activeDraftId": "a70c4aba-24b5-4e40-bff5-b6e831f509d2",
+      "designSystemPath": ".superdesign/design-system-apple-hig.md",
+      "contextFiles": [
+        ".superdesign/design-system-apple-hig.md"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system-apple-hig.md": "8149a216c12fca786833189b7bfc0bfe335b6f1e7772f756a011e59ecfa8d8f4"
+      },
+      "components": [],
+      "drafts": {
+        "16860725-bdd8-4090-aa6a-2bbbd6dc1095": {
+          "title": "00 — Welcome",
+          "visualDirection": "Pre-onboarding welcome and authentication entry",
+          "currentVersion": 2
+        },
+        "b3cae2f8-f2db-4d7d-af3b-75d9092e26a2": {
+          "title": "01 — Accountability Promise",
+          "visualDirection": "Trust-first onboarding step 1",
+          "parentDraftId": "16860725-bdd8-4090-aa6a-2bbbd6dc1095",
+          "currentVersion": 3
+        },
+        "2dacd968-20bb-446c-83c8-056e45a8fc0a": {
+          "title": "02 — Money Rules",
+          "visualDirection": "Trust-first onboarding step 2",
+          "parentDraftId": "b3cae2f8-f2db-4d7d-af3b-75d9092e26a2",
+          "currentVersion": 3
+        },
+        "cf9130f4-6136-4923-a1f0-dcf1854428ff": {
+          "title": "03 — Choose Charities",
+          "visualDirection": "Trust-first onboarding step 3",
+          "parentDraftId": "2dacd968-20bb-446c-83c8-056e45a8fc0a",
+          "currentVersion": 3
+        },
+        "f3af5c1d-8c2a-4575-b1db-23fd365ae09d": {
+          "title": "04 — Verification and Privacy",
+          "visualDirection": "Trust-first onboarding step 4",
+          "parentDraftId": "cf9130f4-6136-4923-a1f0-dcf1854428ff",
+          "currentVersion": 2
+        },
+        "319162a4-f444-4be1-bfc1-87d866a33569": {
+          "title": "05 — Consent and Begin",
+          "visualDirection": "Trust-first onboarding step 5",
+          "parentDraftId": "f3af5c1d-8c2a-4575-b1db-23fd365ae09d",
+          "currentVersion": 3
+        },
+        "a70c4aba-24b5-4e40-bff5-b6e831f509d2": {
+          "title": "Interactive Onboarding Preview",
+          "visualDirection": "Personalized, softly animated welcome plus five-step onboarding prototype",
+          "parentDraftId": "16860725-bdd8-4090-aa6a-2bbbd6dc1095",
+          "currentVersion": 6
+        }
+      },
+      "updatedAt": "2026-09-15T18:50:00.000Z"
+    }
+  }
+}
