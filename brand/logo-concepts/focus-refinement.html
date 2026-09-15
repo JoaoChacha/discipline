@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disciplined Stakes — Refined Focus Mark</title>
+    <style>
+      :root {
+        color: #18181b;
+        background: #e8e4df;
+        font-family: "Avenir Next", Inter, ui-sans-serif, system-ui, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        width: 1200px;
+        height: 900px;
+        margin: 0;
+        overflow: hidden;
+      }
+      .canvas {
+        width: 100%;
+        height: 100%;
+        padding: 44px;
+        background:
+          radial-gradient(circle at 0 0, #faf8f5 0, transparent 28%),
+          #e8e4df;
+      }
+      header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        height: 60px;
+        margin-bottom: 28px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 38px;
+        font-weight: 720;
+        letter-spacing: -1.7px;
+      }
+      .meta {
+        margin-bottom: 6px;
+        color: #6b6572;
+        font: 650 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+        letter-spacing: 2.2px;
+      }
+      .layout {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 20px;
+        height: 724px;
+      }
+      .hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        padding: 50px;
+        border-radius: 30px;
+        background: #fee2e2;
+        color: #7f1d1d;
+      }
+      .hero-icon {
+        align-self: center;
+        width: 400px;
+        height: 400px;
+      }
+      .hero-wordmark {
+        font-size: 54px;
+        font-weight: 700;
+        letter-spacing: -2.8px;
+      }
+      .hero-note {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        color: #991b1b;
+        font: 600 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+        letter-spacing: 1.7px;
+      }
+      .specimen {
+        display: grid;
+        grid-template-rows: 1fr 1.05fr 0.8fr;
+        gap: 20px;
+      }
+      .panel {
+        overflow: hidden;
+        border: 1px solid rgb(31 16 74 / 10%);
+        border-radius: 26px;
+        background: #f7f5f2;
+      }
+      .panel-label {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 22px 0;
+        color: #716a78;
+        font: 650 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+        letter-spacing: 1.7px;
+      }
+      .lockup {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        height: calc(100% - 30px);
+        padding: 0 26px;
+      }
+      .lockup svg {
+        width: 78px;
+        height: 78px;
+        flex: 0 0 auto;
+      }
+      .lockup span {
+        font-size: 30px;
+        font-weight: 700;
+        letter-spacing: -1.7px;
+      }
+      .sizes {
+        display: flex;
+        align-items: end;
+        justify-content: space-around;
+        height: calc(100% - 30px);
+        padding: 12px 20px 22px;
+      }
+      .size {
+        display: grid;
+        justify-items: center;
+        gap: 10px;
+        color: #716a78;
+        font: 600 9px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+      .size-box {
+        display: grid;
+        place-items: center;
+        border-radius: 22%;
+        background: #fee2e2;
+      }
+      .size-box svg {
+        width: 100%;
+        height: 100%;
+      }
+      .s24 { width: 24px; height: 24px; border-radius: 6px; }
+      .s32 { width: 32px; height: 32px; border-radius: 8px; }
+      .s48 { width: 48px; height: 48px; border-radius: 12px; }
+      .s96 { width: 96px; height: 96px; border-radius: 22px; }
+      .mono {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        height: calc(100% - 30px);
+        margin-top: 12px;
+      }
+      .mono > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+      }
+      .mono .dark {
+        background: #18181b;
+        color: #f7f5f2;
+      }
+      .mono svg {
+        width: 42px;
+        height: 42px;
+      }
+      .mono span {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: -0.7px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="canvas">
+      <header>
+        <h1>Disciplined Stakes <span style="color:#dc2626">/</span> refined focus mark</h1>
+        <div class="meta">02A · SIMPLIFIED + PREMIUM</div>
+      </header>
+
+      <div class="layout">
+        <section class="hero">
+          <svg class="hero-icon" viewBox="0 0 200 200" aria-label="Refined Disciplined Stakes focus mark">
+            <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M143 64a56 56 0 1 0 2 69" stroke="#7F1D1D" stroke-width="15"/>
+              <path d="m70 101 21 21 52-58" stroke="#DC2626" stroke-width="15"/>
+            </g>
+          </svg>
+          <div>
+            <div class="hero-wordmark">Disciplined Stakes</div>
+            <div class="hero-note"><span>FOCUS</span><span>FOLLOW-THROUGH</span></div>
+          </div>
+        </section>
+
+        <section class="specimen">
+          <div class="panel">
+            <div class="panel-label"><span>PRIMARY LOCKUP</span><span>HORIZONTAL</span></div>
+            <div class="lockup">
+              <svg viewBox="0 0 200 200">
+                <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M143 64a56 56 0 1 0 2 69" stroke="#7F1D1D" stroke-width="15"/>
+                  <path d="m70 101 21 21 52-58" stroke="#DC2626" stroke-width="15"/>
+                </g>
+              </svg>
+              <span>Disciplined Stakes</span>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-label"><span>APP ICON</span><span>SMALL-SIZE TEST</span></div>
+            <div class="sizes">
+              <div class="size"><div class="size-box s24"><svg viewBox="0 0 200 200"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M143 64a56 56 0 1 0 2 69" stroke="#7F1D1D" stroke-width="18"/><path d="m70 101 21 21 52-58" stroke="#DC2626" stroke-width="18"/></g></svg></div><span>24</span></div>
+              <div class="size"><div class="size-box s32"><svg viewBox="0 0 200 200"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M143 64a56 56 0 1 0 2 69" stroke="#7F1D1D" stroke-width="17"/><path d="m70 101 21 21 52-58" stroke="#DC2626" stroke-width="17"/></g></svg></div><span>32</span></div>
+              <div class="size"><div class="size-box s48"><svg viewBox="0 0 200 200"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M143 64a56 56 0 1 0 2 69" stroke="#7F1D1D" stroke-width="16"/><path d="m70 101 21 21 52-58" stroke="#DC2626" stroke-width="16"/></g></svg></div><span>48</span></div>
+              <div class="size"><div class="size-box s96"><svg viewBox="0 0 200 200"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M143 64a56 56 0 1 0 2 69" stroke="#7F1D1D" stroke-width="15"/><path d="m70 101 21 21 52-58" stroke="#DC2626" stroke-width="15"/></g></svg></div><span>96</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-label"><span>ONE COLOR</span><span>LIGHT + DARK</span></div>
+            <div class="mono">
+              <div>
+                <svg viewBox="0 0 200 200"><g fill="none" stroke="#18181B" stroke-linecap="round" stroke-linejoin="round"><path d="M143 64a56 56 0 1 0 2 69" stroke-width="15"/><path d="m70 101 21 21 52-58" stroke-width="15"/></g></svg>
+                <span>Disciplined Stakes</span>
+              </div>
+              <div class="dark">
+                <svg viewBox="0 0 200 200"><g fill="none" stroke="#F7F5F2" stroke-linecap="round" stroke-linejoin="round"><path d="M143 64a56 56 0 1 0 2 69" stroke-width="15"/><path d="m70 101 21 21 52-58" stroke-width="15"/></g></svg>
+                <span>Disciplined Stakes</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

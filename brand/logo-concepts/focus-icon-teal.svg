@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title description">
+  <title id="title">Disciplined Stakes cool teal focus icon</title>
+  <desc id="description">The connected focus mark in mist, deep teal, and fresh jade.</desc>
+  <rect width="512" height="512" rx="112" fill="#ECF4F3"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M356 154a146 146 0 1 0 5 180" stroke="#123C3A" stroke-width="39"/>
+    <path d="m178 259 55 55 123-160" stroke="#087F73" stroke-width="39"/>
+  </g>
+</svg>

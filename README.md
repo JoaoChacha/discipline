@@ -1,4 +1,4 @@
-# Discipline
+# Disciplined Stakes
 
 Native Expo app with a type-safe backend. Scaffolded from [create-t3-turbo](https://github.com/t3-oss/create-t3-turbo): React Native + Expo, tRPC, and Drizzle against Postgres.
 

@@ -2,7 +2,7 @@ import type { ConfigContext, ExpoConfig } from "expo/config";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: "Discipline",
+  name: "Disciplined Stakes",
   slug: "discipline",
   scheme: "discipline",
   version: "0.1.0",
@@ -26,7 +26,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     package: "com.discipline.app",
     adaptiveIcon: {
       foregroundImage: "./assets/icon-light.png",
-      backgroundColor: "#1F104A",
+      backgroundColor: "#FFD84D",
     },
     edgeToEdgeEnabled: true,
   },

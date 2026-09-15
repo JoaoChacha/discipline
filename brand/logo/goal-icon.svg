@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title description">
+  <title id="title">Disciplined Stakes goal app icon</title>
+  <desc id="description">A charcoal target and forward arrow on a warm yellow field.</desc>
+  <rect width="512" height="512" rx="112" fill="#FFD84D"/>
+  <g fill="none" stroke="#1C1917" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M318 194a140 140 0 1 0 19 172" stroke-width="28"/>
+    <path d="M276 236a80 80 0 1 0 12 112" stroke-width="28"/>
+    <path d="m220 292 148-148" stroke-width="28"/>
+  </g>
+  <circle cx="220" cy="292" r="22" fill="#1C1917"/>
+  <path d="m405 107-27 64-37-37Z" fill="#1C1917"/>
+</svg>

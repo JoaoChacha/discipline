@@ -35,7 +35,7 @@ export default function Index() {
       <Stack.Screen options={{ title: "Home Page" }} />
       <View className="bg-background h-full w-full p-4">
         <Text className="text-foreground pb-2 text-center text-5xl font-bold">
-          Discipline
+          Disciplined Stakes
         </Text>
 
         <MobileAuth />

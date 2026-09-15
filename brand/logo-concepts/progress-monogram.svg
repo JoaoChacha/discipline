@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="280" viewBox="0 0 960 280" role="img" aria-labelledby="title description">
+  <title id="title">Disciplined Stakes progress monogram logo</title>
+  <desc id="description">A geometric D containing three ascending progress steps beside the Disciplined Stakes wordmark.</desc>
+  <rect width="960" height="280" rx="32" fill="#F7F5F2"/>
+  <g transform="translate(48 40)">
+    <rect width="200" height="200" rx="46" fill="#1F104A"/>
+    <path fill="#F7F5F2" fill-rule="evenodd" d="M51 38h47c46 0 77 23 77 62s-31 62-77 62H51V38Zm35 31v62h13c26 0 41-11 41-31s-15-31-41-31H86Z"/>
+    <path fill="#7C3AED" d="M86 116h20v15H86zM111 101h20v30h-20zM136 84h20v47h-20z"/>
+  </g>
+  <g fill="#18181B">
+    <text x="298" y="132" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="52" font-weight="750" letter-spacing="-2.1">Disciplined Stakes</text>
+    <text x="302" y="174" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="17" font-weight="650" letter-spacing="4.2" fill="#7C3AED">PROGRESS MONOGRAM</text>
+  </g>
+</svg>

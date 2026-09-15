@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disciplined Stakes — Logo Concepts</title>
+    <style>
+      :root {
+        color: #18181b;
+        background: #e8e4df;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        width: 1200px;
+        height: 900px;
+        margin: 0;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 8% 0%, #f7f5f2 0, transparent 32%),
+          #e8e4df;
+      }
+      .canvas {
+        height: 100%;
+        padding: 48px;
+      }
+      header {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        margin-bottom: 32px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 40px;
+        letter-spacing: -1.8px;
+      }
+      header p {
+        margin: 0 0 4px;
+        color: #6b6572;
+        font: 600 12px/1 ui-monospace, monospace;
+        letter-spacing: 2px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        height: 730px;
+      }
+      article {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        overflow: hidden;
+        border: 1px solid rgb(31 16 74 / 12%);
+        border-radius: 28px;
+        background: #f7f5f2;
+      }
+      .number {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 22px 24px 16px;
+        color: #716a78;
+        font: 650 11px/1 ui-monospace, monospace;
+        letter-spacing: 1.8px;
+      }
+      .hero {
+        display: grid;
+        place-items: center;
+        height: 330px;
+      }
+      .tile {
+        display: grid;
+        width: 190px;
+        height: 190px;
+        place-items: center;
+        border-radius: 44px;
+        background: #1f104a;
+      }
+      .tile svg {
+        width: 140px;
+        height: 140px;
+      }
+      .tile.focus {
+        background: #fee2e2;
+      }
+      .lockup {
+        padding: 0 24px 20px;
+        text-align: center;
+      }
+      .wordmark {
+        font-size: 26px;
+        font-weight: 780;
+        letter-spacing: -1.3px;
+      }
+      .wordmark.editorial {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -1px;
+      }
+      h2 {
+        margin: 0 0 8px;
+        font-size: 17px;
+        letter-spacing: -0.3px;
+      }
+      .description {
+        min-height: 74px;
+        margin: 0;
+        padding: 0 26px;
+        color: #716a78;
+        font-size: 13px;
+        line-height: 1.55;
+        text-align: center;
+      }
+      .tests {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        height: 112px;
+        margin-top: auto;
+        background: #ddd8d2;
+        border-top: 1px solid #ddd8d2;
+      }
+      .test {
+        display: grid;
+        place-items: center;
+        background: white;
+      }
+      .test.dark {
+        background: #18181b;
+      }
+      .test svg {
+        width: 54px;
+        height: 54px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="canvas">
+      <header>
+        <h1>Disciplined Stakes <span style="color: #7c3aed">/</span> logo concepts</h1>
+        <p>ICON + WORDMARK · 2026</p>
+      </header>
+      <section class="grid">
+        <article>
+          <div class="number"><span>01</span><span>PROGRESS</span></div>
+          <div class="hero">
+            <div class="tile">
+              <svg viewBox="0 0 200 200" aria-label="Progress monogram">
+                <path fill="#F7F5F2" fill-rule="evenodd" d="M51 38h47c46 0 77 23 77 62s-31 62-77 62H51V38Zm35 31v62h13c26 0 41-11 41-31s-15-31-41-31H86Z"/>
+                <path fill="#7C3AED" d="M86 116h20v15H86zM111 101h20v30h-20zM136 84h20v47h-20z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="lockup"><div class="wordmark">Disciplined Stakes</div></div>
+          <h2 style="text-align: center">Progress monogram</h2>
+          <p class="description">A compact “D” with ascending steps—measurable momentum without the feel of a chart.</p>
+          <div class="tests">
+            <div class="test">
+              <svg viewBox="0 0 200 200">
+                <path fill="#18181B" fill-rule="evenodd" d="M51 38h47c46 0 77 23 77 62s-31 62-77 62H51V38Zm35 31v62h13c26 0 41-11 41-31s-15-31-41-31H86Z"/>
+              </svg>
+            </div>
+            <div class="test dark">
+              <svg viewBox="0 0 200 200">
+                <path fill="#F7F5F2" fill-rule="evenodd" d="M51 38h47c46 0 77 23 77 62s-31 62-77 62H51V38Zm35 31v62h13c26 0 41-11 41-31s-15-31-41-31H86Z"/>
+              </svg>
+            </div>
+          </div>
+        </article>
+
+        <article>
+          <div class="number"><span>02</span><span>FOCUS</span></div>
+          <div class="hero">
+            <div class="tile focus">
+              <svg viewBox="0 0 200 200" aria-label="Focus mark">
+                <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M143 64a56 56 0 1 0 2 69" stroke="#7F1D1D" stroke-width="15"/>
+                  <path d="m70 101 21 21 52-58" stroke="#DC2626" stroke-width="15"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div class="lockup"><div class="wordmark">Disciplined Stakes</div></div>
+          <h2 style="text-align: center">Focus mark</h2>
+          <p class="description">A single focus ring resolves into a check—simpler at small sizes, precise at every scale.</p>
+          <div class="tests">
+            <div class="test">
+              <svg viewBox="0 0 200 200">
+                <g fill="none" stroke="#18181B" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M143 64a56 56 0 1 0 2 69" stroke-width="15"/>
+                  <path d="m70 101 21 21 52-58" stroke-width="15"/>
+                </g>
+              </svg>
+            </div>
+            <div class="test dark">
+              <svg viewBox="0 0 200 200">
+                <g fill="none" stroke="#F7F5F2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M143 64a56 56 0 1 0 2 69" stroke-width="15"/>
+                  <path d="m70 101 21 21 52-58" stroke-width="15"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </article>
+
+        <article>
+          <div class="number"><span>03</span><span>EDITORIAL</span></div>
+          <div class="hero">
+            <div class="tile">
+              <svg viewBox="0 0 200 200" aria-label="Editorial grid">
+                <g fill="#F7F5F2">
+                  <rect x="48" y="42" width="24" height="24" rx="5"/><rect x="80" y="42" width="24" height="24" rx="5"/><rect x="112" y="42" width="24" height="24" rx="5"/>
+                  <rect x="48" y="74" width="24" height="24" rx="5"/><rect x="128" y="74" width="24" height="24" rx="5"/>
+                  <rect x="48" y="106" width="24" height="24" rx="5"/><rect x="128" y="106" width="24" height="24" rx="5"/>
+                  <rect x="48" y="138" width="24" height="24" rx="5"/><rect x="80" y="138" width="24" height="24" rx="5"/><rect x="112" y="138" width="24" height="24" rx="5"/>
+                </g>
+                <rect x="80" y="74" width="24" height="24" rx="5" fill="#7C3AED"/>
+              </svg>
+            </div>
+          </div>
+          <div class="lockup"><div class="wordmark editorial">DISCIPLINED STAKES</div></div>
+          <h2 style="text-align: center">Editorial grid</h2>
+          <p class="description">A modular “D” assembled from a strict system—structured, ownable, and quietly expressive.</p>
+          <div class="tests">
+            <div class="test">
+              <svg viewBox="0 0 200 200">
+                <g fill="#18181B">
+                  <rect x="48" y="42" width="24" height="24" rx="5"/><rect x="80" y="42" width="24" height="24" rx="5"/><rect x="112" y="42" width="24" height="24" rx="5"/>
+                  <rect x="48" y="74" width="24" height="24" rx="5"/><rect x="128" y="74" width="24" height="24" rx="5"/><rect x="48" y="106" width="24" height="24" rx="5"/><rect x="128" y="106" width="24" height="24" rx="5"/>
+                  <rect x="48" y="138" width="24" height="24" rx="5"/><rect x="80" y="138" width="24" height="24" rx="5"/><rect x="112" y="138" width="24" height="24" rx="5"/>
+                </g>
+              </svg>
+            </div>
+            <div class="test dark">
+              <svg viewBox="0 0 200 200">
+                <g fill="#F7F5F2">
+                  <rect x="48" y="42" width="24" height="24" rx="5"/><rect x="80" y="42" width="24" height="24" rx="5"/><rect x="112" y="42" width="24" height="24" rx="5"/>
+                  <rect x="48" y="74" width="24" height="24" rx="5"/><rect x="128" y="74" width="24" height="24" rx="5"/><rect x="48" y="106" width="24" height="24" rx="5"/><rect x="128" y="106" width="24" height="24" rx="5"/>
+                  <rect x="48" y="138" width="24" height="24" rx="5"/><rect x="80" y="138" width="24" height="24" rx="5"/><rect x="112" y="138" width="24" height="24" rx="5"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+  </body>
+</html>
