@@ -6,7 +6,7 @@
     <rect width="200" height="200" rx="46" fill="#1F104A"/>
     <g fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path d="M143 64a56 56 0 1 0 2 69" stroke="#F7F5F2" stroke-width="15"/>
-      <path d="m70 101 21 21 48-52" stroke="#7C3AED" stroke-width="15"/>
+      <path d="m70 101 21 21 52-58" stroke="#7C3AED" stroke-width="15"/>
     </g>
   </g>
   <g fill="#18181B">
