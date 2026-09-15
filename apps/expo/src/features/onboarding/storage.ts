@@ -1,0 +1,83 @@
+import { Platform } from "react-native";
+import * as SecureStore from "expo-secure-store";
+
+import type { CharityAllocation } from "./charities";
+import { DEFAULT_ALLOCATIONS } from "./charities";
+
+const STORAGE_KEY = "discipline.onboarding.v1";
+
+export type OnboardingStatus = "pending" | "completed" | "dismissed";
+
+export interface OnboardingState {
+  status: OnboardingStatus;
+  allocations: CharityAllocation[];
+}
+
+const DEFAULT_STATE: OnboardingState = {
+  status: "pending",
+  allocations: DEFAULT_ALLOCATIONS,
+};
+
+function canUseSecureStore() {
+  return Platform.OS !== "web";
+}
+
+async function readRaw(): Promise<string | null> {
+  if (canUseSecureStore()) {
+    return SecureStore.getItemAsync(STORAGE_KEY);
+  }
+  if (typeof localStorage === "undefined") {
+    return null;
+  }
+  return localStorage.getItem(STORAGE_KEY);
+}
+
+async function writeRaw(value: string | null) {
+  if (canUseSecureStore()) {
+    if (value === null) {
+      await SecureStore.deleteItemAsync(STORAGE_KEY);
+      return;
+    }
+    await SecureStore.setItemAsync(STORAGE_KEY, value);
+    return;
+  }
+  if (typeof localStorage === "undefined") {
+    return;
+  }
+  if (value === null) {
+    localStorage.removeItem(STORAGE_KEY);
+    return;
+  }
+  localStorage.setItem(STORAGE_KEY, value);
+}
+
+export async function loadOnboardingState(): Promise<OnboardingState> {
+  const raw = await readRaw();
+  if (!raw) {
+    return DEFAULT_STATE;
+  }
+
+  try {
+    const parsed = JSON.parse(raw) as Partial<OnboardingState>;
+    return {
+      status:
+        parsed.status === "completed" || parsed.status === "dismissed"
+          ? parsed.status
+          : "pending",
+      allocations:
+        Array.isArray(parsed.allocations) && parsed.allocations.length > 0
+          ? parsed.allocations
+          : DEFAULT_ALLOCATIONS,
+    };
+  } catch {
+    return DEFAULT_STATE;
+  }
+}
+
+export async function saveOnboardingState(state: OnboardingState) {
+  await writeRaw(JSON.stringify(state));
+}
+
+export async function resetOnboardingState() {
+  await writeRaw(null);
+}
