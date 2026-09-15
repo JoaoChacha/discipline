@@ -12,7 +12,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   updates: {
     fallbackToCacheTimeout: 0,
   },
-  newArchEnabled: true,
   assetBundlePatterns: ["**/*"],
   ios: {
     bundleIdentifier: "com.discipline.app",
@@ -26,9 +25,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     package: "com.discipline.app",
     adaptiveIcon: {
       foregroundImage: "./assets/icon-light.png",
-      backgroundColor: "#1F104A",
+      backgroundColor: "#0F1115",
     },
-    edgeToEdgeEnabled: true,
   },
   // extra: {
   //   eas: {
@@ -38,20 +36,20 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   experiments: {
     tsconfigPaths: true,
     typedRoutes: true,
-    reactCanary: true,
     reactCompiler: true,
   },
   plugins: [
     "expo-router",
     "expo-secure-store",
     "expo-web-browser",
+    "expo-font",
     [
       "expo-splash-screen",
       {
-        backgroundColor: "#E4E4E7",
-        image: "./assets/icon-light.png",
+        backgroundColor: "#0F1115",
+        image: "./assets/icon-dark.png",
         dark: {
-          backgroundColor: "#18181B",
+          backgroundColor: "#0F1115",
           image: "./assets/icon-dark.png",
         },
       },
