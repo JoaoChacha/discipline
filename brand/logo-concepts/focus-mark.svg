@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="280" viewBox="0 0 960 280" role="img" aria-labelledby="title description">
+  <title id="title">Discipline focus mark logo</title>
+  <desc id="description">A focused target made from precise open rings and a check-shaped center beside the Discipline wordmark.</desc>
+  <rect width="960" height="280" rx="32" fill="#F7F5F2"/>
+  <g transform="translate(48 40)">
+    <rect width="200" height="200" rx="46" fill="#1F104A"/>
+    <g transform="translate(100 100)" fill="none" stroke-linecap="round">
+      <circle r="61" stroke="#F7F5F2" stroke-width="15" stroke-dasharray="322 62" transform="rotate(39)"/>
+      <circle r="37" stroke="#7C3AED" stroke-width="14" stroke-dasharray="185 48" transform="rotate(42)"/>
+      <path d="M-24 4-7 21 37-31" stroke="#F7F5F2" stroke-width="15" stroke-linejoin="round"/>
+    </g>
+  </g>
+  <g fill="#18181B">
+    <text x="298" y="132" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="75" font-weight="750" letter-spacing="-3.4">Discipline</text>
+    <text x="302" y="174" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="17" font-weight="650" letter-spacing="4.2" fill="#7C3AED">FOCUS MARK</text>
+  </g>
+</svg>
