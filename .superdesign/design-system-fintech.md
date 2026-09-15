@@ -13,6 +13,7 @@ Light consumer-neobank, not graphite iOS. Airy almost-white field, one oversized
 ### Color
 
 - Page canvas: cool lavender-gray `#E8E7EF` behind the phone; in-app field `#F7F6FA`
+- Flat field only — no graph-paper grid or background lines
 - Soft blush wash behind the greeting: `#F8ECEC`
 - Ink: `#0E0C0D`
 - Muted body: `#6F6B76`
