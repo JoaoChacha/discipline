@@ -1,10 +1,18 @@
 import Constants from "expo-constants";
 
 /**
- * Extend this function when going to production by
- * setting the baseUrl to your production API URL.
+ * Resolve the tRPC / Better Auth host.
+ *
+ * On a Cloud Agent the phone is not on the same network as the VM, so
+ * `EXPO_PUBLIC_API_URL` must be a public tunnel (see `pnpm dev:phone`).
+ * On your own LAN, Expo's host URI is reused and port 3000 is assumed.
  */
 export const getBaseUrl = () => {
+  const explicit = process.env.EXPO_PUBLIC_API_URL?.replace(/\/$/, "");
+  if (explicit) {
+    return explicit;
+  }
+
   /**
    * Gets the IP address of your host-machine. If it cannot automatically find it,
    * you'll have to manually set it. NOTE: Port 3000 should work for most but confirm
@@ -19,7 +27,7 @@ export const getBaseUrl = () => {
   if (!localhost) {
     // return "https://your-production-api.example.com";
     throw new Error(
-      "Failed to get localhost. Please point to your production server.",
+      "Failed to get localhost. Set EXPO_PUBLIC_API_URL or point to your production server.",
     );
   }
   return `http://${localhost}:3000`;
