@@ -7,6 +7,11 @@ import {
   uniqueIndex,
 } from "drizzle-orm/pg-core";
 
+import {
+  MIN_STAKE_CENTS,
+  SETTLEMENT_POLICY_VERSION,
+} from "@discipline/validators";
+
 import { user } from "./auth-schema";
 
 export const invitationStatus = pgEnum("invitation_status", [
@@ -132,6 +137,10 @@ export const action = pgTable(
     status: actionStatus().notNull().default("draft"),
     amountCents: t.integer().notNull(),
     currency: t.char({ length: 3 }).notNull(),
+    settlementPolicyVersion: t
+      .integer()
+      .notNull()
+      .default(SETTLEMENT_POLICY_VERSION),
     stakeStatus: stakeStatus().notNull().default("none"),
     settledAt: t.timestamp({ withTimezone: true }),
     createdAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
@@ -143,7 +152,10 @@ export const action = pgTable(
   }),
   (t) => [
     check("action_not_self_review", sql`${t.ownerId} <> ${t.verifierId}`),
-    check("action_amount_positive", sql`${t.amountCents} > 0`),
+    check(
+      "action_amount_min_stake",
+      sql`${t.amountCents} >= ${sql.raw(String(MIN_STAKE_CENTS))}`,
+    ),
     index("action_owner_status_idx").on(t.ownerId, t.status),
     index("action_verifier_status_idx").on(t.verifierId, t.status),
     index("action_due_at_idx").on(t.dueAt),
@@ -168,6 +180,114 @@ export const proof = pgTable(
     submittedAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
   }),
   (t) => [index("proof_action_idx").on(t.actionId)],
+);
+
+export const charity = pgTable(
+  "charity",
+  (t) => ({
+    id: t.uuid().primaryKey().defaultRandom(),
+    goodstackOrganisationId: t.text().notNull(),
+    name: t.text().notNull(),
+    countryCode: t.char({ length: 3 }).notNull(),
+    isActive: t.boolean().notNull().default(true),
+    createdAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
+    updatedAt: t
+      .timestamp({ withTimezone: true })
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  }),
+  (t) => [
+    uniqueIndex("charity_goodstack_organisation_uidx").on(
+      t.goodstackOrganisationId,
+    ),
+    index("charity_active_name_idx").on(t.isActive, t.name),
+  ],
+);
+
+export const charityGroup = pgTable("charity_group", (t) => ({
+  id: t.uuid().primaryKey().defaultRandom(),
+  name: t.text().notNull(),
+  isActive: t.boolean().notNull().default(true),
+  createdAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
+  updatedAt: t
+    .timestamp({ withTimezone: true })
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull(),
+}));
+
+export const charityGroupMember = pgTable(
+  "charity_group_member",
+  (t) => ({
+    groupId: t
+      .uuid()
+      .notNull()
+      .references(() => charityGroup.id, { onDelete: "cascade" }),
+    charityId: t
+      .uuid()
+      .notNull()
+      .references(() => charity.id, { onDelete: "restrict" }),
+  }),
+  (t) => [
+    uniqueIndex("charity_group_member_uidx").on(t.groupId, t.charityId),
+    index("charity_group_member_charity_idx").on(t.charityId),
+  ],
+);
+
+export const actionDonationAllocation = pgTable(
+  "action_donation_allocation",
+  (t) => ({
+    id: t.uuid().primaryKey().defaultRandom(),
+    actionId: t
+      .uuid()
+      .notNull()
+      .references(() => action.id, { onDelete: "cascade" }),
+    charityId: t
+      .uuid()
+      .notNull()
+      .references(() => charity.id, { onDelete: "restrict" }),
+    shareBps: t.integer().notNull(),
+  }),
+  (t) => [
+    uniqueIndex("action_donation_allocation_action_charity_uidx").on(
+      t.actionId,
+      t.charityId,
+    ),
+    check(
+      "action_donation_allocation_share_bps",
+      sql`${t.shareBps} > 0 AND ${t.shareBps} <= 10000`,
+    ),
+    index("action_donation_allocation_action_idx").on(t.actionId),
+  ],
+);
+
+/**
+ * Snapshot of the locked 80/20 split when a stake is forfeited.
+ * `donationPoolCents` is paid in full to the selected charities.
+ * Stripe and Goodstack fees come out of `taxCents`.
+ */
+export const stakeSettlement = pgTable(
+  "stake_settlement",
+  (t) => ({
+    actionId: t
+      .uuid()
+      .primaryKey()
+      .references(() => action.id, { onDelete: "cascade" }),
+    policyVersion: t.integer().notNull(),
+    amountCents: t.integer().notNull(),
+    donationPoolCents: t.integer().notNull(),
+    taxCents: t.integer().notNull(),
+    currency: t.char({ length: 3 }).notNull(),
+    createdAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
+  }),
+  (t) => [
+    check(
+      "stake_settlement_split",
+      sql`${t.donationPoolCents} + ${t.taxCents} = ${t.amountCents}`,
+    ),
+    check("stake_settlement_positive", sql`${t.amountCents} > 0`),
+  ],
 );
 
 export const verdict = pgTable("verdict", (t) => ({
@@ -228,6 +348,8 @@ export const actionRelations = relations(action, ({ one, many }) => ({
     relationName: "verifyingActions",
   }),
   proofs: many(proof),
+  donationAllocations: many(actionDonationAllocation),
+  settlement: one(stakeSettlement),
 }));
 
 export const proofRelations = relations(proof, ({ one }) => ({
@@ -248,6 +370,53 @@ export const verdictRelations = relations(verdict, ({ one }) => ({
     relationName: "writtenVerdicts",
   }),
 }));
+
+export const charityRelations = relations(charity, ({ many }) => ({
+  groupMembers: many(charityGroupMember),
+  donationAllocations: many(actionDonationAllocation),
+}));
+
+export const charityGroupRelations = relations(charityGroup, ({ many }) => ({
+  members: many(charityGroupMember),
+}));
+
+export const charityGroupMemberRelations = relations(
+  charityGroupMember,
+  ({ one }) => ({
+    group: one(charityGroup, {
+      fields: [charityGroupMember.groupId],
+      references: [charityGroup.id],
+    }),
+    charity: one(charity, {
+      fields: [charityGroupMember.charityId],
+      references: [charity.id],
+    }),
+  }),
+);
+
+export const actionDonationAllocationRelations = relations(
+  actionDonationAllocation,
+  ({ one }) => ({
+    action: one(action, {
+      fields: [actionDonationAllocation.actionId],
+      references: [action.id],
+    }),
+    charity: one(charity, {
+      fields: [actionDonationAllocation.charityId],
+      references: [charity.id],
+    }),
+  }),
+);
+
+export const stakeSettlementRelations = relations(
+  stakeSettlement,
+  ({ one }) => ({
+    action: one(action, {
+      fields: [stakeSettlement.actionId],
+      references: [action.id],
+    }),
+  }),
+);
 
 export const userRelations = relations(user, ({ one, many }) => ({
   profile: one(profile),
