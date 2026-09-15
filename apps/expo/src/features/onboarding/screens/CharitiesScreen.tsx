@@ -81,12 +81,12 @@ function AllocationTrack({
       }}
     >
       <View
-        pointerEvents="none"
         style={{
           height: 8,
           overflow: "hidden",
           borderRadius: 999,
           backgroundColor: colors.separator,
+          pointerEvents: "none",
         }}
       >
         <View
