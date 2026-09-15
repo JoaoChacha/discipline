@@ -26,7 +26,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     package: "com.discipline.app",
     adaptiveIcon: {
       foregroundImage: "./assets/icon-light.png",
-      backgroundColor: "#FEE2E2",
+      backgroundColor: "#FFD84D",
     },
     edgeToEdgeEnabled: true,
   },

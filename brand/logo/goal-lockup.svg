@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="280" viewBox="0 0 960 280" role="img" aria-labelledby="title description">
+  <title id="title">Disciplined Stakes goal logo</title>
+  <desc id="description">A yellow target-and-arrow mark beside the Disciplined Stakes wordmark.</desc>
+  <rect width="960" height="280" rx="32" fill="#FFF9E8"/>
+  <g transform="translate(48 40) scale(.390625)">
+    <rect width="512" height="512" rx="112" fill="#FFD84D"/>
+    <g fill="none" stroke="#1C1917" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M318 194a140 140 0 1 0 19 172" stroke-width="28"/>
+      <path d="M276 236a80 80 0 1 0 12 112" stroke-width="28"/>
+      <path d="m220 292 148-148" stroke-width="28"/>
+    </g>
+    <circle cx="220" cy="292" r="22" fill="#1C1917"/>
+    <path d="m405 107-27 64-37-37Z" fill="#1C1917"/>
+  </g>
+  <g fill="#1C1917">
+    <text x="298" y="136" font-family="Avenir Next, Inter, ui-sans-serif, system-ui, sans-serif" font-size="52" font-weight="700" letter-spacing="-2.1">Disciplined Stakes</text>
+    <path d="M302 158h42" stroke="#E6AD00" stroke-width="4" stroke-linecap="round"/>
+    <text x="356" y="164" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" font-weight="650" letter-spacing="3.2" fill="#665A36">GOAL MARK</text>
+  </g>
+</svg>
