@@ -5,9 +5,8 @@
   <g fill="none" stroke="#1C1917" stroke-linecap="round" stroke-linejoin="round">
     <path d="M356 156a142 142 0 1 0 0 200" stroke-width="28"/>
     <path d="M314 198a82 82 0 1 0 0 116" stroke-width="28"/>
-    <path d="m278 234 94-94" stroke-width="24"/>
+    <path d="m286 226 81-81" stroke-width="24"/>
   </g>
-  <path d="m256 256 11-33 22 22Z" fill="#1C1917"/>
-  <path d="m370 142-16-46 28-28 7 56Z" fill="#1C1917"/>
-  <path d="m370 142 46 16-27 27-29-31Z" fill="#1C1917"/>
+  <path d="m256 256 14-42 28 28Z" fill="#1C1917"/>
+  <path d="m360 152-11-34-23-25 24-24 8 42 24-24q16 6 21 21l-22 22 40 9-26 26Z" fill="#1C1917"/>
 </svg>
