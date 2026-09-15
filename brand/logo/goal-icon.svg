@@ -3,10 +3,12 @@
   <desc id="description">A charcoal target and forward arrow on a warm yellow field.</desc>
   <rect width="512" height="512" rx="112" fill="#FFD84D"/>
   <g fill="none" stroke="#1C1917" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M318 194a140 140 0 1 0 19 172" stroke-width="28"/>
-    <path d="M276 236a80 80 0 1 0 12 112" stroke-width="28"/>
-    <path d="m244 268 130-130" stroke-width="28"/>
+    <path d="M356 156a142 142 0 1 0 0 200" stroke-width="28"/>
+    <path d="M314 198a82 82 0 1 0 0 116" stroke-width="28"/>
+    <path d="m278 234 94-94" stroke-width="24"/>
   </g>
-  <path d="m220 292 14-35 21 21Z" fill="#1C1917"/>
-  <path d="m365 147-13-47 28-28 8 45 25-25c11 3 20 12 23 23l-25 25 45 8-28 28-47-13Z" fill="#1C1917"/>
+  <path d="m256 256 11-33 22 22Z" fill="#1C1917"/>
+  <path d="m372 140-17-48 28-27 8 58Z" fill="#1C1917"/>
+  <path d="m382 132 28-31q17 7 23 22l-31 27Z" fill="#1C1917"/>
+  <path d="m380 145 49 12-28 28-41-31Z" fill="#1C1917"/>
 </svg>
