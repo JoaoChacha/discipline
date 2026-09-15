@@ -4,7 +4,7 @@ Native Expo app with a type-safe backend. Scaffolded from [create-t3-turbo](http
 
 ```text
 apps
-  ├─ expo      Expo SDK 54 / React Native — iOS + Android
+  ├─ expo      Expo SDK 57 / React Native — iOS + Android
   └─ nextjs    Next.js 16 — tRPC + Better Auth host
 packages
   ├─ api       Shared tRPC v11 router
