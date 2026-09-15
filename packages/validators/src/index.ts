@@ -2,7 +2,7 @@ export {
   allocateDonationPool,
   assertAllocationShares,
   CHARITY_SHARE_BPS,
-  DISCIPLINE_TAX_BPS,
+  DISCIPLINED_STAKE_BPS,
   donationAllocationSchema,
   donationShareSchema,
   MIN_STAKE_CENTS,

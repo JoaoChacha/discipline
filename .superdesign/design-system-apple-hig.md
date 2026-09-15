@@ -1,12 +1,12 @@
-# Discipline Stake — Apple Human Interface Guidelines
+# Disciplined Stake — Apple Human Interface Guidelines
 
 ## Product
 
-A signed-in iPhone accountability app. Users commit to an action, place money at stake, and appoint a trusted verifier. The stake is returned after verified completion. After confirmed failure or expiry, 80% is donated in full to the user's selected vetted charities/nonprofits and 20% is the disclosed Discipline tax. The tax covers payment and donation processing (Stripe and Goodstack), so charities receive the full 80%.
+A signed-in iPhone accountability app. Users commit to an action, place money at stake, and appoint a trusted verifier. The stake is returned after verified completion. After confirmed failure or expiry, 80% is donated in full to the user's selected vetted charities/nonprofits and 20% is the disclosed Disciplined stake. That 20% covers payment and donation processing (Stripe and Goodstack), so charities receive the full 80%.
 
 Use reassuring, factual language. Avoid gambling imagery, shame, exaggerated rewards, gradients, and decorative illustrations.
 
-During onboarding, explain that users select a vetted charity/nonprofit or a group of them separately for every commitment. Charity selection happens during commitment setup, not as a global onboarding preference. When a group is selected, users allocate 100% of the donation pool between its charities. Show the selected charity/group, the full 80% donation, and the 20% Discipline tax before every commitment is confirmed. Say that the tax covers processing.
+During onboarding, explain that users select a vetted charity/nonprofit or a group of them separately for every commitment. Charity selection happens during commitment setup, not as a global onboarding preference. When a group is selected, users allocate 100% of the donation pool between its charities. Show the selected charity/group, the full 80% donation, and the 20% Disciplined stake before every commitment is confirmed. Say that the Disciplined stake covers processing.
 
 ### Onboarding shell
 
@@ -27,13 +27,13 @@ Every onboarding screen must use the same structural shell:
 
 ## System
 
-Use Apple Human Interface Guidelines as the interaction and accessibility foundation, not as the product's visual identity. Design at 390 × 844 points with correct safe areas, familiar navigation, accessible type roles, and restrained motion, then apply the custom Discipline Stake brand layer below.
+Use Apple Human Interface Guidelines as the interaction and accessibility foundation, not as the product's visual identity. Design at 390 × 844 points with correct safe areas, familiar navigation, accessible type roles, and restrained motion, then apply the custom Disciplined Stake brand layer below.
 
 ### Custom brand layer
 
 - Display typography: Manrope, 700 weight, for major headings and key numbers
 - Interface typography: Inter for body copy, labels, buttons, and navigation
-- Signature motif: an 80/20 split stake ring representing the full charity donation and the Discipline tax that covers processing
+- Signature motif: an 80/20 split stake ring representing the full charity donation and the Disciplined stake that covers processing
 - Card identity: 20pt corners, subtle electric-blue edge tint, and graphite depth instead of default iOS grouped-list styling
 - Progress identity: a slim “commitment rail” with five softly separated blue segments
 - Use electric blue as a focused signal, not generic iOS tint across every interactive element
@@ -111,7 +111,7 @@ Create a distinctly iOS-native “Today” screen:
 - Pending state “Proof needed”
 - A prominent electric-blue “Submit Proof” button
 - A compact grouped row explaining “Returned after Alex confirms completion”
-- A transparent alternative-outcome row: “If missed: 80% to your charities, 20% Discipline tax”
+- A transparent alternative-outcome row: “If missed: 80% to your charities, 20% Disciplined stake”
 - A secondary “New Commitment” action in the navigation bar
 - Native three-item tab bar
 

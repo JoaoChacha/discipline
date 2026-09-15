@@ -6,22 +6,22 @@ export const SETTLEMENT_POLICY_VERSION = 1;
 /** Charity share of a forfeited stake, in basis points. */
 export const CHARITY_SHARE_BPS = 8000;
 
-/** Discipline tax share of a forfeited stake, in basis points. */
-export const DISCIPLINE_TAX_BPS = 2000;
+/** Disciplined stake share of a forfeited stake, in basis points. */
+export const DISCIPLINED_STAKE_BPS = 2000;
 
 /**
  * Smallest allowed stake, in minor units.
- * At €5 the 20% tax is €1, which still covers typical Stripe + Goodstack fees
- * so the charity share can be paid in full.
+ * At €5 the 20% Disciplined stake is €1, which still covers typical Stripe +
+ * Goodstack fees so the charity share can be paid in full.
  */
 export const MIN_STAKE_CENTS = 500;
 
 export const SETTLEMENT_COPY = {
-  missOutcome: "If missed: 80% to your charities, 20% Discipline tax",
+  missOutcome: "If missed: 80% to your charities, 20% Disciplined stake",
   taxCoversProcessing:
-    "The Discipline tax covers payment and donation processing, so your charities receive the full 80%.",
+    "The Disciplined stake covers payment and donation processing, so your charities receive the full 80%.",
   confirmAllocation:
-    "80% to your charities. 20% Discipline tax covers processing.",
+    "80% to your charities. 20% Disciplined stake covers processing.",
 } as const;
 
 export class SettlementError extends Error {
@@ -57,14 +57,14 @@ function assertWholeCents(amountCents: number, label: string) {
 
 /**
  * Split a forfeited stake so charities receive at least 80%.
- * Remainder cents go to the donation pool, never to the tax.
+ * Remainder cents go to the donation pool, never to the Disciplined stake.
  * Stripe and Goodstack fees are paid from `taxCents`.
  */
 export function splitStake(amountCents: number): StakeSplit {
   assertWholeCents(amountCents, "Stake");
   if (amountCents < MIN_STAKE_CENTS) {
     throw new SettlementError(
-      `Stake must be at least ${MIN_STAKE_CENTS} cents so the Discipline tax can cover processing`,
+      `Stake must be at least ${MIN_STAKE_CENTS} cents so the Disciplined stake can cover processing`,
     );
   }
 
@@ -189,5 +189,5 @@ export const stakeAmountSchema = z
   .int()
   .min(
     MIN_STAKE_CENTS,
-    `Stake must be at least ${MIN_STAKE_CENTS} cents so the Discipline tax can cover processing`,
+    `Stake must be at least ${MIN_STAKE_CENTS} cents so the Disciplined stake can cover processing`,
   );

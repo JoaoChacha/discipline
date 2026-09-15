@@ -70,7 +70,7 @@ Postgres is defined in `docker-compose.yml`. Drizzle lives in `packages/db`:
 
 ## Money rules
 
-A forfeited stake is split **80% to the selected charities** and **20% Discipline tax**. The tax covers Stripe and Goodstack fees, so charities receive the full 80%. The minimum stake is 500 cents (€5) so that tax still covers typical processing. Shared copy and split math live in `@discipline/validators`.
+A forfeited stake is split **80% to the selected charities** and **20% Disciplined stake**. That 20% covers Stripe and Goodstack fees, so charities receive the full 80%. The minimum stake is 500 cents (€5) so the Disciplined stake still covers typical processing. Shared copy and split math live in `@discipline/validators`.
 
 ## Why this starter
 

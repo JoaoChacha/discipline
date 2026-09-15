@@ -4,7 +4,7 @@ import { describe, it } from "node:test";
 import {
   allocateDonationPool,
   CHARITY_SHARE_BPS,
-  DISCIPLINE_TAX_BPS,
+  DISCIPLINED_STAKE_BPS,
   donationAllocationSchema,
   MIN_STAKE_CENTS,
   settleForfeit,
@@ -20,11 +20,11 @@ const wwf = "22222222-2222-4222-8222-222222222222";
 const redCross = "33333333-3333-4333-8333-333333333333";
 
 describe("settlement policy", () => {
-  it("locks an 80/20 split whose tax covers processing", () => {
+  it("locks an 80/20 split whose Disciplined stake covers processing", () => {
     assert.equal(SETTLEMENT_POLICY_VERSION, 1);
-    assert.equal(CHARITY_SHARE_BPS + DISCIPLINE_TAX_BPS, 10_000);
+    assert.equal(CHARITY_SHARE_BPS + DISCIPLINED_STAKE_BPS, 10_000);
     assert.equal(MIN_STAKE_CENTS, 500);
-    assert.match(SETTLEMENT_COPY.missOutcome, /Discipline tax/);
+    assert.match(SETTLEMENT_COPY.missOutcome, /Disciplined stake/);
     assert.match(SETTLEMENT_COPY.taxCoversProcessing, /full 80%/);
   });
 
@@ -38,7 +38,7 @@ describe("settlement policy", () => {
     });
   });
 
-  it("rounds leftover cents toward charities, never the tax", () => {
+  it("rounds leftover cents toward charities, never the Disciplined stake", () => {
     const split = splitStake(1001);
     assert.equal(split.donationPoolCents, 801);
     assert.equal(split.taxCents, 200);
@@ -46,7 +46,7 @@ describe("settlement policy", () => {
     assert.ok(split.donationPoolCents / 1001 >= 0.8);
   });
 
-  it("rejects stakes too small for the tax to cover processing", () => {
+  it("rejects stakes too small for the Disciplined stake to cover processing", () => {
     assert.throws(() => splitStake(499), SettlementError);
     assert.equal(stakeAmountSchema.safeParse(499).success, false);
     assert.equal(stakeAmountSchema.safeParse(500).success, true);

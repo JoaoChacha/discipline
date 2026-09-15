@@ -72,7 +72,7 @@ export function ConsentScreen({ reduceMotion }: { reduceMotion: boolean }) {
               icon="cash-outline"
               iconColor={colors.tint}
               title="Transparent 80/20 outcome"
-              body="Charity donation and platform fee disclosed."
+              body="Charity donation and Disciplined stake disclosed."
             />
             <SummaryRow
               icon="person-circle-outline"
