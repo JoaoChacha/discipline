@@ -213,6 +213,146 @@
         }
       },
       "updatedAt": "2026-09-16T13:39:00.000Z"
+    },
+    "commitment:fintech-light": {
+      "targetKind": "new-ui",
+      "projectId": "54813c85-ff34-4473-b1f7-549df56b85fd",
+      "sourceTarget": "onboarding:fintech-light",
+      "activeDraftId": "423d3227-3723-45ad-8fb9-9197cd2e72bd",
+      "designSystemPath": ".superdesign/design-system-fintech-commitment.md",
+      "contextFiles": [
+        ".superdesign/design-system-fintech-commitment.md",
+        ".superdesign/design-system-fintech-onboarding.md"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system-fintech-commitment.md": "465616ce60c5ed6877890a499505ce539c7b5d325dc4cea8599a6af141ad0f50",
+        ".superdesign/design-system-fintech-onboarding.md": "4b09fa409ffc8c5f2c401ed9c433a018b96c25a4acdfd37ea56442bd2ff23b10"
+      },
+      "components": [],
+      "authoring": "import-design-draft (agent-authored HTML; Superdesign generation was unavailable: insufficient team credits)",
+      "drafts": {
+        "8b81ce65-dcbd-4510-b121-37ff75987975": {
+          "title": "Light · 01 — Action and deadline",
+          "visualDirection": "Light fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "762b60e1-51d6-4113-a82a-e38b5d225f09": {
+          "title": "Light · 02 — Stake",
+          "visualDirection": "Light fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "6bf8b5b1-cb96-4d94-ab95-9f39863458cc": {
+          "title": "Light · 03 — Cause",
+          "visualDirection": "Light fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "1050900a-a5c1-48d4-8105-f0af98c22d5a": {
+          "title": "Light · 04A — Verifier with friends",
+          "visualDirection": "Light fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "8680233a-869d-4fd9-a74f-2a180d23ef97": {
+          "title": "Light · 04B — Verifier, no friends",
+          "visualDirection": "Light fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "cfdbd091-82cc-489f-a17a-abd8b0b6f4c4": {
+          "title": "Light · 04C — Invite sheet",
+          "visualDirection": "Light fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "3e0436e9-af97-4203-ba19-b5ab95937bba": {
+          "title": "Light · 05 — Review and confirm",
+          "visualDirection": "Light fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "78672599-c110-46f1-a0a3-262b80895ddd": {
+          "title": "Light · 05P — Review with pending invite",
+          "visualDirection": "Light fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "cb7adbb2-ba5a-4c08-bfe7-3025cf7a53a3": {
+          "title": "Light · Held — Commitment is live",
+          "visualDirection": "Light fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "423d3227-3723-45ad-8fb9-9197cd2e72bd": {
+          "title": "Light · Interactive Commitment Creation",
+          "visualDirection": "Light fintech commitment-creation wizard — interactive prototype (all steps, invite sheet, no-friends toggle, live stake math)",
+          "currentVersion": 2
+        }
+      },
+      "updatedAt": "2026-09-16T19:40:00.000Z"
+    },
+    "commitment:fintech-dark": {
+      "targetKind": "new-ui",
+      "projectId": "54813c85-ff34-4473-b1f7-549df56b85fd",
+      "sourceTarget": "onboarding:fintech-dark",
+      "activeDraftId": "80bffda1-282f-44b7-846b-1f43c366aad9",
+      "designSystemPath": ".superdesign/design-system-fintech-commitment.md",
+      "contextFiles": [
+        ".superdesign/design-system-fintech-commitment.md",
+        ".superdesign/design-system-fintech-onboarding.md"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system-fintech-commitment.md": "465616ce60c5ed6877890a499505ce539c7b5d325dc4cea8599a6af141ad0f50",
+        ".superdesign/design-system-fintech-onboarding.md": "4b09fa409ffc8c5f2c401ed9c433a018b96c25a4acdfd37ea56442bd2ff23b10"
+      },
+      "components": [],
+      "authoring": "import-design-draft (agent-authored HTML; Superdesign generation was unavailable: insufficient team credits)",
+      "drafts": {
+        "0ff76fc2-1022-44bf-873b-ab329639a9f1": {
+          "title": "Dark · 01 — Action and deadline",
+          "visualDirection": "Dark fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "3bf5335f-8120-4ec9-a315-24ff78a8e4e5": {
+          "title": "Dark · 02 — Stake",
+          "visualDirection": "Dark fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "6fca6617-e10d-4ed1-b055-32055f0fb79f": {
+          "title": "Dark · 03 — Cause",
+          "visualDirection": "Dark fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "2f41115a-f876-48c4-9ed0-6840f408d183": {
+          "title": "Dark · 04A — Verifier with friends",
+          "visualDirection": "Dark fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "e2268f5a-e931-4712-8283-28dca8936636": {
+          "title": "Dark · 04B — Verifier, no friends",
+          "visualDirection": "Dark fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "c446b216-b4d2-42bc-a7c1-a5834e175e46": {
+          "title": "Dark · 04C — Invite sheet",
+          "visualDirection": "Dark fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "28a2285e-bd89-4931-b0bf-3e83d088d7e0": {
+          "title": "Dark · 05 — Review and confirm",
+          "visualDirection": "Dark fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "c17eb8a5-0c9d-4500-af0c-a381319c4c9a": {
+          "title": "Dark · 05P — Review with pending invite",
+          "visualDirection": "Dark fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "d2005cb1-6575-465a-876b-730b23b5703f": {
+          "title": "Dark · Held — Commitment is live",
+          "visualDirection": "Dark fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "80bffda1-282f-44b7-846b-1f43c366aad9": {
+          "title": "Dark · Interactive Commitment Creation",
+          "visualDirection": "Dark fintech commitment-creation wizard — interactive prototype (all steps, invite sheet, no-friends toggle, live stake math)",
+          "currentVersion": 2
+        }
+      },
+      "updatedAt": "2026-09-16T19:40:00.000Z"
     }
   }
 }
