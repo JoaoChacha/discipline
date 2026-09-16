@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { createContext, use, useMemo } from "react";
-import { useColorScheme, View } from "react-native";
+import { Platform, useColorScheme, View } from "react-native";
 import {
   PlusJakartaSans_400Regular,
   PlusJakartaSans_500Medium,
@@ -30,14 +30,18 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const colorScheme = useColorScheme();
   const scheme: ColorSchemeName = colorScheme === "dark" ? "dark" : "light";
   const colors = palettes[scheme];
-  const [fontsLoaded, fontError] = useFonts({
-    PlusJakartaSans_400Regular,
-    PlusJakartaSans_500Medium,
-    PlusJakartaSans_600SemiBold,
-    PlusJakartaSans_700Bold,
-    PlusJakartaSans_800ExtraBold,
-  });
-  const fontsReady = fontsLoaded || Boolean(fontError);
+  const [fontsLoaded, fontError] = useFonts(
+    Platform.OS === "web"
+      ? {}
+      : {
+          PlusJakartaSans_400Regular,
+          PlusJakartaSans_500Medium,
+          PlusJakartaSans_600SemiBold,
+          PlusJakartaSans_700Bold,
+          PlusJakartaSans_800ExtraBold,
+        },
+  );
+  const fontsReady = Platform.OS === "web" || fontsLoaded || Boolean(fontError);
   const type = useMemo(() => createType(colors), [colors]);
 
   const value = useMemo(

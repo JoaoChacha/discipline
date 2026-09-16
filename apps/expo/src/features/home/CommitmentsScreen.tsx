@@ -1,7 +1,8 @@
-import { ScrollView, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 import { useTheme } from "~/theme/ThemeProvider";
 import { Chip } from "~/ui/Chip";
+import { ScreenScroll } from "~/ui/ScreenScroll";
 import { SurfaceCard } from "~/ui/SurfaceCard";
 import { ACTIVE_COMMITMENT } from "./data";
 
@@ -9,12 +10,9 @@ export function CommitmentsScreen({ bottomInset }: { bottomInset: number }) {
   const { colors, type, spacing } = useTheme();
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        paddingHorizontal: spacing.screenX,
-        paddingBottom: bottomInset,
-      }}
+    <ScreenScroll
+      bottomInset={bottomInset}
+      contentStyle={{ paddingHorizontal: spacing.screenX }}
     >
       <Text style={type.homeTitle}>Commitments</Text>
       <Text style={[type.body, { marginTop: 8 }]}>
@@ -26,11 +24,13 @@ export function CommitmentsScreen({ bottomInset }: { bottomInset: number }) {
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
-            alignItems: "center",
+            alignItems: "flex-start",
             gap: 12,
           }}
         >
-          <Text style={type.headline}>{ACTIVE_COMMITMENT.detail}</Text>
+          <Text style={[type.headline, { flex: 1 }]}>
+            {ACTIVE_COMMITMENT.detail}
+          </Text>
           <Chip label="Proof due" />
         </View>
         <Text style={[type.body, { marginTop: 10 }]}>
@@ -40,6 +40,6 @@ export function CommitmentsScreen({ bottomInset }: { bottomInset: number }) {
           Verifier {ACTIVE_COMMITMENT.verifier}
         </Text>
       </SurfaceCard>
-    </ScrollView>
+    </ScreenScroll>
   );
 }

@@ -14,7 +14,17 @@ export function ScreenWash({
   const { colors } = useTheme();
 
   return (
-    <View style={[{ flex: 1, backgroundColor: colors.field }, style]}>
+    <View
+      style={[
+        {
+          flex: 1,
+          minHeight: 0,
+          overflow: "hidden",
+          backgroundColor: colors.field,
+        },
+        style,
+      ]}
+    >
       <View
         style={{
           position: "absolute",

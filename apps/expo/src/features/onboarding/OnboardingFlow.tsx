@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
-import { AccessibilityInfo, ScrollView, Text, View } from "react-native";
+import { AccessibilityInfo, Text, View } from "react-native";
 import Animated, {
   Easing,
   FadeInLeft,
@@ -9,6 +9,7 @@ import Animated, {
 import { useRouter } from "expo-router";
 
 import { useTheme } from "~/theme/ThemeProvider";
+import { ScreenScroll } from "~/ui/ScreenScroll";
 import { authClient } from "~/utils/auth";
 import { OnboardingShell } from "./components/Shell";
 import {
@@ -171,14 +172,14 @@ function OnboardingStepper() {
         goForward();
       }}
     >
-      <Animated.View key={step} entering={entering} style={{ flex: 1 }}>
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ flexGrow: 1, paddingBottom: 16 }}
-        >
+      <Animated.View
+        key={step}
+        entering={entering}
+        style={{ flex: 1, minHeight: 0 }}
+      >
+        <ScreenScroll>
           <StepContent step={step} reduceMotion={reduceMotion} />
-        </ScrollView>
+        </ScreenScroll>
       </Animated.View>
     </OnboardingShell>
   );
@@ -200,6 +201,7 @@ function PhoneFrame({ children }: { children: ReactNode }) {
           flex: 1,
           width: "100%",
           maxWidth: 390,
+          minHeight: 0,
           backgroundColor: colors.field,
           overflow: "hidden",
         }}

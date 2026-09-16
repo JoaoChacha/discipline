@@ -106,7 +106,7 @@ export function OnboardingShell({
 
         <ProgressBar step={step} total={total} reduceMotion={reduceMotion} />
 
-        <View style={{ flex: 1, paddingTop: spacing.contentTop }}>
+        <View style={{ flex: 1, minHeight: 0, paddingTop: spacing.contentTop }}>
           {children}
         </View>
 

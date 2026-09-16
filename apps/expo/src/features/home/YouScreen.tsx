@@ -1,7 +1,8 @@
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
 import { useTheme } from "~/theme/ThemeProvider";
 import { CapsuleButton } from "~/ui/CapsuleButton";
+import { ScreenScroll } from "~/ui/ScreenScroll";
 import { SurfaceCard } from "~/ui/SurfaceCard";
 import { authClient } from "~/utils/auth";
 
@@ -18,12 +19,9 @@ export function YouScreen({
   const initial = name.trim().slice(0, 1).toUpperCase();
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        paddingHorizontal: spacing.screenX,
-        paddingBottom: bottomInset,
-      }}
+    <ScreenScroll
+      bottomInset={bottomInset}
+      contentStyle={{ paddingHorizontal: spacing.screenX }}
     >
       <Text style={type.homeTitle}>You</Text>
       <SurfaceCard style={{ marginTop: 24 }}>
@@ -88,6 +86,6 @@ export function YouScreen({
           </Text>
         </Pressable>
       </View>
-    </ScrollView>
+    </ScreenScroll>
   );
 }

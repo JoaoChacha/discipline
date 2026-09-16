@@ -32,6 +32,7 @@ export function HomeShell() {
           flex: 1,
           width: "100%",
           maxWidth: 390,
+          minHeight: 0,
           backgroundColor: colors.field,
           overflow: "hidden",
         }}
@@ -40,6 +41,8 @@ export function HomeShell() {
           <View
             style={{
               flex: 1,
+              minHeight: 0,
+              overflow: "hidden",
               paddingTop: Math.max(insets.top, 16),
             }}
           >

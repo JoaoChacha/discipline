@@ -34,20 +34,19 @@ export function WelcomeScreen({
           paddingBottom: Math.max(insets.bottom, spacing.screenBottom),
         }}
       >
-        <View
-          style={{
-            height: spacing.header,
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 10,
-          }}
-        >
-          <BrandMark size={32} />
-          <Text style={type.brand}>Discipline</Text>
-        </View>
-
         <View style={{ flex: 1, justifyContent: "center", paddingBottom: 20 }}>
           <Reveal reduceMotion={reduceMotion}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 10,
+                marginBottom: 28,
+              }}
+            >
+              <BrandMark size={36} />
+              <Text style={type.brand}>Discipline</Text>
+            </View>
             <Text style={type.eyebrow}>ACCOUNTABILITY, MADE CLEAR</Text>
           </Reveal>
           <Reveal

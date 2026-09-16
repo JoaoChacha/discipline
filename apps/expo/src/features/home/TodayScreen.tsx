@@ -1,11 +1,12 @@
 import type { ComponentProps } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import { useTheme } from "~/theme/ThemeProvider";
 import { Chip } from "~/ui/Chip";
 import { FeatureCard } from "~/ui/FeatureCard";
 import { LimeTile } from "~/ui/LimeTile";
+import { ScreenScroll } from "~/ui/ScreenScroll";
 import { SurfaceCard } from "~/ui/SurfaceCard";
 import { ACTIVE_COMMITMENT } from "./data";
 
@@ -38,12 +39,9 @@ export function TodayScreen({
   const initials = greetingName(userName).slice(0, 1).toUpperCase();
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        paddingHorizontal: spacing.screenX,
-        paddingBottom: bottomInset,
-      }}
+    <ScreenScroll
+      bottomInset={bottomInset}
+      contentStyle={{ paddingHorizontal: spacing.screenX }}
     >
       <View
         style={{
@@ -203,7 +201,7 @@ export function TodayScreen({
           last
         />
       </SurfaceCard>
-    </ScrollView>
+    </ScreenScroll>
   );
 }
 

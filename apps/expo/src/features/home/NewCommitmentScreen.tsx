@@ -1,20 +1,18 @@
-import { ScrollView, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 import { useTheme } from "~/theme/ThemeProvider";
 import { FeatureCard } from "~/ui/FeatureCard";
 import { LimeTile } from "~/ui/LimeTile";
+import { ScreenScroll } from "~/ui/ScreenScroll";
 import { SurfaceCard } from "~/ui/SurfaceCard";
 
 export function NewCommitmentScreen({ bottomInset }: { bottomInset: number }) {
   const { colors, type, spacing } = useTheme();
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        paddingHorizontal: spacing.screenX,
-        paddingBottom: bottomInset,
-      }}
+    <ScreenScroll
+      bottomInset={bottomInset}
+      contentStyle={{ paddingHorizontal: spacing.screenX }}
     >
       <Text style={type.homeTitle}>New commitment</Text>
       <Text style={[type.body, { marginTop: 8 }]}>
@@ -55,6 +53,6 @@ export function NewCommitmentScreen({ bottomInset }: { bottomInset: number }) {
           </Text>
         </View>
       </SurfaceCard>
-    </ScrollView>
+    </ScreenScroll>
   );
 }

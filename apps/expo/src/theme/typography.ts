@@ -15,9 +15,13 @@ const nativeFamilies: Record<Weight, string> = {
 
 export function fontFamily(weight: Weight) {
   return Platform.select({
-    web: "Plus Jakarta Sans, system-ui, sans-serif",
+    web: "Plus Jakarta Sans",
     default: nativeFamilies[weight],
   });
+}
+
+function tracking(value: number) {
+  return Platform.OS === "web" ? Math.max(value, -0.3) : value;
 }
 
 export function createType(colors: ThemeColors) {
@@ -27,7 +31,7 @@ export function createType(colors: ThemeColors) {
       fontSize: 40,
       fontWeight: "800",
       lineHeight: 44,
-      letterSpacing: -2,
+      letterSpacing: tracking(-2),
       color: colors.featureText,
       fontVariant: ["tabular-nums"],
     } satisfies TextStyle,
@@ -36,7 +40,7 @@ export function createType(colors: ThemeColors) {
       fontSize: 34,
       fontWeight: "800",
       lineHeight: 39,
-      letterSpacing: -1.2,
+      letterSpacing: tracking(-1.2),
       color: colors.ink,
     } satisfies TextStyle,
     homeTitle: {
@@ -44,7 +48,7 @@ export function createType(colors: ThemeColors) {
       fontSize: 28,
       fontWeight: "800",
       lineHeight: 34,
-      letterSpacing: -0.8,
+      letterSpacing: tracking(-0.8),
       color: colors.ink,
     } satisfies TextStyle,
     brand: {
