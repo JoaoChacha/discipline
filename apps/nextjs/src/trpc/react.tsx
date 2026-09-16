@@ -6,7 +6,9 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import {
   createTRPCClient,
   createWSClient,
+  httpBatchLink,
   loggerLink,
+  splitLink,
   wsLink,
 } from "@trpc/client";
 import { createTRPCContext } from "@trpc/tanstack-react-query";
@@ -41,13 +43,25 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
             env.NODE_ENV === "development" ||
             (op.direction === "down" && op.result instanceof Error),
         }),
-        wsLink({
-          transformer: SuperJSON,
-          client: createWSClient({
-            url: env.NEXT_PUBLIC_WS_URL,
-            connectionParams: () => ({
-              cookie: document.cookie,
+        splitLink({
+          condition: (op) => op.type === "subscription",
+          true: wsLink({
+            transformer: SuperJSON,
+            client: createWSClient({
+              url: env.NEXT_PUBLIC_WS_URL,
+              connectionParams: () => ({
+                cookie: document.cookie,
+              }),
             }),
+          }),
+          false: httpBatchLink({
+            transformer: SuperJSON,
+            url: "/api/trpc",
+            headers() {
+              const headers = new Map<string, string>();
+              headers.set("x-trpc-source", "nextjs-react");
+              return headers;
+            },
           }),
         }),
       ],

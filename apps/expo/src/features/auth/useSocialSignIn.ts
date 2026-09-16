@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "expo-router";
 
+import { queryClient, trpcClient } from "~/utils/api";
 import { authClient } from "~/utils/auth";
 import { completeAuthenticatedOnboarding } from "./completeEntry";
 
@@ -11,8 +12,21 @@ export function useSocialSignIn() {
   const [busy, setBusy] = useState<SocialProvider | "email" | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
-  const finish = async () => {
+  const finish = async (opts?: { first?: boolean }) => {
     await completeAuthenticatedOnboarding();
+    if (opts?.first) {
+      try {
+        const mine = await trpcClient.commitment.list.query();
+        await queryClient.invalidateQueries();
+        if (mine.filter(Boolean).length === 0) {
+          router.replace("/commitment/new?first=1");
+          return;
+        }
+      } catch {
+        router.replace("/");
+        return;
+      }
+    }
     router.replace("/");
   };
 

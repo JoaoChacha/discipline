@@ -18,6 +18,7 @@ import {
   useOnboarding,
   WELCOME_STEP,
 } from "./OnboardingProvider";
+import { getOnboardingSnapshot } from "./onboardingStore";
 import { CharitiesScreen } from "./screens/CharitiesScreen";
 import { ConsentScreen } from "./screens/ConsentScreen";
 import { MoneyScreen } from "./screens/MoneyScreen";
@@ -95,9 +96,10 @@ function OnboardingStepper() {
   const finishSignedIn = async () => {
     setFinishing(true);
     try {
+      const preview = getOnboardingSnapshot().preview === true;
       await complete();
       await clearPreview();
-      router.replace("/");
+      router.replace(preview ? "/" : "/commitment/new?first=1");
     } finally {
       setFinishing(false);
     }
