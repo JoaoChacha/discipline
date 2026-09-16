@@ -5,8 +5,8 @@
   <g transform="translate(48 40) scale(.390625)">
     <rect width="512" height="512" rx="112" fill="#FFD84D"/>
     <g fill="none" stroke="#1C1917" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M356 156A142 142 0 1 0 256 398" stroke-width="28"/>
-      <path d="M314 198A82 82 0 1 0 256 338" stroke-width="28"/>
+      <path d="M156 356A142 142 0 1 0 356 156" stroke-width="28"/>
+      <path d="M198 314A82 82 0 1 0 314 198" stroke-width="28"/>
     </g>
     <circle cx="256" cy="256" r="34" fill="#1C1917"/>
     <path d="m256 256 118-118" fill="none" stroke="#1C1917" stroke-width="26" stroke-linecap="round"/>
