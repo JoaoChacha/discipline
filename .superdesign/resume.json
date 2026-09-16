@@ -213,6 +213,40 @@
         }
       },
       "updatedAt": "2026-09-16T13:39:00.000Z"
+    },
+    "logo": {
+      "targetKind": "new-ui",
+      "projectId": "54813c85-ff34-4473-b1f7-549df56b85fd",
+      "activeDraftId": "b457cf1f-0b5a-4a64-b1f1-e0ed4be9c7a2",
+      "designSystemPath": ".superdesign/design-system-fintech.md",
+      "referenceIds": [
+        "d9994543-a329-4f3c-b0dd-7ed4184d1d64",
+        "042ce338-2afa-4d84-a332-8ecadce0af52",
+        "apps-expo-assets-logo-mark.svg"
+      ],
+      "brandAssets": {
+        "logo": {
+          "assetKey": "apps-expo-assets-logo-mark.svg",
+          "url": "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/54813c85-ff34-4473-b1f7-549df56b85fd/brand-assets/apps-expo-assets-logo-mark.svg/logo-mark.svg",
+          "sourcePath": "apps/expo/assets/logo-mark.svg"
+        }
+      },
+      "contextFiles": [
+        ".superdesign/design-system-fintech.md"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system-fintech.md": "2870d4b623ebdc3384adc8f36da68970c85140f7605df41e61f40b6d6235308b",
+        "apps/expo/assets/logo-mark.svg": "35eccaa2d70bea3976f09c1160e2ac14a8abdd1ad0b05bb759748461d9bea8bb"
+      },
+      "components": [],
+      "drafts": {
+        "b457cf1f-0b5a-4a64-b1f1-e0ed4be9c7a2": {
+          "title": "Disciplined Stake — Logo lockup",
+          "visualDirection": "Lime target-and-dart mark with Disciplined Stake wordmark on off-white",
+          "currentVersion": 2
+        }
+      },
+      "updatedAt": "2026-09-16T14:40:00.000Z"
     }
   }
 }

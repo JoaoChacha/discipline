@@ -16,6 +16,7 @@ export const colors = {
   charityAccent: "#C68CFF",
   charityAccentContainer: "#2A2033",
   white: "#FFFFFF",
+  lime: "#C6D24A",
 } as const;
 
 export const fonts = {
