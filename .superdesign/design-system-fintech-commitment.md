@@ -50,6 +50,8 @@ company fee rule above. Those older surfaces are out of scope for this system.
 - Cause group: Water.org `60%` and Girls Who Code `40%`.
 - Verifier: Alex Chen (accepted friend). Invite example: "Sam Rivera",
   `sam@example.com`, shown as "Pending — invite sent".
+- Payment: Apple Pay (default) or Visa ···· 4242. Nothing is charged unless
+  the commitment is missed.
 
 ## Shared visual language
 
@@ -195,22 +197,42 @@ Shared invite form (opened from Variant A):
 
 ### 05 — Review and confirm (`05 / 05`)
 
-- Eyebrow: `YOU SET THE TERMS`.
-- Title: "Ready to make it real?"
-- Summary surface, four rows:
-  - Action and deadline: "Run 5 km before work · Tomorrow, 7:30 AM".
-  - Stake: `€25.00`. "Complete: +€25.00 returned. Miss: €22.50 to your cause
-    after a €2.50 (10%) company fee."
-  - Cause: "Water.org 60% · Girls Who Code 40%".
-  - Verifier: "Alex Chen" or "Sam Rivera · Pending — invite sent".
-- Payment surface: "Hold after confirm" with a card mark and "Visa ···· 4242".
-- Consent capsule with a circular checkbox, vertically centered with the label:
-  "I understand the stake, the 10% company fee, where a missed stake goes, and
-  who verifies my proof."
-- Footer disclosure: "No money is held until you confirm."
-- With a pending verifier the footer reads: "Your stake is held once Sam
-  accepts the invite."
-- CTA: "Confirm and hold stake". Disabled until the checkbox is selected.
+Structure: an editable receipt. Every term can be changed from this screen,
+the missed-stake split is itemised, and consent sits in the footer.
+
+- Eyebrow: `REVIEW EVERY LINE`.
+- Title: "Check your terms." Body: "Change anything before you confirm."
+- Terms surface, three rows with a 10pt uppercase label, a 13pt value, a muted
+  caption, and a secondary-link "Edit" that returns to that step:
+  - `ACTION` — "Run 5 km before work" · "Proof due tomorrow, 7:30 AM" (→ 01).
+  - `CAUSE` — "Water.org · Girls Who Code" · "60% / 40% group" (→ 03).
+  - `VERIFIER` — "Alex Chen" · "Accepted friend · sees only your proof", or
+    "Sam Rivera" · "Pending — invite sent" (→ 04).
+- Stake ledger surface: header "Stake €25.00" with "Edit" (→ 02), then four
+  lines separated by a hairline:
+  - "If you complete it — returned to you" `+€25.00` (bold, positive color).
+  - "If you miss it — company fee (10%)" `−€2.50`.
+  - "Water.org (60%)" `€13.50`.
+  - "Girls Who Code (40%)" `€9.00`.
+  - Amounts are tabular and update live with the stake.
+- Payment: label row "Pay with" with the caption "Charged only if you miss",
+  then two selectable tiles side by side (18pt radius, hairline border, ink
+  border when selected, small trailing radio):
+  - Apple Pay — ink 34pt rounded-square mark with the Apple Pay logo, caption
+    "Face ID". Selected by default when available.
+  - Visa ···· 4242 — card icon in a quiet circle, caption "09/28".
+  - No other payment brands or wallets appear on this screen.
+- Footer: consent capsule with a circular checkbox, vertically centered with
+  the label "I understand these terms, the 10% company fee, and who verifies my
+  proof.", then the CTA, then the disclosure.
+- CTA with Apple Pay selected: Apple logo + "Confirm with Apple Pay" on the
+  standard ink capsule (ivory in dark). With a card selected: "Confirm and hold
+  €25.00". Disabled until the checkbox is selected.
+- Disclosure: "No money is held until you confirm." With a pending verifier:
+  "Your stake is held once Sam accepts the invite."
+
+Alternative A (one dominant contract card with cause/verifier tiles) was
+explored and not chosen; it remains on the canvas for reference.
 
 ### Held (success beat)
 
