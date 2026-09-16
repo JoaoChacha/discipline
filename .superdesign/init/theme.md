@@ -1,38 +1,52 @@
 # Theme
 
-Product visual source of truth for mobile design is `.superdesign/design-system-apple-hig.md` (Discipline Stake graphite / electric blue). The Expo scaffold still uses create-t3-turbo magenta tokens in `tooling/tailwind/theme.css` and a `#c03484` stack header. Do not use the magenta scaffold as the mobile brand.
+Product visual source of truth for mobile design is Fintech light/dark:
 
-## Compact token summary — Discipline Stake (use this)
+- Index: `.superdesign/design-system.md`
+- Today: `.superdesign/design-system-fintech.md`
+- Onboarding: `.superdesign/design-system-fintech-onboarding.md`
 
-| Token | Value |
-| --- | --- |
-| Background | `#0F1115` |
-| Primary surface | `#1B1E25` |
-| Secondary surface | `#15181E` |
-| Primary label | `#F5F7FA` |
-| Secondary label | `#A8AFBA` |
-| Separator | `#343943` |
-| Tint / primary action | `#2F80FF` |
-| Pressed tint | `#1769E8` |
-| Trust container | `#142B4F` |
-| Positive | `#36C98F` |
-| Pending | `#F2A93B` |
-| Destructive | `#FF5A65` |
-| Card radius | 20pt |
-| Card edge | `rgba(47,128,255,.16)` |
-| CTA height | 52pt |
-| Horizontal padding | 20pt |
-| Display font | Manrope 700 |
-| Interface font | Inter |
-| Viewport | 390 × 844 |
+The graphite / electric-blue Apple system is retired
+(`.superdesign/archive/design-system-apple-hig.md`). Do not use it.
 
-Type scale: Large title 34/41 bold · Title 2 22/28 bold · Headline 17/22 semibold · Body 17/22 · Subheadline 15/20 · Footnote 13/18 · Caption 12/16.
+Expo onboarding code still has leftover graphite tokens in
+`apps/expo/src/theme/tokens.ts`. That is implementation debt, not the brand.
+Web still uses create-t3-turbo magenta tokens in `tooling/tailwind/theme.css`.
+Do not use magenta or graphite as the mobile brand.
 
-## Compact token summary — Expo/web scaffold (do not use for new mobile UI)
+## Compact token summary — Fintech (use this)
 
-Light: background oklch(0.9875 0.0045 314.8), primary oklch(0.5605 0.1911 350) magenta, radius 0.75rem.
-Dark: background oklch(0.1836 0.0111 311.9), primary oklch(0.6747 0.1492 345.9).
-Expo header: `#c03484`. Splash light `#E4E4E7`, dark `#18181B`. Android adaptive icon background `#1F104A`.
+| Token | Light | Dark |
+| --- | --- | --- |
+| Outer canvas | `#E8E7EF` | `#050506` |
+| In-app field | `#F7F6FA` | `#0D0D0F` |
+| Top wash | `#F8ECEC` blush | `#211719` wine |
+| Ink | `#0E0C0D` | `#F7F6FA` |
+| Muted | `#6F6B76` | `#9C99A3` |
+| Surface / nav | `#FFFFFF` | `#19191C` |
+| Hairline | `#ECEAF1` / `#E7E5EC` | `#2B2A30` |
+| Feature card | `#101010` | ivory `#F4F3F7` |
+| Feature text | `#FFFFFF` | `#0E0C0D` |
+| Quiet chip | `#EEEAF8` | `#242329` |
+| Lime spark | `#C6D24A` | `#C6D24A` |
+| Positive / kept | `#53B25D` | `#74C982` |
+| Primary CTA | `#0E0C0D` | `#F4F3F7` |
+| Secondary link | `#1D7EFF` | `#72A7FF` |
+| Display font | Plus Jakarta Sans extra-bold | same |
+| Interface font | Plus Jakarta Sans | same |
+| Viewport | 390 × 844 | same |
+| Horizontal padding | 20pt | same |
+| Feature card radius | 28–32pt | same |
+| Capsule CTA | 52pt, radius 999 | same |
+| Bottom nav | 64pt, 28pt corners, 4 tabs | same |
+
+Type: money 40/44 extra-bold tabular · title 28/34 extra-bold · body 15/22 · caption 12/16 medium · pill 14/18 semibold.
+
+## Compact token summary — Expo/web leftover (do not use for new mobile UI)
+
+Expo onboarding leftover graphite: background `#0F1115`, tint `#2F80FF`,
+Manrope / Inter. Web magenta: primary oklch(0.5605 0.1911 350). Expo splash
+light `#E4E4E7`, dark `#18181B`.
 
 ## Raw: Expo styles
 

@@ -3,71 +3,74 @@
   "targets": {
     "onboarding:trust-first": {
       "targetKind": "new-ui",
+      "archived": true,
       "projectId": "54813c85-ff34-4473-b1f7-549df56b85fd",
       "activeDraftId": "a70c4aba-24b5-4e40-bff5-b6e831f509d2",
-      "designSystemPath": ".superdesign/design-system-apple-hig.md",
+      "designSystemPath": ".superdesign/archive/design-system-apple-hig.md",
       "contextFiles": [
-        ".superdesign/design-system-apple-hig.md"
+        ".superdesign/archive/design-system-apple-hig.md"
       ],
       "fingerprints": {
-        ".superdesign/design-system-apple-hig.md": "cfcacefa885b723ecd8a1e40c830725665aad1a55f493e08933ded62be9f2dfb"
+        ".superdesign/archive/design-system-apple-hig.md": "08a4a24cf9332e13e3a88408f96cae979908078ae705193125f095437f0a3071"
       },
       "components": [],
       "drafts": {
         "16860725-bdd8-4090-aa6a-2bbbd6dc1095": {
           "title": "00 — Welcome",
-          "visualDirection": "Pre-onboarding welcome and authentication entry",
+          "visualDirection": "RETIRED graphite pre-onboarding welcome",
           "currentVersion": 2
         },
         "b3cae2f8-f2db-4d7d-af3b-75d9092e26a2": {
           "title": "01 — Accountability Promise",
-          "visualDirection": "Trust-first onboarding step 1",
+          "visualDirection": "RETIRED graphite onboarding step 1",
           "parentDraftId": "16860725-bdd8-4090-aa6a-2bbbd6dc1095",
           "currentVersion": 3
         },
         "2dacd968-20bb-446c-83c8-056e45a8fc0a": {
           "title": "02 — Money Rules",
-          "visualDirection": "Trust-first onboarding step 2",
+          "visualDirection": "RETIRED graphite onboarding step 2",
           "parentDraftId": "b3cae2f8-f2db-4d7d-af3b-75d9092e26a2",
           "currentVersion": 3
         },
         "cf9130f4-6136-4923-a1f0-dcf1854428ff": {
           "title": "03 — Choose Charities",
-          "visualDirection": "Trust-first onboarding step 3",
+          "visualDirection": "RETIRED graphite onboarding step 3",
           "parentDraftId": "2dacd968-20bb-446c-83c8-056e45a8fc0a",
           "currentVersion": 3
         },
         "f3af5c1d-8c2a-4575-b1db-23fd365ae09d": {
           "title": "04 — Verification and Privacy",
-          "visualDirection": "Trust-first onboarding step 4",
+          "visualDirection": "RETIRED graphite onboarding step 4",
           "parentDraftId": "cf9130f4-6136-4923-a1f0-dcf1854428ff",
           "currentVersion": 2
         },
         "319162a4-f444-4be1-bfc1-87d866a33569": {
           "title": "05 — Consent and Begin",
-          "visualDirection": "Trust-first onboarding step 5",
+          "visualDirection": "RETIRED graphite onboarding step 5",
           "parentDraftId": "f3af5c1d-8c2a-4575-b1db-23fd365ae09d",
           "currentVersion": 3
         },
         "a70c4aba-24b5-4e40-bff5-b6e831f509d2": {
           "title": "Interactive Onboarding Preview",
-          "visualDirection": "Personalized, softly animated welcome plus five-step onboarding prototype",
+          "visualDirection": "RETIRED graphite interactive onboarding",
           "parentDraftId": "16860725-bdd8-4090-aa6a-2bbbd6dc1095",
           "currentVersion": 6
         }
       },
-      "updatedAt": "2026-09-15T18:50:00.000Z"
+      "updatedAt": "2026-09-16T18:50:00.000Z"
     },
-    "/": {
+    "today": {
       "targetKind": "new-ui",
       "projectId": "54813c85-ff34-4473-b1f7-549df56b85fd",
       "activeDraftId": "9b42a26e-3bfe-49f4-9f4a-81debb92d326",
       "designSystemPath": ".superdesign/design-system-fintech.md",
       "contextFiles": [
+        ".superdesign/design-system.md",
         ".superdesign/design-system-fintech.md"
       ],
       "fingerprints": {
-        ".superdesign/design-system-fintech.md": "2870d4b623ebdc3384adc8f36da68970c85140f7605df41e61f40b6d6235308b"
+        ".superdesign/design-system.md": "df9d3095e62eafbd900c4eb1dbb01bc624e8a663486206f5764f003f6d2e1b17",
+        ".superdesign/design-system-fintech.md": "4f0033cbbcca3e0cdd9a483678b14da260dd86f83c11c21be13da9017afe4aeb"
       },
       "components": [],
       "drafts": {
@@ -77,18 +80,20 @@
           "currentVersion": 1
         }
       },
-      "updatedAt": "2026-09-16T10:19:03.000Z"
+      "updatedAt": "2026-09-16T18:50:00.000Z"
     },
-    "/:dark": {
+    "today:dark": {
       "targetKind": "new-ui",
       "projectId": "54813c85-ff34-4473-b1f7-549df56b85fd",
       "activeDraftId": "e5ad01e6-d23e-4f18-846e-bac94f384998",
       "designSystemPath": ".superdesign/design-system-fintech.md",
       "contextFiles": [
+        ".superdesign/design-system.md",
         ".superdesign/design-system-fintech.md"
       ],
       "fingerprints": {
-        ".superdesign/design-system-fintech.md": "2870d4b623ebdc3384adc8f36da68970c85140f7605df41e61f40b6d6235308b"
+        ".superdesign/design-system.md": "df9d3095e62eafbd900c4eb1dbb01bc624e8a663486206f5764f003f6d2e1b17",
+        ".superdesign/design-system-fintech.md": "4f0033cbbcca3e0cdd9a483678b14da260dd86f83c11c21be13da9017afe4aeb"
       },
       "components": [],
       "drafts": {
@@ -98,7 +103,7 @@
           "currentVersion": 1
         }
       },
-      "updatedAt": "2026-09-16T10:19:03.000Z"
+      "updatedAt": "2026-09-16T18:50:00.000Z"
     },
     "onboarding:fintech-light": {
       "targetKind": "new-ui",
@@ -106,9 +111,11 @@
       "activeDraftId": "f3167415-4cbb-404f-8ecd-4a961d23e985",
       "designSystemPath": ".superdesign/design-system-fintech-onboarding.md",
       "contextFiles": [
+        ".superdesign/design-system.md",
         ".superdesign/design-system-fintech-onboarding.md"
       ],
       "fingerprints": {
+        ".superdesign/design-system.md": "df9d3095e62eafbd900c4eb1dbb01bc624e8a663486206f5764f003f6d2e1b17",
         ".superdesign/design-system-fintech-onboarding.md": "4b09fa409ffc8c5f2c401ed9c433a018b96c25a4acdfd37ea56442bd2ff23b10"
       },
       "components": [],
@@ -155,7 +162,7 @@
           "currentVersion": 6
         }
       },
-      "updatedAt": "2026-09-16T13:39:00.000Z"
+      "updatedAt": "2026-09-16T18:50:00.000Z"
     },
     "onboarding:fintech-dark": {
       "targetKind": "new-ui",
@@ -163,9 +170,11 @@
       "activeDraftId": "6fbee553-b936-4b31-acb5-a33959c5fa54",
       "designSystemPath": ".superdesign/design-system-fintech-onboarding.md",
       "contextFiles": [
+        ".superdesign/design-system.md",
         ".superdesign/design-system-fintech-onboarding.md"
       ],
       "fingerprints": {
+        ".superdesign/design-system.md": "df9d3095e62eafbd900c4eb1dbb01bc624e8a663486206f5764f003f6d2e1b17",
         ".superdesign/design-system-fintech-onboarding.md": "4b09fa409ffc8c5f2c401ed9c433a018b96c25a4acdfd37ea56442bd2ff23b10"
       },
       "components": [],
@@ -212,7 +221,7 @@
           "currentVersion": 6
         }
       },
-      "updatedAt": "2026-09-16T13:39:00.000Z"
+      "updatedAt": "2026-09-16T18:50:00.000Z"
     }
   }
 }

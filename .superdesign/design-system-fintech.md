@@ -1,6 +1,6 @@
 # Discipline Stake — Fintech home (inspired by Finpay)
 
-Inspired by [Fintech Landing page design animation](https://dribbble.com/shots/25572577-Fintech-Landing-page-design-animation) (Finpay / Bankify). This is the signed-in **Today** language only. Do not overwrite onboarding (`.superdesign/design-system-apple-hig.md`). Do not copy Finpay or Bankify names, logos, or marketing copy.
+Inspired by [Fintech Landing page design animation](https://dribbble.com/shots/25572577-Fintech-Landing-page-design-animation) (Finpay / Bankify). This is the signed-in **Today** language only. Do not overwrite onboarding (`.superdesign/design-system-fintech-onboarding.md`). Do not copy Finpay or Bankify names, logos, or marketing copy.
 
 ## Product
 
@@ -84,6 +84,23 @@ Geometric grotesque: Plus Jakarta Sans (Satoshi / Geist stand-in). Extra-bold ti
 - Bottom nav: Today (active, lime dot), Commitments, New, You
 - Submit proof stays on the stake card
 
+## Screen — Today empty
+
+Same chrome as populated Today. Swap only data-dependent content. For a newly
+onboarded user with no commitments:
+
+- Chip: “Ready”
+- Title: “Good morning, Maya”
+- Feature card: “Discipline” · **€0.00** · “No commitment yet” · pills Create first commitment / How it works
+- Promo: lime tile · “Start with one action” · “Name it, set a stake, pick a verifier”
+- List header: “How it works”
+  - Name a specific action and deadline
+  - Hold a stake until it is verified
+  - A trusted person confirms the proof
+- Bottom nav unchanged: Today (active, lime dot), Commitments, New, You
+- Footer disclosure: “No money is held until you confirm.”
+- No fake activity. Verifier invite happens inside the first-commitment flow.
+
 Use only these fonts, colors, and pill/card styles. Maintain matching light and
 dark streams; invert semantic tokens without changing hierarchy or geometry.
-Do not revive the graphite onboarding Today.
+Do not revive graphite, electric blue, or the 80/20 ring.

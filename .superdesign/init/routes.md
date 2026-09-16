@@ -4,16 +4,17 @@
 
 | URL path | File | Layout | Summary |
 | --- | --- | --- | --- |
-| `/` | `apps/expo/src/app/index.tsx` | `apps/expo/src/app/_layout.tsx` | Current scaffold: “Discipline” title + Discord auth. Target for the new signed-in Today / main page. |
+| `/` | `apps/expo/src/app/index.tsx` | `apps/expo/src/app/_layout.tsx` | Signed-in home scaffold after onboarding. Designed Today (populated + empty) lives in Superdesign; not yet implemented here. |
+| `/onboarding` | `apps/expo/src/app/onboarding.tsx` | `apps/expo/src/app/_layout.tsx` | Welcome + five-step onboarding. Implemented; visual source is Fintech onboarding. |
 
-No other Expo routes exist yet. Intended product routes from the design system (not implemented):
+Intended product routes from the Fintech design system (not all implemented):
 
 | Intended path | Role |
 | --- | --- |
-| `/` (Today) | Signed-in home: greeting, progress, active commitment, submit proof |
+| `/` (Today) | Signed-in home: greeting, stake card, proof or empty first-commitment CTA |
 | `/commitments` | Commitment list (not designed in this pass) |
-| `/profile` | Profile (not designed in this pass) |
-| Welcome + onboarding | Designed and approved in Superdesign; not in the Expo router yet |
+| New tab | Create a commitment (verifier chosen in that flow) |
+| `/profile` / You | Profile (not designed in this pass) |
 
 ## Next.js (tRPC + Better Auth host)
 

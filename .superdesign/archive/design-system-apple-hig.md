@@ -1,3 +1,8 @@
+# RETIRED — Do not use
+
+Archived graphite / electric-blue system. Current product language is Fintech
+light/dark in `.superdesign/design-system.md`. Keep this file only as history.
+
 # Discipline Stake — Apple Human Interface Guidelines
 
 ## Product
