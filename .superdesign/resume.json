@@ -236,16 +236,16 @@
         ".superdesign/design-system-fintech.md": "4f0033cbbcca3e0cdd9a483678b14da260dd86f83c11c21be13da9017afe4aeb"
       },
       "components": [],
-      "updatedAt": "2026-09-16T19:20:00.000Z",
+      "updatedAt": "2026-09-16T22:16:00.000Z",
       "sourceTarget": "today",
       "sourceDraftId": "9b42a26e-3bfe-49f4-9f4a-81debb92d326",
       "activeDraftId": "9ef716f6-882d-4f24-b68e-593718f27efd",
       "drafts": {
         "9ef716f6-882d-4f24-b68e-593718f27efd": {
           "title": "Light \u00b7 Today \u2014 Empty",
-          "visualDirection": "Light Today empty state: \u20ac0.00, Create first commitment, How it works",
+          "visualDirection": "Light Today empty state: \u20ac0.00, Create first commitment, How it works; stacked full-width pills so Create first commitment stays one line",
           "parentDraftId": "9b42a26e-3bfe-49f4-9f4a-81debb92d326",
-          "currentVersion": 1
+          "currentVersion": 2
         }
       }
     },
@@ -262,16 +262,16 @@
         ".superdesign/design-system-fintech.md": "4f0033cbbcca3e0cdd9a483678b14da260dd86f83c11c21be13da9017afe4aeb"
       },
       "components": [],
-      "updatedAt": "2026-09-16T19:20:00.000Z",
+      "updatedAt": "2026-09-16T22:16:00.000Z",
       "sourceTarget": "today:dark",
       "sourceDraftId": "e5ad01e6-d23e-4f18-846e-bac94f384998",
       "activeDraftId": "001e2288-78c2-4caf-a3de-639bff903759",
       "drafts": {
         "001e2288-78c2-4caf-a3de-639bff903759": {
           "title": "Dark \u00b7 Today \u2014 Empty",
-          "visualDirection": "Dark Today empty state: \u20ac0.00, Create first commitment, How it works",
+          "visualDirection": "Dark Today empty state: \u20ac0.00, Create first commitment, How it works; stacked full-width pills so Create first commitment stays one line",
           "parentDraftId": "e5ad01e6-d23e-4f18-846e-bac94f384998",
-          "currentVersion": 1
+          "currentVersion": 2
         }
       }
     }

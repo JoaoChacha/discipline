@@ -91,7 +91,7 @@ onboarded user with no commitments:
 
 - Chip: “Ready”
 - Title: “Good morning, Maya”
-- Feature card: “Discipline” · **€0.00** · “No commitment yet” · pills Create first commitment / How it works
+- Feature card: “Discipline” · **€0.00** · “No commitment yet” · stacked full-width pills Create first commitment, then How it works (never side-by-side; the primary label must stay one line)
 - Promo: lime tile · “Start with one action” · “Name it, set a stake, pick a verifier”
 - List header: “How it works”
   - Name a specific action and deadline
