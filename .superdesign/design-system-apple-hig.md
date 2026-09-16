@@ -71,22 +71,22 @@ Use Dynamic Type roles, sentence case, tabular numerals for money, and concise n
 
 ### Components
 
-- Native large navigation title: “Today” in cool white on graphite
-- Inset grouped cards with 12–16pt radius
+- Reuse the onboarding card, not iOS grouped lists: 20pt corners, graphite fill `#1B1E25`, electric-blue edge tint
+- 15pt blue uppercase eyebrows and Manrope 34/40 titles, same as onboarding
 - 44pt minimum touch targets
-- Filled electric-blue primary button, 50pt height and 12pt radius
-- Capsule status labels only when they improve scanning
-- SF Symbols only: shield.fill, clock, banknote, person.crop.circle.badge.checkmark, checkmark.circle.fill, plus, house.fill
-- Bottom tab bar: Today, Commitments, Profile
-- Use dividers and grouped hierarchy instead of visible card borders or strong shadows
+- Filled electric-blue primary button, 52pt height, matching the onboarding footer CTA
+- Capsule status labels only when they improve scanning (amber “Proof needed”)
+- Line icons only, restrained: house, list, person, clock, plus
+- Bottom tab bar on graphite: Today, Commitments, Profile — electric blue only on the active Today item
+- 80/20 stake ring as the recurring brand mark in the header and on the active commitment
 
 ### Layout
 
-- 16pt horizontal margins
+- 390 × 844 viewport, 20pt horizontal padding (same as onboarding)
 - 8pt base spacing rhythm
-- Large title collapsible-navigation feel
-- Keep the primary commitment and CTA above the tab bar without crowding
-- Use native list/group spacing and safe-area padding
+- Keep the active commitment and Submit Proof CTA above the tab bar
+- Safe-area padding at top and above the tab bar
+- No magenta scaffold header, no first-party Apple grouped-list chrome
 
 ### Motion
 
@@ -95,20 +95,26 @@ Use Dynamic Type roles, sentence case, tabular numerals for money, and concise n
 - No celebratory motion until trusted verification succeeds
 - Respect Reduce Motion
 
-## Screen direction
+## Screen direction — Today (signed-in main)
 
-Create a distinctly iOS-native “Today” screen:
-- Navigation bar with large title, dashboard-oriented greeting, and profile avatar button
-- A compact “Your progress” KPI group with current streak, completion rate, and total stake kept through successful completion
-- An inset grouped “Active commitment” card for “Run 5 km before work”
-- Deadline “Tomorrow, 7:30 AM”
-- Stake “€25 held”
-- Trusted verifier “Alex Chen”
-- Pending state “Proof needed”
-- A prominent electric-blue “Submit Proof” button
-- A compact grouped row explaining “Returned after Alex confirms completion”
-- A transparent alternative-outcome row: “If missed: 80% to your charities, 20% platform fee”
-- A secondary “New Commitment” action in the navigation bar
-- Native three-item tab bar
+Replace the archived Apple-native Today exploration. The signed-in main page must look like it belongs to the approved onboarding: same graphite field, Manrope/Inter, 80/20 stake ring, 20pt blue-tinted cards, and 52pt electric-blue CTA.
 
-The result must look like an actual iPhone app screen, not a marketing page or a phone mockup. Use only Apple HIG patterns, San Francisco typography, the custom graphite/electric-blue semantic theme, and SF Symbols.
+Content:
+- Top row: small 80/20 stake ring, “Discipline Stake”, and a New commitment text button
+- 15pt electric-blue eyebrow: TODAY
+- Manrope title: “Good morning, Maya.”
+- Secondary line: “One commitment needs proof before tomorrow.”
+- Elevated “Your progress” card with three KPIs: 7-day streak, 86% completed, €175 money kept
+- Active commitment card for “Run 5 km before work”
+  - Amber “Proof needed” status
+  - Deadline “Tomorrow, 7:30 AM”
+  - Stake “€25 held”
+  - Verifier “Alex Chen”
+  - Compact 80/20 ring
+- Outcome rows in the same factual tone as onboarding money rules:
+  - Complete it: keep the full €25 after Alex confirms
+  - If missed: €20 (80%) to this commitment’s cause, €5 (20%) platform fee
+- Footer: 52pt “Submit Proof” CTA, then the tab bar
+- Tabs: Today (active), Commitments, Profile
+
+The result must look like an actual iPhone app screen, not a marketing page or a phone mockup. Do not revive the deleted Apple-native Today draft. Use ONLY the fonts, colors, spacing, and component styles defined in this design system. Do not introduce any fonts, colors, or visual styles not in the design system.

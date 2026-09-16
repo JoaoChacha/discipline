@@ -10,7 +10,7 @@
         ".superdesign/design-system-apple-hig.md"
       ],
       "fingerprints": {
-        ".superdesign/design-system-apple-hig.md": "8149a216c12fca786833189b7bfc0bfe335b6f1e7772f756a011e59ecfa8d8f4"
+        ".superdesign/design-system-apple-hig.md": "cfcacefa885b723ecd8a1e40c830725665aad1a55f493e08933ded62be9f2dfb"
       },
       "components": [],
       "drafts": {
@@ -57,6 +57,162 @@
         }
       },
       "updatedAt": "2026-09-15T18:50:00.000Z"
+    },
+    "/": {
+      "targetKind": "new-ui",
+      "projectId": "54813c85-ff34-4473-b1f7-549df56b85fd",
+      "activeDraftId": "9b42a26e-3bfe-49f4-9f4a-81debb92d326",
+      "designSystemPath": ".superdesign/design-system-fintech.md",
+      "contextFiles": [
+        ".superdesign/design-system-fintech.md"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system-fintech.md": "2870d4b623ebdc3384adc8f36da68970c85140f7605df41e61f40b6d6235308b"
+      },
+      "components": [],
+      "drafts": {
+        "9b42a26e-3bfe-49f4-9f4a-81debb92d326": {
+          "title": "Today — Finpay-inspired",
+          "visualDirection": "Light consumer-neobank home with black stake card, lime accent, and compact aligned navigation",
+          "currentVersion": 1
+        }
+      },
+      "updatedAt": "2026-09-16T10:19:03.000Z"
+    },
+    "/:dark": {
+      "targetKind": "new-ui",
+      "projectId": "54813c85-ff34-4473-b1f7-549df56b85fd",
+      "activeDraftId": "e5ad01e6-d23e-4f18-846e-bac94f384998",
+      "designSystemPath": ".superdesign/design-system-fintech.md",
+      "contextFiles": [
+        ".superdesign/design-system-fintech.md"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system-fintech.md": "2870d4b623ebdc3384adc8f36da68970c85140f7605df41e61f40b6d6235308b"
+      },
+      "components": [],
+      "drafts": {
+        "e5ad01e6-d23e-4f18-846e-bac94f384998": {
+          "title": "Dark · Today — Finpay-inspired",
+          "visualDirection": "Dark consumer-neobank home with ivory stake card, lime accent, and compact aligned navigation",
+          "currentVersion": 1
+        }
+      },
+      "updatedAt": "2026-09-16T10:19:03.000Z"
+    },
+    "onboarding:fintech-light": {
+      "targetKind": "new-ui",
+      "projectId": "54813c85-ff34-4473-b1f7-549df56b85fd",
+      "activeDraftId": "f3167415-4cbb-404f-8ecd-4a961d23e985",
+      "designSystemPath": ".superdesign/design-system-fintech-onboarding.md",
+      "contextFiles": [
+        ".superdesign/design-system-fintech-onboarding.md"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system-fintech-onboarding.md": "4b09fa409ffc8c5f2c401ed9c433a018b96c25a4acdfd37ea56442bd2ff23b10"
+      },
+      "components": [],
+      "drafts": {
+        "bcb5b53d-4b73-40ad-bdd0-6461125a604b": {
+          "title": "Light · 00 — Welcome",
+          "visualDirection": "Light fintech pre-onboarding welcome",
+          "currentVersion": 3
+        },
+        "27cdaf93-e96d-4342-8020-976f9998f539": {
+          "title": "Light · 01 — Accountability Promise",
+          "visualDirection": "Light fintech trust-first onboarding step 1",
+          "parentDraftId": "bcb5b53d-4b73-40ad-bdd0-6461125a604b",
+          "currentVersion": 2
+        },
+        "f89f5569-1813-4f4a-a83a-f1cbb4679c82": {
+          "title": "Light · 02 — Money Rules",
+          "visualDirection": "Light fintech trust-first onboarding step 2",
+          "parentDraftId": "27cdaf93-e96d-4342-8020-976f9998f539",
+          "currentVersion": 5
+        },
+        "e4f77357-2361-42e5-b130-6eeffb4cd054": {
+          "title": "Light · 03 — Per-commitment Causes",
+          "visualDirection": "Light fintech trust-first onboarding step 3",
+          "parentDraftId": "f89f5569-1813-4f4a-a83a-f1cbb4679c82",
+          "currentVersion": 2
+        },
+        "46ac94dd-91cc-4c41-abe5-c496a3a96a1d": {
+          "title": "Light · 04 — Verification and Privacy",
+          "visualDirection": "Light fintech trust-first onboarding step 4",
+          "parentDraftId": "e4f77357-2361-42e5-b130-6eeffb4cd054",
+          "currentVersion": 2
+        },
+        "93eb32de-fa6e-4cc2-a3a2-6be71432a06f": {
+          "title": "Light · 05 — Consent and Begin",
+          "visualDirection": "Light fintech trust-first onboarding step 5",
+          "parentDraftId": "46ac94dd-91cc-4c41-abe5-c496a3a96a1d",
+          "currentVersion": 5
+        },
+        "f3167415-4cbb-404f-8ecd-4a961d23e985": {
+          "title": "Light · Interactive Onboarding",
+          "visualDirection": "Interactive light fintech Welcome plus five-step onboarding flow",
+          "parentDraftId": "bcb5b53d-4b73-40ad-bdd0-6461125a604b",
+          "currentVersion": 6
+        }
+      },
+      "updatedAt": "2026-09-16T13:39:00.000Z"
+    },
+    "onboarding:fintech-dark": {
+      "targetKind": "new-ui",
+      "projectId": "54813c85-ff34-4473-b1f7-549df56b85fd",
+      "activeDraftId": "6fbee553-b936-4b31-acb5-a33959c5fa54",
+      "designSystemPath": ".superdesign/design-system-fintech-onboarding.md",
+      "contextFiles": [
+        ".superdesign/design-system-fintech-onboarding.md"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system-fintech-onboarding.md": "4b09fa409ffc8c5f2c401ed9c433a018b96c25a4acdfd37ea56442bd2ff23b10"
+      },
+      "components": [],
+      "drafts": {
+        "d437ee00-0a3a-4951-b5d8-4c149e676f6b": {
+          "title": "Dark · 00 — Welcome",
+          "visualDirection": "Dark fintech pre-onboarding welcome",
+          "currentVersion": 3
+        },
+        "baadc3c8-5551-4c44-bb93-0f81675ad713": {
+          "title": "Dark · 01 — Accountability Promise",
+          "visualDirection": "Dark fintech trust-first onboarding step 1",
+          "parentDraftId": "d437ee00-0a3a-4951-b5d8-4c149e676f6b",
+          "currentVersion": 2
+        },
+        "9eb10097-1813-4e81-9692-dbed09a84df4": {
+          "title": "Dark · 02 — Money Rules",
+          "visualDirection": "Dark fintech trust-first onboarding step 2",
+          "parentDraftId": "baadc3c8-5551-4c44-bb93-0f81675ad713",
+          "currentVersion": 5
+        },
+        "843b087c-55ee-4a32-b22d-6f7841b6c5f7": {
+          "title": "Dark · 03 — Per-commitment Causes",
+          "visualDirection": "Dark fintech trust-first onboarding step 3",
+          "parentDraftId": "9eb10097-1813-4e81-9692-dbed09a84df4",
+          "currentVersion": 2
+        },
+        "43ae24bf-9d82-4b4d-b4e4-ede685aeba81": {
+          "title": "Dark · 04 — Verification and Privacy",
+          "visualDirection": "Dark fintech trust-first onboarding step 4",
+          "parentDraftId": "843b087c-55ee-4a32-b22d-6f7841b6c5f7",
+          "currentVersion": 2
+        },
+        "febf2a15-79a3-478d-8403-9de7e352d098": {
+          "title": "Dark · 05 — Consent and Begin",
+          "visualDirection": "Dark fintech trust-first onboarding step 5",
+          "parentDraftId": "43ae24bf-9d82-4b4d-b4e4-ede685aeba81",
+          "currentVersion": 5
+        },
+        "6fbee553-b936-4b31-acb5-a33959c5fa54": {
+          "title": "Dark · Interactive Onboarding",
+          "visualDirection": "Interactive dark fintech Welcome plus five-step onboarding flow",
+          "parentDraftId": "d437ee00-0a3a-4951-b5d8-4c149e676f6b",
+          "currentVersion": 6
+        }
+      },
+      "updatedAt": "2026-09-16T13:39:00.000Z"
     }
   }
 }
