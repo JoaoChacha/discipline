@@ -31,7 +31,7 @@ export function Notice({
         padding: 14,
         borderRadius: 22,
         backgroundColor: subtle ? "transparent" : colors.surface,
-        borderWidth: subtle ? 0 : 1,
+        borderWidth: 1,
         borderColor: colors.hairline,
       }}
     >
