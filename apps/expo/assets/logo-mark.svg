@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 8 180 228" fill="none" role="img" aria-label="Disciplined Stake">
+  <title>Disciplined Stake</title>
+  <g fill="#C6D24A">
+    <path
+      fill-rule="evenodd"
+      d="M128 66a80 80 0 1 1 0 160 80 80 0 1 1 0-160Zm0 22a58 58 0 1 1 0 116 58 58 0 1 1 0-116Zm0 8a50 50 0 1 1 0 100 50 50 0 1 1 0-100Zm0 22a28 28 0 1 1 0 56 28 28 0 1 1 0-56Zm0 8a20 20 0 1 1 0 40 20 20 0 1 1 0-40Z"
+    />
+    <g transform="rotate(30 128 146)">
+      <rect x="120.5" y="34" width="15" height="116" rx="7.5" />
+      <polygon points="128,8 158,48 98,48" />
+    </g>
+  </g>
+</svg>

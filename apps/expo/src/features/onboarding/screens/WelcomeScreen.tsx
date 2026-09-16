@@ -3,6 +3,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { colors, spacing } from "~/theme/tokens";
 import { type } from "~/theme/typography";
+import { LogoMark } from "../components/LogoMark";
 import { OnboardingIcon } from "../components/OnboardingIcon";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { Reveal } from "../components/Reveal";
@@ -39,8 +40,8 @@ export function WelcomeScreen({
           gap: 8,
         }}
       >
-        <StakeRing size={32} label="80" />
-        <Text style={type.brand}>Discipline Stake</Text>
+        <LogoMark size={32} />
+        <Text style={type.brand}>Disciplined Stake</Text>
       </View>
 
       <View style={{ flex: 1, justifyContent: "center", paddingBottom: 32 }}>
