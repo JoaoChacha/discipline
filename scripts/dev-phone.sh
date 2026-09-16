@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 # Start this environment so a physical phone can load it in Expo Go.
 # Cursor port-forward only reaches your laptop's localhost — the phone needs
-# public tunnels for Metro and the Next.js API (both via cloudflared).
-# Expo's built-in --tunnel (ngrok) is flaky in this environment, so Metro is
-# published with Cloudflare and EXPO_PACKAGER_PROXY_URL so the manifest
-# points at the public HTTPS host instead of localhost:8081.
+# public tunnels for Metro and the Next.js API.
+#
+# Metro uses Expo's official --tunnel (*.exp.direct). Expo Go on iOS verifies
+# the packager hostname and rejects trycloudflare.com with
+# "Hostname could not be verified".
+# The tRPC API stays on a Cloudflare quick tunnel (EXPO_PUBLIC_API_URL).
 
 set -euo pipefail
 
@@ -25,6 +27,11 @@ if ! command -v cloudflared >/dev/null 2>&1; then
   mkdir -p "$HOME/.local/bin"
   mv /tmp/cloudflared "$HOME/.local/bin/cloudflared"
   export PATH="$HOME/.local/bin:$PATH"
+fi
+
+if [ -f /tmp/expo-token ]; then
+  EXPO_TOKEN="$(tr -d '[:space:]' </tmp/expo-token)"
+  export EXPO_TOKEN
 fi
 
 if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
@@ -94,38 +101,14 @@ printf '%s\n' "$API_URL" >/tmp/discipline-api-url.txt
 echo
 echo "API tunnel: $API_URL"
 
-METRO_URL="$(cf_url_from_log /tmp/discipline-metro-tunnel.log)"
-if [ -z "$METRO_URL" ]; then
-  echo "Opening a public tunnel to Metro…"
-  METRO_URL="$(start_cf_tunnel 8081 /tmp/discipline-metro-tunnel.log || true)"
-fi
-
-if [ -z "$METRO_URL" ]; then
-  echo "Could not get a Cloudflare quick tunnel URL for Metro. Log:"
-  tail -n 40 /tmp/discipline-metro-tunnel.log
-  exit 1
-fi
-
-printf '%s\n' "$METRO_URL" >/tmp/discipline-metro-url.txt
-echo "Metro tunnel: $METRO_URL"
-
-EXPO_HOST="${METRO_URL#https://}"
-EXPO_URL="exps://${EXPO_HOST}"
-printf '%s\n' "$EXPO_URL" >/tmp/discipline-expo-url.txt
+# Expo Go trusts *.exp.direct from --tunnel. A Cloudflare Metro host is rejected.
+unset EXPO_PACKAGER_PROXY_URL
+unset CI
+export EXPO_PUBLIC_API_URL="$API_URL"
 
 echo
-echo "Scan the Expo QR with Expo Go (SDK 57). Each environment gets its own tunnels."
-echo "Expo Go URL: $EXPO_URL"
+echo "Scan the Expo QR with Expo Go (SDK 57). Metro is served on *.exp.direct."
 echo "It only works while this environment is running."
 echo
 
-export EXPO_PUBLIC_API_URL="$API_URL"
-export EXPO_PACKAGER_PROXY_URL="$METRO_URL"
-unset CI
-
-if curl -sf "http://127.0.0.1:8081/status" >/dev/null 2>&1; then
-  echo "Metro already running on :8081 — reuse it (restart if the public host changed)."
-  sleep infinity
-fi
-
-pnpm --filter @discipline/expo exec expo start --go --port 8081
+pnpm --filter @discipline/expo exec expo start --go --tunnel --port 8081
