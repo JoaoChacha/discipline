@@ -102,7 +102,7 @@ function OnboardingStepper() {
     router.replace("/");
   };
 
-  const signIn = async () => {
+  const signIn = async (provider: "apple" | "google") => {
     if (session) {
       await finish();
       return;
@@ -112,7 +112,7 @@ function OnboardingStepper() {
     try {
       await complete();
       await authClient.signIn.social({
-        provider: "discord",
+        provider,
         callbackURL: "/",
       });
     } finally {
@@ -139,8 +139,11 @@ function OnboardingStepper() {
           setDirection(1);
           next();
         }}
-        onSignIn={() => {
-          void signIn();
+        onSignInApple={() => {
+          void signIn("apple");
+        }}
+        onSignInGoogle={() => {
+          void signIn("google");
         }}
       />
     );

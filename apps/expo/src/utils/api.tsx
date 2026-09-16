@@ -1,12 +1,16 @@
 import { QueryClient } from "@tanstack/react-query";
-import { createTRPCClient, httpBatchLink, loggerLink } from "@trpc/client";
+import {
+  createTRPCClient,
+  createWSClient,
+  loggerLink,
+  wsLink,
+} from "@trpc/client";
 import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
 import superjson from "superjson";
 
 import type { AppRouter } from "@discipline/api";
 
 import { authClient } from "./auth";
-import { getBaseUrl } from "./base-url";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,19 +32,14 @@ export const trpc = createTRPCOptionsProxy<AppRouter>({
           (opts.direction === "down" && opts.result instanceof Error),
         colorMode: "ansi",
       }),
-      httpBatchLink({
+      wsLink({
         transformer: superjson,
-        url: `${getBaseUrl()}/api/trpc`,
-        headers() {
-          const headers = new Map<string, string>();
-          headers.set("x-trpc-source", "expo-react");
-
-          const cookies = authClient.getCookie();
-          if (cookies) {
-            headers.set("Cookie", cookies);
-          }
-          return headers;
-        },
+        client: createWSClient({
+          url: process.env.EXPO_PUBLIC_WS_URL ?? "ws://localhost:3001",
+          connectionParams: () => ({
+            cookie: authClient.getCookie(),
+          }),
+        }),
       }),
     ],
   }),

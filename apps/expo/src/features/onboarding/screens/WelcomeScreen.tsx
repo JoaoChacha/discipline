@@ -12,12 +12,14 @@ export function WelcomeScreen({
   reduceMotion,
   signingIn,
   onStart,
-  onSignIn,
+  onSignInApple,
+  onSignInGoogle,
 }: {
   reduceMotion: boolean;
   signingIn: boolean;
   onStart: () => void;
-  onSignIn: () => void;
+  onSignInApple: () => void;
+  onSignInGoogle: () => void;
 }) {
   const insets = useSafeAreaInsets();
 
@@ -110,10 +112,10 @@ export function WelcomeScreen({
         />
         <Pressable
           accessibilityRole="link"
-          accessibilityLabel="I already have an account"
+          accessibilityLabel="Continue with Apple"
           disabled={signingIn}
-          onPress={onSignIn}
-          testID="onboarding-sign-in"
+          onPress={onSignInApple}
+          testID="onboarding-sign-in-apple"
           style={{
             minHeight: 44,
             alignItems: "center",
@@ -121,7 +123,23 @@ export function WelcomeScreen({
           }}
         >
           <Text style={{ ...type.callout, color: colors.tint }}>
-            {signingIn ? "Opening sign-in…" : "I already have an account"}
+            {signingIn ? "Opening sign-in…" : "Continue with Apple"}
+          </Text>
+        </Pressable>
+        <Pressable
+          accessibilityRole="link"
+          accessibilityLabel="Continue with Google"
+          disabled={signingIn}
+          onPress={onSignInGoogle}
+          testID="onboarding-sign-in-google"
+          style={{
+            minHeight: 44,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Text style={{ ...type.callout, color: colors.tint }}>
+            Continue with Google
           </Text>
         </Pressable>
       </View>

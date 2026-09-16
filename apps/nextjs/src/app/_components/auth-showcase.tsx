@@ -5,31 +5,35 @@ import { Button } from "@discipline/ui/button";
 
 import { auth, getSession } from "~/auth/server";
 
+async function signIn(provider: "apple" | "google") {
+  "use server";
+  const res = await auth.api.signInSocial({
+    body: {
+      provider,
+      callbackURL: "/",
+    },
+  });
+  if (!res.url) {
+    throw new Error("No URL returned from signInSocial");
+  }
+  redirect(res.url);
+}
+
 export async function AuthShowcase() {
   const session = await getSession();
 
   if (!session) {
     return (
-      <form>
-        <Button
-          size="lg"
-          formAction={async () => {
-            "use server";
-            const res = await auth.api.signInSocial({
-              body: {
-                provider: "discord",
-                callbackURL: "/",
-              },
-            });
-            if (!res.url) {
-              throw new Error("No URL returned from signInSocial");
-            }
-            redirect(res.url);
-          }}
-        >
-          Sign in with Discord
-        </Button>
-      </form>
+      <div className="flex flex-col items-center gap-3">
+        <form action={signIn.bind(null, "apple")}>
+          <Button size="lg">Sign in with Apple</Button>
+        </form>
+        <form action={signIn.bind(null, "google")}>
+          <Button size="lg" variant="outline">
+            Sign in with Google
+          </Button>
+        </form>
+      </div>
     );
   }
 

@@ -15,6 +15,7 @@
     "dev": "tsc",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint --flag unstable_native_nodejs_ts_config",
+    "test": "vitest run",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
@@ -22,16 +23,21 @@
     "@discipline/db": "workspace:*",
     "@discipline/validators": "workspace:*",
     "@trpc/server": "catalog:",
+    "drizzle-orm": "^0.44.7",
+    "stripe": "^18.5.0",
     "superjson": "2.2.3",
+    "ws": "^8.18.3",
     "zod": "catalog:"
   },
   "devDependencies": {
     "@discipline/eslint-config": "workspace:*",
     "@discipline/prettier-config": "workspace:*",
     "@discipline/tsconfig": "workspace:*",
+    "@types/ws": "^8.18.1",
     "eslint": "catalog:",
     "prettier": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "prettier": "@discipline/prettier-config"
 }

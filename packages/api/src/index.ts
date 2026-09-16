@@ -18,4 +18,11 @@ type RouterOutputs = inferRouterOutputs<AppRouter>;
 
 export { type AppRouter, appRouter } from "./root";
 export { createTRPCContext } from "./trpc";
+export { startWsServer } from "./ws";
+export { setPayments, getPayments } from "./lib/payments";
+export {
+  applyPaymentIntentStatus,
+  upsertPaymentMethodFromStripe,
+} from "./lib/stripe-webhook";
+export { events } from "./lib/events";
 export type { RouterInputs, RouterOutputs };

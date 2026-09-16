@@ -21,26 +21,66 @@ function MobileAuth() {
       >
         {session?.user.name ? `Hello, ${session.user.name}` : "Not logged in"}
       </Text>
-      <Pressable
-        onPress={() =>
-          session
-            ? authClient.signOut()
-            : authClient.signIn.social({
-                provider: "discord",
+      {session ? (
+        <Pressable
+          onPress={() => authClient.signOut()}
+          style={{
+            backgroundColor: colors.tint,
+            alignItems: "center",
+            borderRadius: 12,
+            paddingVertical: 12,
+          }}
+        >
+          <Text
+            style={{ color: colors.white, fontSize: 17, fontWeight: "600" }}
+          >
+            Sign Out
+          </Text>
+        </Pressable>
+      ) : (
+        <>
+          <Pressable
+            onPress={() =>
+              authClient.signIn.social({
+                provider: "apple",
                 callbackURL: "/",
               })
-        }
-        style={{
-          backgroundColor: colors.tint,
-          alignItems: "center",
-          borderRadius: 12,
-          paddingVertical: 12,
-        }}
-      >
-        <Text style={{ color: colors.white, fontSize: 17, fontWeight: "600" }}>
-          {session ? "Sign Out" : "Sign In With Discord"}
-        </Text>
-      </Pressable>
+            }
+            style={{
+              backgroundColor: colors.tint,
+              alignItems: "center",
+              borderRadius: 12,
+              paddingVertical: 12,
+            }}
+          >
+            <Text
+              style={{ color: colors.white, fontSize: 17, fontWeight: "600" }}
+            >
+              Sign in with Apple
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={() =>
+              authClient.signIn.social({
+                provider: "google",
+                callbackURL: "/",
+              })
+            }
+            style={{
+              backgroundColor: colors.tint,
+              alignItems: "center",
+              borderRadius: 12,
+              paddingVertical: 12,
+            }}
+          >
+            <Text
+              style={{ color: colors.white, fontSize: 17, fontWeight: "600" }}
+            >
+              Sign in with Google
+            </Text>
+          </Pressable>
+        </>
+      )}
     </View>
   );
 }

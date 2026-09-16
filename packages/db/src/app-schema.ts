@@ -25,6 +25,7 @@ export const friendshipStatus = pgEnum("friendship_status", [
 
 export const actionStatus = pgEnum("action_status", [
   "draft",
+  "awaiting_verifier",
   "active",
   "proof_submitted",
   "completed",
@@ -40,6 +41,13 @@ export const stakeStatus = pgEnum("stake_status", [
   "forfeited",
 ]);
 
+export const holdStatus = pgEnum("hold_status", [
+  "authorized",
+  "captured",
+  "canceled",
+  "failed",
+]);
+
 export const proofKind = pgEnum("proof_kind", ["note", "photo"]);
 
 export const verdictOutcome = pgEnum("verdict_outcome", [
@@ -47,20 +55,31 @@ export const verdictOutcome = pgEnum("verdict_outcome", [
   "not_fulfilled",
 ]);
 
-export const profile = pgTable("profile", (t) => ({
-  userId: t
-    .text()
-    .primaryKey()
-    .references(() => user.id, { onDelete: "cascade" }),
-  timezone: t.text().notNull().default("UTC"),
-  currency: t.char({ length: 3 }).notNull().default("EUR"),
-  createdAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
-  updatedAt: t
-    .timestamp({ withTimezone: true })
-    .defaultNow()
-    .$onUpdate(() => new Date())
-    .notNull(),
-}));
+export const profile = pgTable(
+  "profile",
+  (t) => ({
+    userId: t
+      .text()
+      .primaryKey()
+      .references(() => user.id, { onDelete: "cascade" }),
+    handle: t.text(),
+    timezone: t.text().notNull().default("UTC"),
+    currency: t.char({ length: 3 }).notNull().default("EUR"),
+    createdAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
+    updatedAt: t
+      .timestamp({ withTimezone: true })
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  }),
+  (t) => [
+    uniqueIndex("profile_handle_uidx").on(t.handle),
+    check(
+      "profile_handle_format",
+      sql`${t.handle} IS NULL OR ${t.handle} ~ '^[a-z0-9_]{3,20}$'`,
+    ),
+  ],
+);
 
 export const invitation = pgTable(
   "invitation",
@@ -70,7 +89,8 @@ export const invitation = pgTable(
       .text()
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
-    email: t.text().notNull(),
+    targetUserId: t.text().references(() => user.id, { onDelete: "set null" }),
+    note: t.text(),
     tokenHash: t.text().notNull().unique(),
     status: invitationStatus().notNull().default("pending"),
     expiresAt: t.timestamp({ withTimezone: true }).notNull(),
@@ -81,10 +101,12 @@ export const invitation = pgTable(
     acceptedAt: t.timestamp({ withTimezone: true }),
   }),
   (t) => [
-    uniqueIndex("invitation_pending_inviter_email_uidx")
-      .on(t.inviterId, t.email)
-      .where(sql`${t.status} = 'pending'`),
-    index("invitation_email_idx").on(t.email),
+    index("invitation_inviter_status_idx").on(t.inviterId, t.status),
+    index("invitation_target_status_idx").on(t.targetUserId, t.status),
+    check(
+      "invitation_not_self_target",
+      sql`${t.targetUserId} IS NULL OR ${t.inviterId} <> ${t.targetUserId}`,
+    ),
   ],
 );
 
@@ -115,6 +137,48 @@ export const friendship = pgTable(
   ],
 );
 
+export const charity = pgTable("charity", (t) => ({
+  id: t.text().primaryKey(),
+  name: t.text().notNull(),
+  mission: t.text().notNull(),
+  icon: t.text().notNull(),
+  accent: t.text().notNull(),
+  isActive: t.boolean().notNull().default(true),
+}));
+
+export const billingCustomer = pgTable("billing_customer", (t) => ({
+  userId: t
+    .text()
+    .primaryKey()
+    .references(() => user.id, { onDelete: "cascade" }),
+  stripeCustomerId: t.text().notNull().unique(),
+  createdAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
+  updatedAt: t
+    .timestamp({ withTimezone: true })
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull(),
+}));
+
+export const paymentMethod = pgTable(
+  "payment_method",
+  (t) => ({
+    id: t.uuid().primaryKey().defaultRandom(),
+    userId: t
+      .text()
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    stripePaymentMethodId: t.text().notNull().unique(),
+    brand: t.text().notNull(),
+    last4: t.char({ length: 4 }).notNull(),
+    expMonth: t.integer().notNull(),
+    expYear: t.integer().notNull(),
+    isDefault: t.boolean().notNull().default(false),
+    createdAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
+  }),
+  (t) => [index("payment_method_user_idx").on(t.userId)],
+);
+
 export const action = pgTable(
   "action",
   (t) => ({
@@ -123,16 +187,21 @@ export const action = pgTable(
       .text()
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
-    verifierId: t
-      .text()
-      .notNull()
-      .references(() => user.id, { onDelete: "restrict" }),
+    verifierId: t.text().references(() => user.id, { onDelete: "restrict" }),
+    pendingInvitationId: t
+      .uuid()
+      .references(() => invitation.id, { onDelete: "restrict" }),
+    paymentMethodId: t.uuid().references(() => paymentMethod.id, {
+      onDelete: "restrict",
+    }),
     title: t.text().notNull(),
     dueAt: t.timestamp({ withTimezone: true }).notNull(),
     status: actionStatus().notNull().default("draft"),
     amountCents: t.integer().notNull(),
     currency: t.char({ length: 3 }).notNull(),
+    feeBps: t.integer().notNull().default(1000),
     stakeStatus: stakeStatus().notNull().default("none"),
+    confirmedAt: t.timestamp({ withTimezone: true }),
     settledAt: t.timestamp({ withTimezone: true }),
     createdAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
     updatedAt: t
@@ -142,12 +211,73 @@ export const action = pgTable(
       .notNull(),
   }),
   (t) => [
-    check("action_not_self_review", sql`${t.ownerId} <> ${t.verifierId}`),
+    check(
+      "action_not_self_review",
+      sql`${t.verifierId} IS NULL OR ${t.ownerId} <> ${t.verifierId}`,
+    ),
+    check(
+      "action_verifier_or_invite",
+      sql`${t.verifierId} IS NOT NULL OR ${t.pendingInvitationId} IS NOT NULL`,
+    ),
     check("action_amount_positive", sql`${t.amountCents} > 0`),
+    check(
+      "action_fee_bps_range",
+      sql`${t.feeBps} >= 0 AND ${t.feeBps} <= 10000`,
+    ),
     index("action_owner_status_idx").on(t.ownerId, t.status),
     index("action_verifier_status_idx").on(t.verifierId, t.status),
     index("action_due_at_idx").on(t.dueAt),
   ],
+);
+
+export const actionCause = pgTable(
+  "action_cause",
+  (t) => ({
+    id: t.uuid().primaryKey().defaultRandom(),
+    actionId: t
+      .uuid()
+      .notNull()
+      .references(() => action.id, { onDelete: "cascade" }),
+    charityId: t
+      .text()
+      .notNull()
+      .references(() => charity.id, { onDelete: "restrict" }),
+    percent: t.integer().notNull(),
+  }),
+  (t) => [
+    uniqueIndex("action_cause_pair_uidx").on(t.actionId, t.charityId),
+    check(
+      "action_cause_percent_range",
+      sql`${t.percent} >= 1 AND ${t.percent} <= 100`,
+    ),
+  ],
+);
+
+export const stakeHold = pgTable(
+  "stake_hold",
+  (t) => ({
+    id: t.uuid().primaryKey().defaultRandom(),
+    actionId: t
+      .uuid()
+      .notNull()
+      .unique()
+      .references(() => action.id, { onDelete: "cascade" }),
+    paymentMethodId: t
+      .uuid()
+      .notNull()
+      .references(() => paymentMethod.id, { onDelete: "restrict" }),
+    stripePaymentIntentId: t.text().notNull().unique(),
+    amountCents: t.integer().notNull(),
+    currency: t.char({ length: 3 }).notNull(),
+    status: holdStatus().notNull().default("authorized"),
+    createdAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
+    updatedAt: t
+      .timestamp({ withTimezone: true })
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  }),
+  (t) => [index("stake_hold_status_idx").on(t.status)],
 );
 
 export const proof = pgTable(
@@ -196,6 +326,11 @@ export const invitationRelations = relations(invitation, ({ one }) => ({
     references: [user.id],
     relationName: "sentInvitations",
   }),
+  targetUser: one(user, {
+    fields: [invitation.targetUserId],
+    references: [user.id],
+    relationName: "targetedInvitations",
+  }),
   acceptedUser: one(user, {
     fields: [invitation.acceptedUserId],
     references: [user.id],
@@ -216,6 +351,20 @@ export const friendshipRelations = relations(friendship, ({ one }) => ({
   }),
 }));
 
+export const billingCustomerRelations = relations(
+  billingCustomer,
+  ({ one }) => ({
+    user: one(user, {
+      fields: [billingCustomer.userId],
+      references: [user.id],
+    }),
+  }),
+);
+
+export const paymentMethodRelations = relations(paymentMethod, ({ one }) => ({
+  user: one(user, { fields: [paymentMethod.userId], references: [user.id] }),
+}));
+
 export const actionRelations = relations(action, ({ one, many }) => ({
   owner: one(user, {
     fields: [action.ownerId],
@@ -227,7 +376,39 @@ export const actionRelations = relations(action, ({ one, many }) => ({
     references: [user.id],
     relationName: "verifyingActions",
   }),
+  pendingInvitation: one(invitation, {
+    fields: [action.pendingInvitationId],
+    references: [invitation.id],
+  }),
+  paymentMethod: one(paymentMethod, {
+    fields: [action.paymentMethodId],
+    references: [paymentMethod.id],
+  }),
+  causes: many(actionCause),
   proofs: many(proof),
+  hold: one(stakeHold),
+}));
+
+export const actionCauseRelations = relations(actionCause, ({ one }) => ({
+  action: one(action, {
+    fields: [actionCause.actionId],
+    references: [action.id],
+  }),
+  charity: one(charity, {
+    fields: [actionCause.charityId],
+    references: [charity.id],
+  }),
+}));
+
+export const stakeHoldRelations = relations(stakeHold, ({ one }) => ({
+  action: one(action, {
+    fields: [stakeHold.actionId],
+    references: [action.id],
+  }),
+  paymentMethod: one(paymentMethod, {
+    fields: [stakeHold.paymentMethodId],
+    references: [paymentMethod.id],
+  }),
 }));
 
 export const proofRelations = relations(proof, ({ one }) => ({
@@ -251,7 +432,12 @@ export const verdictRelations = relations(verdict, ({ one }) => ({
 
 export const userRelations = relations(user, ({ one, many }) => ({
   profile: one(profile),
+  billingCustomer: one(billingCustomer),
+  paymentMethods: many(paymentMethod),
   sentInvitations: many(invitation, { relationName: "sentInvitations" }),
+  targetedInvitations: many(invitation, {
+    relationName: "targetedInvitations",
+  }),
   acceptedInvitations: many(invitation, {
     relationName: "acceptedInvitations",
   }),

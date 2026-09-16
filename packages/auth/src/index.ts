@@ -13,8 +13,11 @@ export function initAuth<
   productionUrl: string;
   secret: string | undefined;
 
-  discordClientId: string;
-  discordClientSecret: string;
+  appleClientId: string;
+  appleClientSecret: string;
+  appleAppBundleIdentifier?: string;
+  googleClientId: string;
+  googleClientSecret: string;
   extraPlugins?: TExtraPlugins;
 }) {
   const config = {
@@ -31,10 +34,16 @@ export function initAuth<
       ...(options.extraPlugins ?? []),
     ],
     socialProviders: {
-      discord: {
-        clientId: options.discordClientId,
-        clientSecret: options.discordClientSecret,
-        redirectURI: `${options.productionUrl}/api/auth/callback/discord`,
+      apple: {
+        clientId: options.appleClientId,
+        clientSecret: options.appleClientSecret,
+        appBundleIdentifier: options.appleAppBundleIdentifier,
+        redirectURI: `${options.productionUrl}/api/auth/callback/apple`,
+      },
+      google: {
+        clientId: options.googleClientId,
+        clientSecret: options.googleClientSecret,
+        redirectURI: `${options.productionUrl}/api/auth/callback/google`,
       },
     },
     trustedOrigins: ["discipline://", "exp://"],
