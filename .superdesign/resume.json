@@ -280,9 +280,21 @@
           "title": "Light · Interactive Commitment Creation",
           "visualDirection": "Light fintech commitment-creation wizard — interactive prototype (all steps, invite sheet, no-friends toggle, live stake math)",
           "currentVersion": 2
+        },
+        "7515ebe0-84dd-45cb-9ee2-628f3edef3a9": {
+          "title": "Light · 05 · Alt A — Contract card",
+          "visualDirection": "Step 05 alternative A: one dominant contract card with action, stake, and both outcomes; cause/verifier as tiles",
+          "parentDraftId": "3e0436e9-af97-4203-ba19-b5ab95937bba",
+          "currentVersion": 1
+        },
+        "ff46cc53-7d58-4c6c-aa48-fd1b54b0e1ec": {
+          "title": "Light · 05 · Alt B — Editable receipt",
+          "visualDirection": "Step 05 alternative B: editable receipt with per-term Edit links and an itemised missed-stake ledger; consent in footer",
+          "parentDraftId": "3e0436e9-af97-4203-ba19-b5ab95937bba",
+          "currentVersion": 1
         }
       },
-      "updatedAt": "2026-09-16T19:40:00.000Z"
+      "updatedAt": "2026-09-16T20:35:00.000Z"
     },
     "commitment:fintech-dark": {
       "targetKind": "new-ui",
