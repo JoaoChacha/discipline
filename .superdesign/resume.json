@@ -57,6 +57,27 @@
         }
       },
       "updatedAt": "2026-09-15T18:50:00.000Z"
+    },
+    "/": {
+      "targetKind": "new-ui",
+      "projectId": "54813c85-ff34-4473-b1f7-549df56b85fd",
+      "activeDraftId": "9b42a26e-3bfe-49f4-9f4a-81debb92d326",
+      "designSystemPath": ".superdesign/design-system-fintech.md",
+      "contextFiles": [
+        ".superdesign/design-system-fintech.md"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system-fintech.md": "8e47bfa320332f322048ac21cfbc3adcdd407fa9e1d2a5ed002d9c3590c49da2"
+      },
+      "components": [],
+      "drafts": {
+        "9b42a26e-3bfe-49f4-9f4a-81debb92d326": {
+          "title": "Today — Finpay-inspired",
+          "visualDirection": "Light consumer-neobank home with black stake card, lime accent, and compact aligned navigation",
+          "currentVersion": 1
+        }
+      },
+      "updatedAt": "2026-09-16T08:39:22.000Z"
     }
   }
 }
