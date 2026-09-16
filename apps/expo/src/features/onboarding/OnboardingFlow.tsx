@@ -13,7 +13,6 @@ import { ScreenScroll } from "~/ui/ScreenScroll";
 import { authClient } from "~/utils/auth";
 import { OnboardingShell } from "./components/Shell";
 import {
-  FIRST_STEP,
   LAST_STEP,
   OnboardingProvider,
   useOnboarding,
@@ -59,7 +58,7 @@ function StepContent({
 
 function OnboardingStepper() {
   const router = useRouter();
-  const { colors, type, motion } = useTheme();
+  const { type, motion } = useTheme();
   const { data: session } = authClient.useSession();
   const { step, next, back, skip, consented, complete } = useOnboarding();
   const [reduceMotion, setReduceMotion] = useState(false);
@@ -144,7 +143,7 @@ function OnboardingStepper() {
       step={step}
       total={TOTAL_STEPS}
       reduceMotion={reduceMotion}
-      leading={step === FIRST_STEP ? "close" : "back"}
+      leading="back"
       onLeading={goBack}
       onSkip={step === LAST_STEP ? undefined : goSkip}
       ctaLabel={STEP_CTA[step - 1] ?? STEP_CTA[0]}
@@ -154,10 +153,8 @@ function OnboardingStepper() {
         step === LAST_STEP ? (
           <Text
             style={{
-              ...type.caption,
-              textAlign: "center",
-              marginTop: 12,
-              color: colors.muted,
+              ...type.footnote,
+              marginTop: 8,
             }}
           >
             No money is held until you confirm a commitment.

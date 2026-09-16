@@ -12,7 +12,7 @@ export const EXAMPLE_CHARITY_GROUP = [
   {
     id: "girls-who-code",
     name: "Girls Who Code",
-    mission: "Education",
+    mission: "Education and opportunity",
     icon: "code" as const,
     accent: "purple" as const,
     percent: 40,

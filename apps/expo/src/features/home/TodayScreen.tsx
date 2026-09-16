@@ -1,4 +1,4 @@
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { Pressable, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -7,7 +7,6 @@ import { Chip } from "~/ui/Chip";
 import { FeatureCard } from "~/ui/FeatureCard";
 import { LimeTile } from "~/ui/LimeTile";
 import { ScreenScroll } from "~/ui/ScreenScroll";
-import { SurfaceCard } from "~/ui/SurfaceCard";
 import { ACTIVE_COMMITMENT } from "./data";
 
 function greetingName(name?: string | null) {
@@ -36,7 +35,8 @@ export function TodayScreen({
   onYou: () => void;
 }) {
   const { colors, type, spacing } = useTheme();
-  const initials = greetingName(userName).slice(0, 1).toUpperCase();
+  const firstName = greetingName(userName);
+  const initials = firstName.slice(0, 1).toUpperCase();
 
   return (
     <ScreenScroll
@@ -46,84 +46,142 @@ export function TodayScreen({
       <View
         style={{
           flexDirection: "row",
-          alignItems: "flex-start",
+          alignItems: "center",
           justifyContent: "space-between",
-          gap: 12,
         }}
       >
-        <View style={{ flex: 1, minWidth: 0 }}>
-          <Text style={type.homeTitle}>
-            {greetingPrefix()}, {greetingName(userName)}
-          </Text>
-          <View style={{ marginTop: 10 }}>
-            <Chip label="Proof due" />
-          </View>
-        </View>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Open profile"
+            onPress={onYou}
+            style={{
+              height: 36,
+              width: 36,
+              borderRadius: 999,
+              backgroundColor: colors.ink,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: type.brand.fontFamily,
+                fontSize: 13,
+                fontWeight: "700",
+                color: colors.field,
+              }}
+            >
+              {initials}
+            </Text>
+          </Pressable>
+          <Chip label="Proof due" />
+        </View>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Search"
+            style={{
+              height: 44,
+              width: 44,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Ionicons name="search" size={20} color={colors.ink} />
+          </Pressable>
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="Notifications"
             style={{
-              height: 40,
-              width: 40,
-              borderRadius: 999,
-              backgroundColor: colors.surface,
-              borderWidth: 1,
-              borderColor: colors.hairline,
+              height: 44,
+              width: 44,
               alignItems: "center",
               justifyContent: "center",
             }}
           >
             <Ionicons
               name="notifications-outline"
-              size={18}
+              size={20}
               color={colors.ink}
             />
-          </Pressable>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Open profile"
-            onPress={onYou}
-            style={{
-              height: 40,
-              width: 40,
-              borderRadius: 999,
-              backgroundColor: colors.feature,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text style={{ ...type.callout, color: colors.featureText }}>
-              {initials}
-            </Text>
           </Pressable>
         </View>
       </View>
 
-      <FeatureCard style={{ marginTop: 24 }}>
-        <Text
+      <Text
+        style={{
+          ...type.bodyInk,
+          fontSize: 15,
+          fontWeight: "500",
+          color: colors.muted,
+          marginTop: 24,
+        }}
+      >
+        Today
+      </Text>
+      <Text style={[type.homeTitle, { marginTop: 4 }]}>
+        {greetingPrefix()}, {firstName}
+      </Text>
+
+      <FeatureCard
+        style={{
+          marginTop: 24,
+          borderRadius: spacing.homeCardRadius,
+          paddingTop: 24,
+          paddingHorizontal: 20,
+          paddingBottom: 20,
+        }}
+      >
+        <View
           style={{
-            ...type.caption,
-            color: colors.featureMuted,
-            textTransform: "uppercase",
-            letterSpacing: 0.6,
+            flexDirection: "row",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
           }}
         >
-          Discipline
-        </Text>
-        <Text style={[type.money, { marginTop: 10 }]}>
+          <Text
+            style={{
+              ...type.callout,
+              fontSize: 15,
+              color: colors.featureText,
+            }}
+          >
+            Discipline
+          </Text>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="More"
+            onPress={onDetails}
+            style={{
+              height: 32,
+              width: 32,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Ionicons
+              name="ellipsis-horizontal"
+              size={20}
+              color={colors.featureMuted}
+            />
+          </Pressable>
+        </View>
+        <Text style={[type.money, { marginTop: 24 }]}>
           {ACTIVE_COMMITMENT.stake}
         </Text>
         <Text
           style={{
-            ...type.caption,
+            marginTop: 4,
+            fontFamily: type.caption.fontFamily,
+            fontSize: 13,
+            fontWeight: "500",
             color: colors.featureMuted,
-            marginTop: 6,
           }}
         >
-          Held on {ACTIVE_COMMITMENT.title}
+          Held on {ACTIVE_COMMITMENT.detail}
         </Text>
-        <View style={{ flexDirection: "row", gap: 8, marginTop: 20 }}>
+        <View style={{ flexDirection: "row", gap: 8, marginTop: 24 }}>
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="Submit proof"
@@ -134,8 +192,6 @@ export function TodayScreen({
               height: 44,
               borderRadius: 999,
               backgroundColor: colors.ghost,
-              borderWidth: 1,
-              borderColor: colors.ghost,
               alignItems: "center",
               justifyContent: "center",
               opacity: pressed ? 0.85 : 1,
@@ -153,9 +209,7 @@ export function TodayScreen({
               flex: 1,
               height: 44,
               borderRadius: 999,
-              backgroundColor: "transparent",
-              borderWidth: 1,
-              borderColor: colors.ghost,
+              backgroundColor: colors.ghost,
               alignItems: "center",
               justifyContent: "center",
               opacity: pressed ? 0.85 : 1,
@@ -168,53 +222,109 @@ export function TodayScreen({
         </View>
       </FeatureCard>
 
-      <SurfaceCard style={{ marginTop: 12 }}>
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
-          <LimeTile name="time-outline" />
-          <View style={{ flex: 1, minWidth: 0 }}>
-            <Text style={type.callout}>Your next proof</Text>
-            <Text style={[type.caption, { marginTop: 2 }]}>
-              {ACTIVE_COMMITMENT.deadline} · {ACTIVE_COMMITMENT.verifier}
-            </Text>
-          </View>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel="Your next proof"
+        onPress={onSubmitProof}
+        style={{
+          marginTop: 16,
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 12,
+          borderRadius: 24,
+          backgroundColor: colors.surface,
+          paddingHorizontal: 16,
+          paddingVertical: 16,
+        }}
+      >
+        <LimeTile name="wallet-outline" />
+        <View style={{ flex: 1, minWidth: 0 }}>
+          <Text style={type.callout}>Your next proof</Text>
+          <Text
+            style={{
+              ...type.caption,
+              fontSize: 13,
+              marginTop: 2,
+            }}
+            numberOfLines={1}
+          >
+            {ACTIVE_COMMITMENT.deadline} · {ACTIVE_COMMITMENT.verifier}
+          </Text>
         </View>
-      </SurfaceCard>
+        <Ionicons name="ellipsis-horizontal" size={18} color={colors.muted} />
+      </Pressable>
 
-      <Text style={[type.caption, { marginTop: 28, marginBottom: 10 }]}>
-        Recent
-      </Text>
-      <SurfaceCard padded={false}>
-        <RecentRow
-          icon="person-circle-outline"
-          title={ACTIVE_COMMITMENT.verifier}
-          body="Trusted verifier"
-        />
-        <RecentRow
-          icon="calendar-outline"
-          title={ACTIVE_COMMITMENT.deadline}
-          body="Deadline"
-        />
-        <RecentRow
-          icon="heart-outline"
-          title={`If missed: ${ACTIVE_COMMITMENT.missedDonation} / ${ACTIVE_COMMITMENT.missedFee}`}
-          body="80% to your charities, 20% platform fee"
-          last
-        />
-      </SurfaceCard>
+      <View
+        style={{
+          marginTop: 28,
+          flexDirection: "row",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+        }}
+      >
+        <Text style={type.headline}>Recent</Text>
+        <Text style={{ ...type.caption, fontSize: 13 }}>
+          {ACTIVE_COMMITMENT.stake.replace(".00", "")} at risk
+        </Text>
+      </View>
+
+      <RecentRow
+        avatar={
+          <Text
+            style={{
+              fontFamily: type.brand.fontFamily,
+              fontSize: 13,
+              fontWeight: "700",
+              color: colors.ink,
+            }}
+          >
+            AC
+          </Text>
+        }
+        title={ACTIVE_COMMITMENT.verifier}
+        body="Trusted verifier"
+        value="Waiting"
+      />
+      <RecentRow
+        icon="time-outline"
+        title="Deadline"
+        body={ACTIVE_COMMITMENT.deadline}
+        value={ACTIVE_COMMITMENT.stake}
+      />
+      <RecentRow
+        icon="add-circle-outline"
+        iconColor={colors.positive}
+        title="If you complete it"
+        body="Returned after Alex confirms"
+        value={`+${ACTIVE_COMMITMENT.stake}`}
+        valueColor={colors.positive}
+      />
+      <RecentRow
+        icon="heart-outline"
+        title="If missed"
+        body="80% cause · 20% platform"
+        value={`${ACTIVE_COMMITMENT.missedDonation} / ${ACTIVE_COMMITMENT.missedFee}`}
+      />
     </ScreenScroll>
   );
 }
 
 function RecentRow({
+  avatar,
   icon,
+  iconColor,
   title,
   body,
-  last = false,
+  value,
+  valueColor,
 }: {
-  icon: ComponentProps<typeof Ionicons>["name"];
+  avatar?: ReactNode;
+  icon?: ComponentProps<typeof Ionicons>["name"];
+  iconColor?: string;
   title: string;
   body: string;
-  last?: boolean;
+  value: string;
+  valueColor?: string;
 }) {
   const { colors, type } = useTheme();
 
@@ -224,28 +334,36 @@ function RecentRow({
         flexDirection: "row",
         alignItems: "center",
         gap: 12,
-        paddingHorizontal: 16,
-        paddingVertical: 14,
-        borderBottomWidth: last ? 0 : 1,
-        borderBottomColor: colors.hairline,
+        paddingVertical: 12,
       }}
     >
       <View
         style={{
-          height: 36,
-          width: 36,
+          height: 40,
+          width: 40,
           borderRadius: 999,
-          backgroundColor: colors.chip,
+          backgroundColor: colors.surface,
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        <Ionicons name={icon} size={16} color={colors.ink} />
+        {avatar ?? (
+          <Ionicons name={icon} size={18} color={iconColor ?? colors.ink} />
+        )}
       </View>
       <View style={{ flex: 1, minWidth: 0 }}>
         <Text style={type.callout}>{title}</Text>
         <Text style={type.caption}>{body}</Text>
       </View>
+      <Text
+        style={{
+          ...type.callout,
+          color: valueColor ?? colors.ink,
+          fontVariant: ["tabular-nums"],
+        }}
+      >
+        {value}
+      </Text>
     </View>
   );
 }

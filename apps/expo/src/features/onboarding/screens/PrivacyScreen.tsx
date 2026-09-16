@@ -3,18 +3,18 @@ import { Text, View } from "react-native";
 
 import { useTheme } from "~/theme/ThemeProvider";
 import { FeatureCard } from "~/ui/FeatureCard";
-import { SurfaceCard } from "~/ui/SurfaceCard";
 import { OnboardingIcon } from "../components/OnboardingIcon";
 import { Reveal } from "../components/Reveal";
+import { ScreenCopy } from "../components/ScreenCopy";
 
 function PrivacyRow({
   icon,
+  title,
   body,
-  last = false,
 }: {
   icon: ComponentProps<typeof OnboardingIcon>["name"];
+  title: string;
   body: string;
-  last?: boolean;
 }) {
   const { colors, type } = useTheme();
 
@@ -23,13 +23,36 @@ function PrivacyRow({
       style={{
         flexDirection: "row",
         gap: 12,
-        padding: 16,
-        borderBottomWidth: last ? 0 : 1,
-        borderBottomColor: colors.hairline,
+        paddingHorizontal: 17,
+        paddingVertical: 13,
+        borderTopWidth: 1,
+        borderTopColor: "rgba(127,127,127,0.24)",
       }}
     >
-      <OnboardingIcon name={icon} size={20} color={colors.ink} />
-      <Text style={[type.bodyInk, { flex: 1 }]}>{body}</Text>
+      <OnboardingIcon name={icon} size={18} color={colors.featureText} />
+      <View style={{ flex: 1 }}>
+        <Text
+          style={{
+            ...type.callout,
+            fontSize: 12,
+            color: colors.featureText,
+          }}
+        >
+          {title}
+        </Text>
+        <Text
+          style={{
+            marginTop: 2,
+            fontFamily: type.caption.fontFamily,
+            fontSize: 12,
+            fontWeight: "500",
+            lineHeight: 17,
+            color: colors.featureMuted,
+          }}
+        >
+          {body}
+        </Text>
+      </View>
     </View>
   );
 }
@@ -40,72 +63,86 @@ export function PrivacyScreen({ reduceMotion }: { reduceMotion: boolean }) {
   return (
     <View>
       <Reveal reduceMotion={reduceMotion}>
-        <Text style={type.title}>Proof stays focused and private.</Text>
-      </Reveal>
-      <Reveal reduceMotion={reduceMotion} delay={80} style={{ marginTop: 12 }}>
-        <Text style={type.body}>
-          Your verifier sees only what they need for a fair decision.
-        </Text>
+        <ScreenCopy
+          eyebrow="VERIFIED BY SOMEONE YOU TRUST"
+          title="Proof stays focused and private."
+          description="Your verifier sees only what they need to make a fair decision."
+        />
       </Reveal>
 
-      <Reveal reduceMotion={reduceMotion} delay={140} style={{ marginTop: 24 }}>
-        <FeatureCard>
+      <Reveal reduceMotion={reduceMotion} delay={140} style={{ marginTop: 20 }}>
+        <FeatureCard padded={false}>
           <View
             accessibilityLabel="Trusted verifier example"
-            style={{ flexDirection: "row", alignItems: "center", gap: 12 }}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 12,
+              padding: 17,
+            }}
           >
             <View
               style={{
-                height: 48,
-                width: 48,
+                height: 42,
+                width: 42,
                 borderRadius: 999,
-                backgroundColor: colors.ghost,
+                backgroundColor: colors.lime,
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
               <Text
                 style={{
-                  ...type.callout,
-                  color: colors.featureText,
+                  fontFamily: type.brand.fontFamily,
+                  fontSize: 13,
+                  fontWeight: "800",
+                  color: "#0E0C0D",
                 }}
               >
                 AC
               </Text>
             </View>
             <View style={{ minWidth: 0, flex: 1 }}>
-              <Text style={{ ...type.headline, color: colors.featureText }}>
+              <Text
+                style={{
+                  ...type.headline,
+                  fontSize: 16,
+                  color: colors.featureText,
+                }}
+              >
                 Alex Chen
               </Text>
-              <Text style={{ ...type.caption, color: colors.featureMuted }}>
+              <Text
+                style={{
+                  ...type.caption,
+                  color: colors.featureMuted,
+                }}
+              >
                 Trusted verifier
               </Text>
             </View>
             <OnboardingIcon
               name="checkmark-circle"
               size={22}
-              color={colors.lime}
+              color={colors.featureText}
             />
           </View>
-        </FeatureCard>
-      </Reveal>
-
-      <Reveal reduceMotion={reduceMotion} delay={180} style={{ marginTop: 12 }}>
-        <SurfaceCard padded={false}>
           <PrivacyRow
             icon="eye-outline"
-            body="Sees your action, deadline, and submitted proof."
+            title="Alex can see"
+            body="Action, deadline, proof, decision window"
           />
           <PrivacyRow
             icon="eye-off-outline"
-            body="Never sees payment details or other activity."
+            title="Alex cannot see"
+            body="Payments, other commitments, activity"
           />
           <PrivacyRow
             icon="person-circle-outline"
-            body="You choose a verifier for each commitment."
-            last
+            title="You stay in control"
+            body="Choose a verifier for every commitment"
           />
-        </SurfaceCard>
+        </FeatureCard>
       </Reveal>
     </View>
   );

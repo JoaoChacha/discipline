@@ -37,7 +37,7 @@ export function HomeShell() {
           overflow: "hidden",
         }}
       >
-        <ScreenWash>
+        <ScreenWash spread="70%">
           <View
             style={{
               flex: 1,

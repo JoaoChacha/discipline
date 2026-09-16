@@ -18,6 +18,7 @@ export const palettes = {
     lime: "#C6D24A",
     positive: "#53B25D",
     nav: "#FFFFFF",
+    navLine: "#ECEAF1",
     white: "#FFFFFF",
   },
   dark: {
@@ -39,6 +40,7 @@ export const palettes = {
     lime: "#C6D24A",
     positive: "#74C982",
     nav: "#19191C",
+    navLine: "#2B2A30",
     white: "#FFFFFF",
   },
 } as const;
@@ -52,12 +54,13 @@ export const fonts = {
 
 export const spacing = {
   screenX: 20,
-  screenBottom: 24,
-  screenTop: 12,
+  screenBottom: 18,
+  screenTop: 20,
   header: 44,
   progress: 4,
-  contentTop: 28,
+  contentTop: 22,
   cardRadius: 28,
+  homeCardRadius: 32,
   surfaceRadius: 24,
   buttonRadius: 999,
   buttonHeight: 52,

@@ -2,10 +2,10 @@ import { Text, View } from "react-native";
 
 import { useTheme } from "~/theme/ThemeProvider";
 import { FeatureCard } from "~/ui/FeatureCard";
-import { LimeTile } from "~/ui/LimeTile";
+import { RowIcon } from "~/ui/RowIcon";
 import { SurfaceCard } from "~/ui/SurfaceCard";
-import { OnboardingIcon } from "../components/OnboardingIcon";
 import { Reveal } from "../components/Reveal";
+import { ScreenCopy } from "../components/ScreenCopy";
 
 const POINTS = [
   { icon: "checkbox-outline" as const, label: "You set the action" },
@@ -22,58 +22,56 @@ export function PromiseScreen({ reduceMotion }: { reduceMotion: boolean }) {
   return (
     <View>
       <Reveal reduceMotion={reduceMotion}>
-        <Text style={type.title}>Your commitment, backed by you.</Text>
-      </Reveal>
-      <Reveal reduceMotion={reduceMotion} delay={80} style={{ marginTop: 12 }}>
-        <Text style={type.body}>
-          For every commitment, choose a charity or charity group that receives
-          the donated share if you miss it.
-        </Text>
+        <ScreenCopy
+          eyebrow="ACCOUNTABILITY THAT FEELS FAIR"
+          title="Your commitment, backed by you."
+          description="Choose an action that matters and put money behind it—with terms you understand."
+        />
       </Reveal>
 
-      <Reveal reduceMotion={reduceMotion} delay={140} style={{ marginTop: 24 }}>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 12,
-            marginBottom: 12,
-          }}
-        >
-          <LimeTile name="shield-checkmark-outline" />
-          <Text style={[type.callout, { flex: 1 }]}>
-            Fair rules, in writing
-          </Text>
-        </View>
+      <Reveal reduceMotion={reduceMotion} delay={140} style={{ marginTop: 20 }}>
         <FeatureCard>
           <Text
             style={{
-              ...type.caption,
+              fontFamily: type.eyebrow.fontFamily,
+              fontSize: 11,
+              fontWeight: "700",
+              letterSpacing: 1.1,
               color: colors.featureMuted,
-              textTransform: "uppercase",
-              letterSpacing: 0.6,
             }}
           >
-            The promise
+            THE PROMISE
           </Text>
           <Text
             style={{
               fontFamily: type.homeTitle.fontFamily,
-              fontSize: 24,
+              fontSize: 27,
               fontWeight: "800",
-              lineHeight: 30,
-              letterSpacing: -0.6,
+              lineHeight: 31,
+              letterSpacing: -0.8,
               color: colors.featureText,
-              marginTop: 10,
+              marginTop: 14,
             }}
           >
-            A promise, not a punishment.
+            A promise,{"\n"}not a punishment.
+          </Text>
+          <Text
+            style={{
+              marginTop: 8,
+              fontFamily: type.caption.fontFamily,
+              fontSize: 12,
+              fontWeight: "500",
+              lineHeight: 17,
+              color: colors.featureMuted,
+            }}
+          >
+            Make your intention concrete without shame when plans change.
           </Text>
         </FeatureCard>
       </Reveal>
 
       <Reveal reduceMotion={reduceMotion} delay={180} style={{ marginTop: 12 }}>
-        <SurfaceCard padded={false}>
+        <SurfaceCard padded={false} style={{ paddingVertical: 4 }}>
           {POINTS.map((point, index) => (
             <View
               key={point.label}
@@ -81,14 +79,22 @@ export function PromiseScreen({ reduceMotion }: { reduceMotion: boolean }) {
                 flexDirection: "row",
                 alignItems: "center",
                 gap: 12,
+                minHeight: 55,
                 paddingHorizontal: 16,
-                paddingVertical: 14,
                 borderBottomWidth: index < POINTS.length - 1 ? 1 : 0,
                 borderBottomColor: colors.hairline,
               }}
             >
-              <OnboardingIcon name={point.icon} size={20} color={colors.ink} />
-              <Text style={type.bodyInk}>{point.label}</Text>
+              <RowIcon name={point.icon} size={32} />
+              <Text
+                style={{
+                  ...type.callout,
+                  fontSize: 13,
+                  flex: 1,
+                }}
+              >
+                {point.label}
+              </Text>
             </View>
           ))}
         </SurfaceCard>

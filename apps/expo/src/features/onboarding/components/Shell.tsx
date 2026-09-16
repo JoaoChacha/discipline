@@ -37,7 +37,8 @@ export function OnboardingShell({
 }) {
   const insets = useSafeAreaInsets();
   const { colors, type, spacing } = useTheme();
-  const padded = String(total).padStart(2, "0");
+  const paddedStep = String(step).padStart(2, "0");
+  const paddedTotal = String(total).padStart(2, "0");
 
   return (
     <ScreenWash>
@@ -81,7 +82,7 @@ export function OnboardingShell({
           </Pressable>
 
           <Text style={type.stepLabel}>
-            {step} / {padded}
+            {paddedStep} / {paddedTotal}
           </Text>
 
           {onSkip ? (
@@ -92,12 +93,23 @@ export function OnboardingShell({
               hitSlop={8}
               testID="onboarding-skip"
               style={{
-                minHeight: 44,
+                height: 44,
+                minWidth: 44,
                 justifyContent: "center",
-                paddingHorizontal: 8,
+                alignItems: "center",
+                paddingHorizontal: 4,
               }}
             >
-              <Text style={{ ...type.callout, color: colors.muted }}>Skip</Text>
+              <Text
+                style={{
+                  fontFamily: type.link.fontFamily,
+                  fontSize: 13,
+                  fontWeight: "600",
+                  color: colors.link,
+                }}
+              >
+                Skip
+              </Text>
             </Pressable>
           ) : (
             <View style={{ height: 44, width: 44 }} />
@@ -115,6 +127,7 @@ export function OnboardingShell({
             label={ctaLabel}
             onPress={onCta}
             disabled={ctaDisabled}
+            showArrow
             testID={ctaTestID}
           />
           {footer}

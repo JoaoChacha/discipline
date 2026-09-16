@@ -33,52 +33,42 @@ export function ProgressBar({
   const fillStyle = useAnimatedStyle(() => ({
     width: `${progress.value * 100}%`,
   }));
-  const markerStyle = useAnimatedStyle(() => ({
-    left: `${progress.value * 100}%`,
-  }));
 
   return (
     <View
       accessibilityRole="progressbar"
       accessibilityValue={{ min: 0, max: total, now: step }}
       style={{
-        marginTop: 12,
+        marginTop: 10,
         height: 4,
-        justifyContent: "center",
+        overflow: "hidden",
+        borderRadius: 999,
+        backgroundColor: colors.hairline,
       }}
     >
-      <View
-        style={{
-          height: 4,
-          overflow: "hidden",
-          borderRadius: 999,
-          backgroundColor: colors.hairline,
-        }}
-      >
-        <Animated.View
-          style={[
-            {
-              height: "100%",
-              borderRadius: 999,
-              backgroundColor: colors.lime,
-            },
-            fillStyle,
-          ]}
-        />
-      </View>
       <Animated.View
         style={[
           {
+            height: "100%",
+            borderRadius: 999,
+            backgroundColor: colors.ink,
+            overflow: "hidden",
+          },
+          fillStyle,
+        ]}
+      >
+        <View
+          style={{
             position: "absolute",
-            height: 8,
+            top: 0,
+            right: 0,
+            bottom: 0,
             width: 8,
-            marginLeft: -4,
             borderRadius: 999,
             backgroundColor: colors.lime,
-          },
-          markerStyle,
-        ]}
-      />
+          }}
+        />
+      </Animated.View>
     </View>
   );
 }

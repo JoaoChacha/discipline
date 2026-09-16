@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { createContext, use, useMemo } from "react";
+import { createContext, use, useCallback, useMemo, useState } from "react";
 import { Platform, useColorScheme, View } from "react-native";
 import {
   PlusJakartaSans_400Regular,
@@ -22,14 +22,20 @@ interface ThemeValue {
   spacing: typeof spacing;
   motion: typeof motion;
   fontsReady: boolean;
+  toggleScheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeValue | null>(null);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const colorScheme = useColorScheme();
-  const scheme: ColorSchemeName = colorScheme === "dark" ? "dark" : "light";
+  const [override, setOverride] = useState<ColorSchemeName | null>(null);
+  const scheme: ColorSchemeName =
+    override ?? (colorScheme === "dark" ? "dark" : "light");
   const colors = palettes[scheme];
+  const toggleScheme = useCallback(() => {
+    setOverride(scheme === "light" ? "dark" : "light");
+  }, [scheme]);
   const [fontsLoaded, fontError] = useFonts(
     Platform.OS === "web"
       ? {}
@@ -52,8 +58,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       spacing,
       motion,
       fontsReady,
+      toggleScheme,
     }),
-    [colors, fontsReady, scheme, type],
+    [colors, fontsReady, scheme, toggleScheme, type],
   );
 
   return (

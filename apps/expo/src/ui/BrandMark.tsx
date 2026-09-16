@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 import { useTheme } from "~/theme/ThemeProvider";
 import { fontFamily } from "~/theme/typography";
 
-export function BrandMark({ size = 32 }: { size?: number }) {
+export function BrandMark({ size = 34 }: { size?: number }) {
   const { colors } = useTheme();
 
   return (
@@ -13,7 +13,7 @@ export function BrandMark({ size = 32 }: { size?: number }) {
         height: size,
         width: size,
         borderRadius: size / 2,
-        backgroundColor: colors.feature,
+        backgroundColor: colors.ink,
         alignItems: "center",
         justifyContent: "center",
       }}
@@ -21,9 +21,9 @@ export function BrandMark({ size = 32 }: { size?: number }) {
       <Text
         style={{
           fontFamily: fontFamily(800),
-          fontSize: size * 0.42,
+          fontSize: size * 0.38,
           fontWeight: "800",
-          color: colors.featureText,
+          color: colors.field,
           marginTop: -1,
         }}
       >
