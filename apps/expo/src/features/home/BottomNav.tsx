@@ -29,12 +29,12 @@ export function BottomNav({
 
   return (
     <View
-      pointerEvents="box-none"
       style={{
         position: "absolute",
         left: spacing.screenX,
         right: spacing.screenX,
         bottom: Math.max(insets.bottom, 12),
+        pointerEvents: "box-none",
       }}
     >
       <View

@@ -16,7 +16,6 @@ export function ScreenWash({
   return (
     <View style={[{ flex: 1, backgroundColor: colors.field }, style]}>
       <View
-        pointerEvents="none"
         style={{
           position: "absolute",
           top: 0,
@@ -24,6 +23,7 @@ export function ScreenWash({
           left: 0,
           height: 240,
           backgroundColor: colors.wash,
+          pointerEvents: "none",
         }}
       />
       {children}
