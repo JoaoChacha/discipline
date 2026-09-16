@@ -25,6 +25,14 @@ export const queryClient = new QueryClient({
 
 const wsUrl = process.env.EXPO_PUBLIC_WS_URL ?? "ws://localhost:3001";
 
+function sessionCookie() {
+  try {
+    return authClient.getCookie();
+  } catch {
+    return "";
+  }
+}
+
 export const trpcClient = createTRPCClient<AppRouter>({
   links: [
     loggerLink({
@@ -40,7 +48,7 @@ export const trpcClient = createTRPCClient<AppRouter>({
         client: createWSClient({
           url: wsUrl,
           connectionParams: () => ({
-            cookie: authClient.getCookie(),
+            cookie: sessionCookie(),
           }),
         }),
       }),
@@ -50,11 +58,17 @@ export const trpcClient = createTRPCClient<AppRouter>({
         headers() {
           const headers = new Map<string, string>();
           headers.set("x-trpc-source", "expo-react");
-          const cookies = authClient.getCookie();
+          const cookies = sessionCookie();
           if (cookies) {
             headers.set("Cookie", cookies);
           }
           return headers;
+        },
+        fetch(url, options) {
+          return fetch(url, {
+            ...options,
+            credentials: "include",
+          });
         },
       }),
     }),
