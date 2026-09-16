@@ -1,4 +1,4 @@
-export const CURRENT_TERMS_VERSION = "2026-09-15";
+export const CURRENT_TERMS_VERSION = "2026-09-16";
 
 export function hasCompletedOnboarding(user: {
   onboardingStatus: "required" | "completed";

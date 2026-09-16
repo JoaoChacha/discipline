@@ -76,8 +76,8 @@ Accountability tables in `packages/db/src/app-schema.ts`:
 | `charity` | Vetted nonprofit catalog |
 | `invitation` | Email invite for people who are not on the app yet |
 | `friendship` | Friend request / accepted pair |
-| `action` | Commitment + stake, with a frozen 80/20 split |
-| `action_charity_allocation` | Per-commitment charity split of the 80% donation pool |
+| `action` | Commitment + stake, with a frozen 90/10 split (10% fee on a miss) |
+| `action_charity_allocation` | Per-commitment charity split of the 90% donation pool |
 | `proof` | Evidence submitted by the owner |
 | `verdict` | Friend's classification of a proof |
 | `user_consent` | Onboarding and per-commitment term acceptance |

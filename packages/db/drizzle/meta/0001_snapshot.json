@@ -372,14 +372,14 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "default": 8000
+          "default": 9000
         },
         "platform_fee_bps": {
           "name": "platform_fee_bps",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "default": 2000
+          "default": 1000
         },
         "confirmed_at": {
           "name": "confirmed_at",

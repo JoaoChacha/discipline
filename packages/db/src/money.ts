@@ -1,6 +1,6 @@
 export const STAKE_SPLIT_BPS = 10_000;
-export const DEFAULT_DONATION_BPS = 8_000;
-export const DEFAULT_PLATFORM_FEE_BPS = 2_000;
+export const DEFAULT_DONATION_BPS = 9_000;
+export const DEFAULT_PLATFORM_FEE_BPS = 1_000;
 
 export interface StakeSplit {
   donationCents: number;
@@ -17,7 +17,7 @@ export interface CharityPayout {
   amountCents: number;
 }
 
-/** 80/20 of a forfeited stake. Remainder after flooring goes to the platform fee. */
+/** 90/10 of a forfeited stake. The app keeps 10%; remainder after flooring stays in the fee. */
 export function splitForfeitedStake(
   amountCents: number,
   donationBps = DEFAULT_DONATION_BPS,
@@ -40,7 +40,7 @@ export function allocationsCoverDonationPool(
   );
 }
 
-/** Split the 80% donation pool across charities. Last row receives leftover cents. */
+/** Split the 90% donation pool across charities. Last row receives leftover cents. */
 export function allocateDonationCents(
   donationCents: number,
   allocations: readonly CharityAllocation[],

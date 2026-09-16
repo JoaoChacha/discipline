@@ -12,10 +12,10 @@ import {
   newUserProfileValues,
 } from "./onboarding.ts";
 
-test("€25 forfeiture is €20 to charities and €5 platform fee", () => {
+test("€25 miss retains a €2.50 fee and donates €22.50", () => {
   assert.deepEqual(splitForfeitedStake(2500), {
-    donationCents: 2000,
-    platformFeeCents: 500,
+    donationCents: 2250,
+    platformFeeCents: 250,
   });
 });
 

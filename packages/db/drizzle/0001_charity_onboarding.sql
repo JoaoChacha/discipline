@@ -32,8 +32,8 @@ CREATE TABLE "user_consent" (
 	CONSTRAINT "user_consent_action_matches_kind" CHECK (("user_consent"."kind" = 'onboarding' AND "user_consent"."action_id" IS NULL) OR ("user_consent"."kind" = 'commitment_confirm' AND "user_consent"."action_id" IS NOT NULL))
 );
 --> statement-breakpoint
-ALTER TABLE "action" ADD COLUMN "donation_bps" integer DEFAULT 8000 NOT NULL;--> statement-breakpoint
-ALTER TABLE "action" ADD COLUMN "platform_fee_bps" integer DEFAULT 2000 NOT NULL;--> statement-breakpoint
+ALTER TABLE "action" ADD COLUMN "donation_bps" integer DEFAULT 9000 NOT NULL;--> statement-breakpoint
+ALTER TABLE "action" ADD COLUMN "platform_fee_bps" integer DEFAULT 1000 NOT NULL;--> statement-breakpoint
 ALTER TABLE "action" ADD COLUMN "confirmed_at" timestamp with time zone;--> statement-breakpoint
 ALTER TABLE "action" ADD COLUMN "donation_cents" integer;--> statement-breakpoint
 ALTER TABLE "action" ADD COLUMN "platform_fee_cents" integer;--> statement-breakpoint

@@ -2,11 +2,11 @@
 
 ## Product
 
-A signed-in iPhone accountability app. Users commit to an action, place money at stake, and appoint a trusted verifier. The stake is returned after verified completion. After confirmed failure or expiry, 80% is donated to the user's selected vetted charities/nonprofits and 20% is retained as a disclosed platform fee.
+A signed-in iPhone accountability app. Users commit to an action, place money at stake, and appoint a trusted verifier. The stake is returned after verified completion. After confirmed failure or expiry, 90% is donated to the user's selected vetted charities/nonprofits and 10% is retained as a disclosed platform fee.
 
 Use reassuring, factual language. Avoid gambling imagery, shame, exaggerated rewards, gradients, and decorative illustrations.
 
-During onboarding, explain that users select a vetted charity/nonprofit or a group of them separately for every commitment. Charity selection happens during commitment setup, not as a global onboarding preference. When a group is selected, users allocate 100% of the donation pool between its charities. Show the selected charity/group, 80% donation, and 20% platform-fee allocation before every commitment is confirmed.
+During onboarding, explain that users select a vetted charity/nonprofit or a group of them separately for every commitment. Charity selection happens during commitment setup, not as a global onboarding preference. When a group is selected, users allocate 100% of the donation pool between its charities. Show the selected charity/group, 90% donation, and 10% platform-fee allocation before every commitment is confirmed.
 
 ### Onboarding shell
 
@@ -32,7 +32,7 @@ Use Apple Human Interface Guidelines as the interaction and accessibility founda
 
 - Display typography: Manrope, 700 weight, for major headings and key numbers
 - Interface typography: Inter for body copy, labels, buttons, and navigation
-- Signature motif: an 80/20 split stake ring representing charity allocation and platform sustainability
+- Signature motif: a 90/10 split stake ring representing charity allocation and the 10% miss fee
 - Card identity: 20pt corners, subtle electric-blue edge tint, and graphite depth instead of default iOS grouped-list styling
 - Progress identity: a slim “commitment rail” with five softly separated blue segments
 - Use electric blue as a focused signal, not generic iOS tint across every interactive element
@@ -107,7 +107,7 @@ Create a distinctly iOS-native “Today” screen:
 - Pending state “Proof needed”
 - A prominent electric-blue “Submit Proof” button
 - A compact grouped row explaining “Returned after Alex confirms completion”
-- A transparent alternative-outcome row: “If missed: 80% to your charities, 20% platform fee”
+- A transparent alternative-outcome row: “If missed: 90% to your charities, 10% platform fee”
 - A secondary “New Commitment” action in the navigation bar
 - Native three-item tab bar
 
