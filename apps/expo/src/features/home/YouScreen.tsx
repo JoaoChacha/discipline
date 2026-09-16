@@ -8,9 +8,11 @@ import { authClient } from "~/utils/auth";
 export function YouScreen({
   bottomInset,
   onReplay,
+  onSignIn,
 }: {
   bottomInset: number;
   onReplay: () => void;
+  onSignIn: () => void;
 }) {
   const { colors, type, spacing } = useTheme();
   const { data: session } = authClient.useSession();
@@ -60,16 +62,13 @@ export function YouScreen({
 
       <View style={{ marginTop: 20, gap: 8 }}>
         <CapsuleButton
-          label={session ? "Sign out" : "Sign in with Discord"}
+          label={session ? "Sign out" : "Sign in"}
           onPress={() => {
             if (session) {
               void authClient.signOut();
               return;
             }
-            void authClient.signIn.social({
-              provider: "discord",
-              callbackURL: "/",
-            });
+            onSignIn();
           }}
         />
         <Pressable

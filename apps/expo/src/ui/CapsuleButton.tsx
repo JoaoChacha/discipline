@@ -12,11 +12,12 @@ export function CapsuleButton({
   label: string;
   onPress: () => void;
   disabled?: boolean;
-  variant?: "primary" | "link";
+  variant?: "primary" | "link" | "ghost";
   testID?: string;
 }) {
   const { colors, type, spacing } = useTheme();
   const isLink = variant === "link";
+  const isGhost = variant === "ghost";
 
   return (
     <Pressable
@@ -29,11 +30,15 @@ export function CapsuleButton({
         minHeight: isLink ? 44 : spacing.buttonHeight,
         height: isLink ? undefined : spacing.buttonHeight,
         borderRadius: spacing.buttonRadius,
+        borderWidth: isGhost ? 1 : 0,
+        borderColor: colors.hairline,
         backgroundColor: isLink
           ? "transparent"
-          : disabled
-            ? colors.hairline
-            : colors.cta,
+          : isGhost
+            ? colors.surface
+            : disabled
+              ? colors.hairline
+              : colors.cta,
         alignItems: "center",
         justifyContent: "center",
         paddingHorizontal: 20,
@@ -45,10 +50,12 @@ export function CapsuleButton({
         style={
           isLink
             ? { ...type.callout, color: colors.link }
-            : {
-                ...type.button,
-                color: disabled ? colors.muted : colors.ctaText,
-              }
+            : isGhost
+              ? { ...type.button, color: colors.ink }
+              : {
+                  ...type.button,
+                  color: disabled ? colors.muted : colors.ctaText,
+                }
         }
       >
         {label}

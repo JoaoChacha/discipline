@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { createContext, use, useMemo } from "react";
+import { createContext, use, useCallback, useMemo, useState } from "react";
 import { useColorScheme, View } from "react-native";
 import {
   PlusJakartaSans_400Regular,
@@ -22,13 +22,21 @@ interface ThemeValue {
   spacing: typeof spacing;
   motion: typeof motion;
   fontsReady: boolean;
+  setForcedScheme: (scheme: ColorSchemeName | null) => void;
 }
 
 const ThemeContext = createContext<ThemeValue | null>(null);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const colorScheme = useColorScheme();
-  const scheme: ColorSchemeName = colorScheme === "dark" ? "dark" : "light";
+  const [forcedScheme, setForcedSchemeState] = useState<ColorSchemeName | null>(
+    null,
+  );
+  const setForcedScheme = useCallback((next: ColorSchemeName | null) => {
+    setForcedSchemeState(next);
+  }, []);
+  const scheme: ColorSchemeName =
+    forcedScheme ?? (colorScheme === "dark" ? "dark" : "light");
   const colors = palettes[scheme];
   const [fontsLoaded, fontError] = useFonts({
     PlusJakartaSans_400Regular,
@@ -48,8 +56,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       spacing,
       motion,
       fontsReady,
+      setForcedScheme,
     }),
-    [colors, fontsReady, scheme, type],
+    [colors, fontsReady, scheme, setForcedScheme, type],
   );
 
   return (
