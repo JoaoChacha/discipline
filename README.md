@@ -36,7 +36,7 @@ pnpm db:push
 pnpm dev
 ```
 
-That starts the Next.js API on `http://localhost:3000` and Expo. Open the Expo app with Expo Go, or run `pnpm --filter @discipline/expo dev:ios` / `dev:android` if you have a simulator.
+That starts the Next.js API on `http://localhost:3000`, a tRPC WebSocket server on `ws://localhost:3001`, and Expo. Sign in with email (or optional Apple/Google), claim a unique handle, then create a commitment. Stake holds use Stripe (`STRIPE_SECRET_KEY` + webhook). Open the Expo app with Expo Go, or run `pnpm --filter @discipline/expo dev:ios` / `dev:android` if you have a simulator.
 
 ## Test on your phone
 
@@ -60,12 +60,12 @@ On your own Wi‑Fi (not a Cloud Agent), you can instead run `pnpm dev:next` plu
 
 Postgres is defined in `docker-compose.yml`. Drizzle lives in `packages/db`:
 
-| Command | What it does |
-| --- | --- |
-| `pnpm db:up` | Start local Postgres |
-| `pnpm db:push` | Push the Drizzle schema to the database |
-| `pnpm db:generate` | Generate a SQL migration |
-| `pnpm db:studio` | Open Drizzle Studio |
+| Command            | What it does                            |
+| ------------------ | --------------------------------------- |
+| `pnpm db:up`       | Start local Postgres                    |
+| `pnpm db:push`     | Push the Drizzle schema to the database |
+| `pnpm db:generate` | Generate a SQL migration                |
+| `pnpm db:studio`   | Open Drizzle Studio                     |
 
 `POSTGRES_URL` can also point at Supabase, Neon, or any other Postgres host.
 
@@ -75,16 +75,16 @@ Postgres is defined in `docker-compose.yml`. Drizzle lives in `packages/db`:
 
 ## Scripts
 
-| Command | What it does |
-| --- | --- |
-| `pnpm dev` | Expo + Next.js together |
-| `pnpm dev:expo` | Expo only |
-| `pnpm dev:next` | Next.js / tRPC only |
-| `pnpm typecheck` | TypeScript across the monorepo |
-| `pnpm lint` | ESLint |
-| `pnpm format` | Prettier check |
-| `pnpm test` | Vitest for auth / onboarding helpers |
+| Command          | What it does                         |
+| ---------------- | ------------------------------------ |
+| `pnpm dev`       | Expo + Next.js together              |
+| `pnpm dev:expo`  | Expo only                            |
+| `pnpm dev:next`  | Next.js / tRPC only                  |
+| `pnpm typecheck` | TypeScript across the monorepo       |
+| `pnpm lint`      | ESLint                               |
+| `pnpm format`    | Prettier check                       |
+| `pnpm test`      | Vitest for API, auth, and onboarding |
 
 ## Production
 
-Deploy `apps/nextjs` (the tRPC + auth server) to Vercel or any Node host, set `POSTGRES_URL` and Better Auth secrets, then point Expo `getBaseUrl()` at that URL before shipping with EAS.
+Deploy `apps/nextjs` (the tRPC + auth + Stripe webhook host) to Vercel or any Node host, run the WebSocket server alongside it, set `POSTGRES_URL`, Better Auth, optional Apple/Google, and Stripe secrets, then point Expo `getBaseUrl()` and `EXPO_PUBLIC_WS_URL` at that environment before shipping with EAS.

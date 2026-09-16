@@ -25,13 +25,16 @@
     "@trpc/server": "catalog:",
     "drizzle-orm": "^0.44.7",
     "postgres": "^3.4.7",
+    "stripe": "^18.5.0",
     "superjson": "2.2.3",
+    "ws": "^8.18.3",
     "zod": "catalog:"
   },
   "devDependencies": {
     "@discipline/eslint-config": "workspace:*",
     "@discipline/prettier-config": "workspace:*",
     "@discipline/tsconfig": "workspace:*",
+    "@types/ws": "^8.18.1",
     "dotenv-cli": "^10.0.0",
     "eslint": "catalog:",
     "prettier": "catalog:",
