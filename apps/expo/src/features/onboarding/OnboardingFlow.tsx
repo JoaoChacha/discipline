@@ -1,6 +1,5 @@
-import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
-import { AccessibilityInfo, Text, View } from "react-native";
+import { AccessibilityInfo, Text } from "react-native";
 import Animated, {
   Easing,
   FadeInLeft,
@@ -9,6 +8,7 @@ import Animated, {
 import { useRouter } from "expo-router";
 
 import { useTheme } from "~/theme/ThemeProvider";
+import { PhoneFrame } from "~/ui/PhoneFrame";
 import { ScreenScroll } from "~/ui/ScreenScroll";
 import { authClient } from "~/utils/auth";
 import { OnboardingShell } from "./components/Shell";
@@ -179,33 +179,6 @@ function OnboardingStepper() {
         </ScreenScroll>
       </Animated.View>
     </OnboardingShell>
-  );
-}
-
-function PhoneFrame({ children }: { children: ReactNode }) {
-  const { colors } = useTheme();
-
-  return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: colors.canvas,
-        alignItems: "center",
-      }}
-    >
-      <View
-        style={{
-          flex: 1,
-          width: "100%",
-          maxWidth: 390,
-          minHeight: 0,
-          backgroundColor: colors.field,
-          overflow: "hidden",
-        }}
-      >
-        {children}
-      </View>
-    </View>
   );
 }
 
