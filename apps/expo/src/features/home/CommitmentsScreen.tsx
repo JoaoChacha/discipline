@@ -7,7 +7,7 @@ import { SurfaceCard } from "~/ui/SurfaceCard";
 import { ACTIVE_COMMITMENT } from "./data";
 
 export function CommitmentsScreen({ bottomInset }: { bottomInset: number }) {
-  const { colors, type, spacing } = useTheme();
+  const { type, spacing } = useTheme();
 
   return (
     <ScreenScroll

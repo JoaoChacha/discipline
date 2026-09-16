@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
+import type { Ionicons } from "@expo/vector-icons";
 import { Text, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 
 import { useTheme } from "~/theme/ThemeProvider";
 import { LimeTile } from "./LimeTile";
