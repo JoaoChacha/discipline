@@ -1,12 +1,15 @@
 import { Platform } from "react-native";
 import * as SecureStore from "expo-secure-store";
 
-const STORAGE_KEY = "discipline.onboarding.v2";
+const STORAGE_KEY = "discipline.onboarding.v3";
 
-export type OnboardingStatus = "pending" | "completed" | "dismissed";
+export type OnboardingStatus = "pending" | "completed";
 
 export interface OnboardingState {
   status: OnboardingStatus;
+  pendingConsent?: boolean;
+  termsVersion?: string;
+  preview?: boolean;
 }
 
 const DEFAULT_STATE: OnboardingState = {
@@ -55,10 +58,13 @@ export async function loadOnboardingState(): Promise<OnboardingState> {
   try {
     const parsed = JSON.parse(raw) as Partial<OnboardingState>;
     return {
-      status:
-        parsed.status === "completed" || parsed.status === "dismissed"
-          ? parsed.status
-          : "pending",
+      status: parsed.status === "completed" ? "completed" : "pending",
+      pendingConsent: parsed.pendingConsent === true,
+      termsVersion:
+        typeof parsed.termsVersion === "string"
+          ? parsed.termsVersion
+          : undefined,
+      preview: parsed.preview === true,
     };
   } catch {
     return DEFAULT_STATE;
@@ -71,4 +77,22 @@ export async function saveOnboardingState(state: OnboardingState) {
 
 export async function resetOnboardingState() {
   await writeRaw(null);
+}
+
+export async function savePendingConsent(termsVersion: string) {
+  const current = await loadOnboardingState();
+  await saveOnboardingState({
+    ...current,
+    pendingConsent: true,
+    termsVersion,
+  });
+}
+
+export async function clearPendingConsent() {
+  const current = await loadOnboardingState();
+  await saveOnboardingState({
+    ...current,
+    pendingConsent: false,
+    termsVersion: undefined,
+  });
 }

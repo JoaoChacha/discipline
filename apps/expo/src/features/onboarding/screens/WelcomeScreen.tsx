@@ -13,12 +13,10 @@ import { ScreenCopy } from "../components/ScreenCopy";
 
 export function WelcomeScreen({
   reduceMotion,
-  signingIn,
   onStart,
   onSignIn,
 }: {
   reduceMotion: boolean;
-  signingIn: boolean;
   onStart: () => void;
   onSignIn: () => void;
 }) {
@@ -129,9 +127,8 @@ export function WelcomeScreen({
           />
           <CapsuleButton
             variant="link"
-            label={signingIn ? "Opening sign-in…" : "I already have an account"}
+            label="I already have an account"
             onPress={onSignIn}
-            disabled={signingIn}
             testID="onboarding-sign-in"
           />
         </View>

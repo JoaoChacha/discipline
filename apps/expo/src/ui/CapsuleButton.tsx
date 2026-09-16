@@ -1,3 +1,4 @@
+import type { ComponentProps } from "react";
 import { Pressable, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -9,17 +10,20 @@ export function CapsuleButton({
   disabled = false,
   variant = "primary",
   showArrow = false,
+  icon,
   testID,
 }: {
   label: string;
   onPress: () => void;
   disabled?: boolean;
-  variant?: "primary" | "link";
+  variant?: "primary" | "link" | "ghost";
   showArrow?: boolean;
+  icon?: ComponentProps<typeof Ionicons>["name"];
   testID?: string;
 }) {
   const { colors, type, spacing } = useTheme();
   const isLink = variant === "link";
+  const isGhost = variant === "ghost";
   const withArrow = showArrow && !isLink;
 
   return (
@@ -35,23 +39,40 @@ export function CapsuleButton({
         borderRadius: spacing.buttonRadius,
         backgroundColor: isLink
           ? "transparent"
-          : disabled
-            ? colors.hairline
-            : colors.cta,
+          : isGhost
+            ? colors.surface
+            : disabled
+              ? colors.hairline
+              : colors.cta,
+        borderWidth: isGhost ? 1 : 0,
+        borderColor: colors.hairline,
         alignItems: "center",
         justifyContent: "center",
-        paddingHorizontal: isLink ? 12 : 48,
+        paddingHorizontal: isLink ? 12 : icon ? 20 : 48,
+        flexDirection: "row",
+        gap: icon ? 10 : 0,
         transform: [{ scale: pressed && !disabled ? 0.99 : 1 }],
         opacity: disabled ? 0.55 : pressed ? 0.9 : 1,
       })}
     >
+      {icon ? (
+        <Ionicons
+          name={icon}
+          size={18}
+          color={isGhost ? colors.ink : colors.ctaText}
+        />
+      ) : null}
       <Text
         style={
           isLink
             ? type.link
             : {
                 ...type.button,
-                color: disabled ? colors.muted : colors.ctaText,
+                color: isGhost
+                  ? colors.ink
+                  : disabled
+                    ? colors.muted
+                    : colors.ctaText,
               }
         }
       >

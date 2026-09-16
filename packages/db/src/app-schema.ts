@@ -47,20 +47,60 @@ export const verdictOutcome = pgEnum("verdict_outcome", [
   "not_fulfilled",
 ]);
 
-export const profile = pgTable("profile", (t) => ({
-  userId: t
-    .text()
-    .primaryKey()
-    .references(() => user.id, { onDelete: "cascade" }),
-  timezone: t.text().notNull().default("UTC"),
-  currency: t.char({ length: 3 }).notNull().default("EUR"),
-  createdAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
-  updatedAt: t
-    .timestamp({ withTimezone: true })
-    .defaultNow()
-    .$onUpdate(() => new Date())
-    .notNull(),
-}));
+export const onboardingStatus = pgEnum("onboarding_status", [
+  "required",
+  "completed",
+]);
+
+export const consentKind = pgEnum("consent_kind", ["onboarding"]);
+
+export const profile = pgTable(
+  "profile",
+  (t) => ({
+    userId: t
+      .text()
+      .primaryKey()
+      .references(() => user.id, { onDelete: "cascade" }),
+    timezone: t.text().notNull().default("UTC"),
+    currency: t.char({ length: 3 }).notNull().default("EUR"),
+    onboardingStatus: onboardingStatus().notNull().default("required"),
+    onboardingCompletedAt: t.timestamp({ withTimezone: true }),
+    createdAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
+    updatedAt: t
+      .timestamp({ withTimezone: true })
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  }),
+  (t) => [
+    check(
+      "profile_onboarding_completed_at_matches",
+      sql`(${t.onboardingStatus} = 'required' AND ${t.onboardingCompletedAt} IS NULL) OR (${t.onboardingStatus} = 'completed' AND ${t.onboardingCompletedAt} IS NOT NULL)`,
+    ),
+  ],
+);
+
+export const userConsent = pgTable(
+  "user_consent",
+  (t) => ({
+    id: t.uuid().primaryKey().defaultRandom(),
+    userId: t
+      .text()
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    kind: consentKind().notNull().default("onboarding"),
+    termsVersion: t.text().notNull(),
+    acceptedAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
+  }),
+  (t) => [
+    uniqueIndex("user_consent_user_kind_version_uidx").on(
+      t.userId,
+      t.kind,
+      t.termsVersion,
+    ),
+    index("user_consent_user_kind_idx").on(t.userId, t.kind),
+  ],
+);
 
 export const invitation = pgTable(
   "invitation",
@@ -186,8 +226,21 @@ export const verdict = pgTable("verdict", (t) => ({
   decidedAt: t.timestamp({ withTimezone: true }).defaultNow().notNull(),
 }));
 
-export const profileRelations = relations(profile, ({ one }) => ({
+export const profileRelations = relations(profile, ({ one, many }) => ({
   user: one(user, { fields: [profile.userId], references: [user.id] }),
+  consents: many(userConsent),
+}));
+
+export const userConsentRelations = relations(userConsent, ({ one }) => ({
+  user: one(user, {
+    fields: [userConsent.userId],
+    references: [user.id],
+    relationName: "consents",
+  }),
+  profile: one(profile, {
+    fields: [userConsent.userId],
+    references: [profile.userId],
+  }),
 }));
 
 export const invitationRelations = relations(invitation, ({ one }) => ({
@@ -251,6 +304,7 @@ export const verdictRelations = relations(verdict, ({ one }) => ({
 
 export const userRelations = relations(user, ({ one, many }) => ({
   profile: one(profile),
+  consents: many(userConsent, { relationName: "consents" }),
   sentInvitations: many(invitation, { relationName: "sentInvitations" }),
   acceptedInvitations: many(invitation, {
     relationName: "acceptedInvitations",

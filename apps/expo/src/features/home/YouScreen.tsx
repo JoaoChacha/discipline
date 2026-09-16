@@ -1,4 +1,5 @@
 import { Pressable, Text, View } from "react-native";
+import { useRouter } from "expo-router";
 
 import { useTheme } from "~/theme/ThemeProvider";
 import { CapsuleButton } from "~/ui/CapsuleButton";
@@ -13,9 +14,10 @@ export function YouScreen({
   bottomInset: number;
   onReplay: () => void;
 }) {
+  const router = useRouter();
   const { colors, type, spacing } = useTheme();
   const { data: session } = authClient.useSession();
-  const name = session?.user.name ?? "Maya";
+  const name = session?.user.name ?? "You";
   const initial = name.trim().slice(0, 1).toUpperCase();
 
   return (
@@ -50,7 +52,7 @@ export function YouScreen({
           <View style={{ flex: 1 }}>
             <Text style={type.headline}>{name}</Text>
             <Text style={type.caption}>
-              {session ? "Signed in" : "Browsing the designed home"}
+              {session ? "Signed in" : "Sign in to keep your commitments"}
             </Text>
           </View>
         </View>
@@ -58,16 +60,13 @@ export function YouScreen({
 
       <View style={{ marginTop: 20, gap: 8 }}>
         <CapsuleButton
-          label={session ? "Sign out" : "Sign in with Discord"}
+          label={session ? "Sign out" : "Sign in"}
           onPress={() => {
             if (session) {
               void authClient.signOut();
               return;
             }
-            void authClient.signIn.social({
-              provider: "discord",
-              callbackURL: "/",
-            });
+            router.push("/login");
           }}
         />
         <Pressable

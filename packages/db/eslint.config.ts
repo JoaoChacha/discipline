@@ -4,7 +4,7 @@ import { baseConfig } from "@discipline/eslint-config/base";
 
 export default defineConfig(
   {
-    ignores: ["dist/**"],
+    ignores: ["dist/**", "src/**/*.test.ts", "vitest.config.ts"],
   },
   baseConfig,
 );

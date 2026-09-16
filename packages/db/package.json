@@ -27,6 +27,7 @@
     "push": "pnpm with-env drizzle-kit push",
     "studio": "pnpm with-env drizzle-kit studio",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
+    "test": "vitest run",
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
@@ -43,7 +44,8 @@
     "drizzle-kit": "^0.31.5",
     "eslint": "catalog:",
     "prettier": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "prettier": "@discipline/prettier-config"
 }
