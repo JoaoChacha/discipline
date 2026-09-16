@@ -67,7 +67,7 @@
         ".superdesign/design-system-fintech.md"
       ],
       "fingerprints": {
-        ".superdesign/design-system-fintech.md": "8e47bfa320332f322048ac21cfbc3adcdd407fa9e1d2a5ed002d9c3590c49da2"
+        ".superdesign/design-system-fintech.md": "2870d4b623ebdc3384adc8f36da68970c85140f7605df41e61f40b6d6235308b"
       },
       "components": [],
       "drafts": {
@@ -77,7 +77,28 @@
           "currentVersion": 1
         }
       },
-      "updatedAt": "2026-09-16T08:39:22.000Z"
+      "updatedAt": "2026-09-16T10:19:03.000Z"
+    },
+    "/:dark": {
+      "targetKind": "new-ui",
+      "projectId": "54813c85-ff34-4473-b1f7-549df56b85fd",
+      "activeDraftId": "e5ad01e6-d23e-4f18-846e-bac94f384998",
+      "designSystemPath": ".superdesign/design-system-fintech.md",
+      "contextFiles": [
+        ".superdesign/design-system-fintech.md"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system-fintech.md": "2870d4b623ebdc3384adc8f36da68970c85140f7605df41e61f40b6d6235308b"
+      },
+      "components": [],
+      "drafts": {
+        "e5ad01e6-d23e-4f18-846e-bac94f384998": {
+          "title": "Dark · Today — Finpay-inspired",
+          "visualDirection": "Dark consumer-neobank home with ivory stake card, lime accent, and compact aligned navigation",
+          "currentVersion": 1
+        }
+      },
+      "updatedAt": "2026-09-16T10:19:03.000Z"
     },
     "onboarding:fintech-light": {
       "targetKind": "new-ui",

@@ -12,6 +12,8 @@ Light consumer-neobank, not graphite iOS. Airy almost-white field, one oversized
 
 ### Color
 
+#### Light
+
 - Page canvas: cool lavender-gray `#E8E7EF` behind the phone; in-app field `#F7F6FA`
 - Flat field only — no graph-paper grid or background lines
 - Soft blush wash behind the greeting: `#F8ECEC`
@@ -27,6 +29,18 @@ Light consumer-neobank, not graphite iOS. Airy almost-white field, one oversized
 - Credit / kept: `#53B25D`
 - Debit / at risk: ink, never red-as-shame
 - Lavender chip: `#EEEAF8`
+
+#### Dark
+
+- Outer canvas: `#050506`; in-app field: `#0D0D0F`
+- Flat field with a restrained top wine wash `#211719`
+- Primary ink: `#F7F6FA`; muted: `#9C99A3`
+- Surface and bottom nav: `#19191C`; hairline: `#2B2A30`
+- Feature stake card: ivory `#F4F3F7` with ink `#0E0C0D`
+- Quiet chip: `#242329`
+- Lime spark remains `#C6D24A`
+- Positive / kept: `#74C982`
+- Geometry, hierarchy, content, and navigation match light mode exactly
 
 ### Typography
 
@@ -70,4 +84,6 @@ Geometric grotesque: Plus Jakarta Sans (Satoshi / Geist stand-in). Extra-bold ti
 - Bottom nav: Today (active, lime dot), Commitments, New, You
 - Submit proof stays on the stake card
 
-Use only these fonts, colors, and pill/card styles. Do not revive the graphite onboarding Today.
+Use only these fonts, colors, and pill/card styles. Maintain matching light and
+dark streams; invert semantic tokens without changing hierarchy or geometry.
+Do not revive the graphite onboarding Today.
