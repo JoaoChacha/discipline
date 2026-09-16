@@ -24,6 +24,7 @@ import { MoneyScreen } from "./screens/MoneyScreen";
 import { PrivacyScreen } from "./screens/PrivacyScreen";
 import { PromiseScreen } from "./screens/PromiseScreen";
 import { WelcomeScreen } from "./screens/WelcomeScreen";
+import { useOnboardingGate } from "./useOnboardingGate";
 
 const TOTAL_STEPS = 5;
 
@@ -60,10 +61,12 @@ function OnboardingStepper() {
   const router = useRouter();
   const { type, motion } = useTheme();
   const { data: session } = authClient.useSession();
-  const { step, next, back, skip, consented, complete } = useOnboarding();
+  const { step, next, back, skip, consented, stashConsent, complete } =
+    useOnboarding();
+  const { clearPreview } = useOnboardingGate();
   const [reduceMotion, setReduceMotion] = useState(false);
   const [direction, setDirection] = useState(1);
-  const [signingIn, setSigningIn] = useState(false);
+  const [finishing, setFinishing] = useState(false);
 
   useEffect(() => {
     void AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion);
@@ -89,26 +92,14 @@ function OnboardingStepper() {
     skip();
   };
 
-  const finish = async () => {
-    await complete();
-    router.replace("/");
-  };
-
-  const signIn = async () => {
-    if (session) {
-      await finish();
-      return;
-    }
-
-    setSigningIn(true);
+  const finishSignedIn = async () => {
+    setFinishing(true);
     try {
       await complete();
-      await authClient.signIn.social({
-        provider: "discord",
-        callbackURL: "/",
-      });
+      await clearPreview();
+      router.replace("/");
     } finally {
-      setSigningIn(false);
+      setFinishing(false);
     }
   };
 
@@ -126,13 +117,16 @@ function OnboardingStepper() {
     return (
       <WelcomeScreen
         reduceMotion={reduceMotion}
-        signingIn={signingIn}
         onStart={() => {
           setDirection(1);
           next();
         }}
         onSignIn={() => {
-          void signIn();
+          if (session) {
+            void finishSignedIn();
+            return;
+          }
+          router.push("/login");
         }}
       />
     );
@@ -147,7 +141,7 @@ function OnboardingStepper() {
       onLeading={goBack}
       onSkip={step === LAST_STEP ? undefined : goSkip}
       ctaLabel={STEP_CTA[step - 1] ?? STEP_CTA[0]}
-      ctaDisabled={step === LAST_STEP && !consented}
+      ctaDisabled={(step === LAST_STEP && !consented) || finishing}
       ctaTestID="onboarding-cta"
       footer={
         step === LAST_STEP ? (
@@ -163,7 +157,13 @@ function OnboardingStepper() {
       }
       onCta={() => {
         if (step === LAST_STEP) {
-          void finish();
+          if (session) {
+            void finishSignedIn();
+            return;
+          }
+          void stashConsent().then(() => {
+            router.push("/create-account");
+          });
           return;
         }
         goForward();
