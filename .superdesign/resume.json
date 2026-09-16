@@ -225,7 +225,7 @@
         ".superdesign/design-system-fintech-onboarding.md"
       ],
       "fingerprints": {
-        ".superdesign/design-system-fintech-commitment.md": "4107b7069a3a0d0cf9a356f3ce2fb0a44b539a143153a867660fcfdeba49001d",
+        ".superdesign/design-system-fintech-commitment.md": "ec716877f947f9a20f936d95d43dc0670372a49bbb3135313d6dfce871603441",
         ".superdesign/design-system-fintech-onboarding.md": "4b09fa409ffc8c5f2c401ed9c433a018b96c25a4acdfd37ea56442bd2ff23b10"
       },
       "components": [],
@@ -263,13 +263,13 @@
         },
         "3e0436e9-af97-4203-ba19-b5ab95937bba": {
           "title": "Light · 05 — Review and confirm",
-          "visualDirection": "Step 05 as chosen structure B: editable receipt with per-term Edit links, itemised missed-stake ledger, Apple Pay / card choice, consent in footer",
-          "currentVersion": 2
+          "visualDirection": "Step 05 as chosen structure A: one dominant contract card (action, deadline, stake, complete/miss tiles), cause and verifier tiles, Apple Pay / card choice, consent capsule",
+          "currentVersion": 3
         },
         "78672599-c110-46f1-a0a3-262b80895ddd": {
           "title": "Light · 05P — Review with pending invite",
           "visualDirection": "Light fintech commitment-creation wizard",
-          "currentVersion": 2
+          "currentVersion": 3
         },
         "cb7adbb2-ba5a-4c08-bfe7-3025cf7a53a3": {
           "title": "Light · Held — Commitment is live",
@@ -279,22 +279,22 @@
         "423d3227-3723-45ad-8fb9-9197cd2e72bd": {
           "title": "Light · Interactive Commitment Creation",
           "visualDirection": "Light fintech commitment-creation wizard — interactive prototype (all steps, invite sheet, no-friends toggle, live stake math)",
-          "currentVersion": 3
+          "currentVersion": 4
         },
         "7515ebe0-84dd-45cb-9ee2-628f3edef3a9": {
           "title": "Light · 05 · Alt A — Contract card",
-          "visualDirection": "Step 05 alternative A (not chosen): one dominant contract card",
+          "visualDirection": "Chosen step 05 alternative (A). Same content as Light · 05 — Review and confirm from v3 onward",
           "parentDraftId": "3e0436e9-af97-4203-ba19-b5ab95937bba",
-          "currentVersion": 1
+          "currentVersion": 2
         },
         "ff46cc53-7d58-4c6c-aa48-fd1b54b0e1ec": {
           "title": "Light · 05 · Alt B — Editable receipt",
-          "visualDirection": "Chosen step 05 alternative (B). Same content as Light · 05 — Review and confirm from v3 onward",
+          "visualDirection": "Step 05 alternative B (not chosen): editable receipt with itemised ledger",
           "parentDraftId": "3e0436e9-af97-4203-ba19-b5ab95937bba",
           "currentVersion": 3
         }
       },
-      "updatedAt": "2026-09-16T20:55:00.000Z"
+      "updatedAt": "2026-09-16T21:05:00.000Z"
     },
     "commitment:fintech-dark": {
       "targetKind": "new-ui",
@@ -307,7 +307,7 @@
         ".superdesign/design-system-fintech-onboarding.md"
       ],
       "fingerprints": {
-        ".superdesign/design-system-fintech-commitment.md": "4107b7069a3a0d0cf9a356f3ce2fb0a44b539a143153a867660fcfdeba49001d",
+        ".superdesign/design-system-fintech-commitment.md": "ec716877f947f9a20f936d95d43dc0670372a49bbb3135313d6dfce871603441",
         ".superdesign/design-system-fintech-onboarding.md": "4b09fa409ffc8c5f2c401ed9c433a018b96c25a4acdfd37ea56442bd2ff23b10"
       },
       "components": [],
@@ -345,13 +345,13 @@
         },
         "28a2285e-bd89-4931-b0bf-3e83d088d7e0": {
           "title": "Dark · 05 — Review and confirm",
-          "visualDirection": "Step 05 as chosen structure B: editable receipt with Apple Pay / card choice",
-          "currentVersion": 2
+          "visualDirection": "Step 05 as chosen structure A: contract card with Apple Pay / card choice",
+          "currentVersion": 3
         },
         "c17eb8a5-0c9d-4500-af0c-a381319c4c9a": {
           "title": "Dark · 05P — Review with pending invite",
           "visualDirection": "Dark fintech commitment-creation wizard",
-          "currentVersion": 2
+          "currentVersion": 3
         },
         "d2005cb1-6575-465a-876b-730b23b5703f": {
           "title": "Dark · Held — Commitment is live",
@@ -361,10 +361,10 @@
         "80bffda1-282f-44b7-846b-1f43c366aad9": {
           "title": "Dark · Interactive Commitment Creation",
           "visualDirection": "Dark fintech commitment-creation wizard — interactive prototype (all steps, invite sheet, no-friends toggle, live stake math)",
-          "currentVersion": 3
+          "currentVersion": 4
         }
       },
-      "updatedAt": "2026-09-16T20:55:00.000Z"
+      "updatedAt": "2026-09-16T21:05:00.000Z"
     }
   }
 }

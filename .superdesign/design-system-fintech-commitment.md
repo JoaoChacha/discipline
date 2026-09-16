@@ -197,24 +197,23 @@ Shared invite form (opened from Variant A):
 
 ### 05 — Review and confirm (`05 / 05`)
 
-Structure: an editable receipt. Every term can be changed from this screen,
-the missed-stake split is itemised, and consent sits in the footer.
+Structure: a contract card. The stake card from step 02 returns as the hero
+and carries the whole promise; the remaining terms are compact tiles.
 
-- Eyebrow: `REVIEW EVERY LINE`.
-- Title: "Check your terms." Body: "Change anything before you confirm."
-- Terms surface, three rows with a 10pt uppercase label, a 13pt value, a muted
-  caption, and a secondary-link "Edit" that returns to that step:
-  - `ACTION` — "Run 5 km before work" · "Proof due tomorrow, 7:30 AM" (→ 01).
-  - `CAUSE` — "Water.org · Girls Who Code" · "60% / 40% group" (→ 03).
-  - `VERIFIER` — "Alex Chen" · "Accepted friend · sees only your proof", or
-    "Sam Rivera" · "Pending — invite sent" (→ 04).
-- Stake ledger surface: header "Stake €25.00" with "Edit" (→ 02), then four
-  lines separated by a hairline:
-  - "If you complete it — returned to you" `+€25.00` (bold, positive color).
-  - "If you miss it — company fee (10%)" `−€2.50`.
-  - "Water.org (60%)" `€13.50`.
-  - "Girls Who Code (40%)" `€9.00`.
+- Eyebrow: `YOU SET THE TERMS`.
+- Title: "Ready to make it real?"
+- Contract card (feature surface, 28pt radius): header row with the action
+  "Run 5 km before work" on the left and "Due tomorrow · 7:30 AM" on the
+  right; `€25.00` money display; label "Held once you confirm"; then two
+  outcome tiles side by side inside the card (16pt radius, translucent fill):
+  - `COMPLETE` — `+€25.00` in lime, caption "Returned to you".
+  - `MISS` — `€22.50`, caption "To your cause · €2.50 fee".
   - Amounts are tabular and update live with the stake.
+- Two term tiles side by side (supporting surface, 13pt padding, 34pt icon
+  tile, 12pt label, caption):
+  - Cause — lime heart-handshake tile, "Water.org 60%" / "Girls Who Code 40%".
+  - Verifier — quiet user-check tile, "Alex Chen" / "Accepted friend", or
+    "Sam Rivera" / "Pending — invite sent".
 - Payment: label row "Pay with" with the caption "Charged only if you miss",
   then two selectable tiles side by side (18pt radius, hairline border, ink
   border when selected, small trailing radio):
@@ -222,17 +221,17 @@ the missed-stake split is itemised, and consent sits in the footer.
     "Face ID". Selected by default when available.
   - Visa ···· 4242 — card icon in a quiet circle, caption "09/28".
   - No other payment brands or wallets appear on this screen.
-- Footer: consent capsule with a circular checkbox, vertically centered with
-  the label "I understand these terms, the 10% company fee, and who verifies my
-  proof.", then the CTA, then the disclosure.
+- Consent capsule with a circular checkbox, vertically centered with the
+  label: "I understand the stake, the 10% company fee, where a missed stake
+  goes, and who verifies my proof."
 - CTA with Apple Pay selected: Apple logo + "Confirm with Apple Pay" on the
   standard ink capsule (ivory in dark). With a card selected: "Confirm and hold
   €25.00". Disabled until the checkbox is selected.
 - Disclosure: "No money is held until you confirm." With a pending verifier:
   "Your stake is held once Sam accepts the invite."
 
-Alternative A (one dominant contract card with cause/verifier tiles) was
-explored and not chosen; it remains on the canvas for reference.
+Alternative B (an editable receipt with per-term Edit links and an itemised
+ledger) was explored and not chosen; it remains on the canvas for reference.
 
 ### Held (success beat)
 
