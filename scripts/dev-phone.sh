@@ -108,13 +108,16 @@ resolve_expo_ngrok() {
 const { createRequire } = require("module");
 const fs = require("fs");
 const path = require("path");
-const req = createRequire(path.join(process.cwd(), "apps/expo/package.json"));
-const bin = req("@expo/ngrok-bin");
+const expoRoot = path.join(process.cwd(), "apps/expo");
+const expoReq = createRequire(path.join(expoRoot, "package.json"));
+const ngrokReq = createRequire(expoReq.resolve("@expo/ngrok/package.json"));
+const bin = ngrokReq("@expo/ngrok-bin");
 if (!bin) {
   console.error("Could not resolve @expo/ngrok-bin for this platform.");
   process.exit(1);
 }
-const cliRoot = path.dirname(req.resolve("@expo/cli/package.json"));
+const expoPkgReq = createRequire(expoReq.resolve("expo/package.json"));
+const cliRoot = path.dirname(expoPkgReq.resolve("@expo/cli/package.json"));
 const src = fs.readFileSync(
   path.join(cliRoot, "build/src/start/server/AsyncNgrok.js"),
   "utf8",
