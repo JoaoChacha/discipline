@@ -1,105 +1,175 @@
 import type { TextStyle } from "react-native";
 import { Platform } from "react-native";
 
-import { colors, fonts } from "./tokens";
+import type { ThemeColors } from "./tokens";
 
-const displayFamily = Platform.select({
-  web: `${fonts.display}, system-ui, sans-serif`,
-  default: undefined,
-});
+type Weight = 400 | 500 | 600 | 700 | 800;
 
-const interfaceFamily = Platform.select({
-  web: `${fonts.interface}, system-ui, sans-serif`,
-  default: undefined,
-});
+const nativeFamilies: Record<Weight, string> = {
+  400: "PlusJakartaSans_400Regular",
+  500: "PlusJakartaSans_500Medium",
+  600: "PlusJakartaSans_600SemiBold",
+  700: "PlusJakartaSans_700Bold",
+  800: "PlusJakartaSans_800ExtraBold",
+};
 
-export const type = {
-  welcomeTitle: {
-    fontFamily: displayFamily,
-    fontSize: 42,
-    fontWeight: "700",
-    lineHeight: 48,
-    letterSpacing: -1,
-    color: colors.label,
-  } satisfies TextStyle,
-  title: {
-    fontFamily: displayFamily,
-    fontSize: 34,
-    fontWeight: "700",
-    lineHeight: 40,
-    letterSpacing: -0.8,
-    color: colors.label,
-  } satisfies TextStyle,
-  brand: {
-    fontFamily: displayFamily,
-    fontSize: 15,
-    fontWeight: "700",
-    color: colors.label,
-  } satisfies TextStyle,
-  eyebrow: {
-    fontFamily: interfaceFamily,
-    fontSize: 15,
-    fontWeight: "600",
-    color: colors.tint,
-  } satisfies TextStyle,
-  headline: {
-    fontFamily: interfaceFamily,
-    fontSize: 17,
-    fontWeight: "600",
-    lineHeight: 22,
-    color: colors.label,
-  } satisfies TextStyle,
-  body: {
-    fontFamily: interfaceFamily,
-    fontSize: 15,
-    fontWeight: "400",
-    lineHeight: 22,
-    color: colors.secondaryLabel,
-  } satisfies TextStyle,
-  bodyTight: {
-    fontFamily: interfaceFamily,
-    fontSize: 15,
-    fontWeight: "400",
-    lineHeight: 20,
-    color: colors.secondaryLabel,
-  } satisfies TextStyle,
-  callout: {
-    fontFamily: interfaceFamily,
-    fontSize: 15,
-    fontWeight: "600",
-    color: colors.label,
-  } satisfies TextStyle,
-  footnote: {
-    fontFamily: interfaceFamily,
-    fontSize: 13,
-    fontWeight: "400",
-    lineHeight: 18,
-    color: colors.secondaryLabel,
-  } satisfies TextStyle,
-  caption: {
-    fontFamily: interfaceFamily,
-    fontSize: 12,
-    fontWeight: "400",
-    lineHeight: 16,
-    color: colors.secondaryLabel,
-  } satisfies TextStyle,
-  stepLabel: {
-    fontFamily: interfaceFamily,
-    fontSize: 13,
-    fontWeight: "600",
-    color: colors.secondaryLabel,
-  } satisfies TextStyle,
-  button: {
-    fontFamily: interfaceFamily,
-    fontSize: 17,
-    fontWeight: "600",
-    color: colors.white,
-  } satisfies TextStyle,
-  kpi: {
-    fontFamily: displayFamily,
-    fontSize: 17,
-    fontWeight: "700",
-    color: colors.label,
-    fontVariant: ["tabular-nums"],
-  } satisfies TextStyle,
-} as const;
+export function fontFamily(weight: Weight) {
+  if (Platform.OS === "web") {
+    return undefined;
+  }
+  return nativeFamilies[weight];
+}
+
+function tracking(value: number) {
+  return Platform.OS === "web" ? Math.max(value, -0.3) : value;
+}
+
+export function createType(colors: ThemeColors) {
+  return {
+    money: {
+      fontFamily: fontFamily(800),
+      fontSize: 40,
+      fontWeight: "800",
+      lineHeight: 44,
+      letterSpacing: tracking(-2),
+      color: colors.featureText,
+      fontVariant: ["tabular-nums"],
+    } satisfies TextStyle,
+    title: {
+      fontFamily: fontFamily(800),
+      fontSize: 34,
+      fontWeight: "800",
+      lineHeight: 39,
+      letterSpacing: tracking(-1.2),
+      color: colors.ink,
+    } satisfies TextStyle,
+    welcomeTitle: {
+      fontFamily: fontFamily(800),
+      fontSize: 39,
+      fontWeight: "800",
+      lineHeight: 44,
+      letterSpacing: tracking(-1.2),
+      color: colors.ink,
+    } satisfies TextStyle,
+    homeTitle: {
+      fontFamily: fontFamily(800),
+      fontSize: 32,
+      fontWeight: "800",
+      lineHeight: 38,
+      letterSpacing: tracking(-1.2),
+      color: colors.ink,
+    } satisfies TextStyle,
+    brand: {
+      fontFamily: fontFamily(800),
+      fontSize: 14,
+      fontWeight: "800",
+      color: colors.ink,
+    } satisfies TextStyle,
+    eyebrow: {
+      fontFamily: fontFamily(700),
+      fontSize: 12,
+      fontWeight: "700",
+      letterSpacing: 0.96,
+      color: colors.muted,
+    } satisfies TextStyle,
+    headline: {
+      fontFamily: fontFamily(700),
+      fontSize: 17,
+      fontWeight: "700",
+      lineHeight: 22,
+      color: colors.ink,
+    } satisfies TextStyle,
+    body: {
+      fontFamily: fontFamily(400),
+      fontSize: 14,
+      fontWeight: "400",
+      lineHeight: 21,
+      color: colors.muted,
+    } satisfies TextStyle,
+    description: {
+      fontFamily: fontFamily(400),
+      fontSize: 14,
+      fontWeight: "400",
+      lineHeight: 21,
+      marginTop: 10,
+      color: colors.muted,
+    } satisfies TextStyle,
+    bodyInk: {
+      fontFamily: fontFamily(400),
+      fontSize: 15,
+      fontWeight: "400",
+      lineHeight: 22,
+      color: colors.ink,
+    } satisfies TextStyle,
+    callout: {
+      fontFamily: fontFamily(600),
+      fontSize: 15,
+      fontWeight: "600",
+      color: colors.ink,
+    } satisfies TextStyle,
+    caption: {
+      fontFamily: fontFamily(500),
+      fontSize: 12,
+      fontWeight: "500",
+      lineHeight: 16,
+      color: colors.muted,
+    } satisfies TextStyle,
+    pill: {
+      fontFamily: fontFamily(600),
+      fontSize: 14,
+      fontWeight: "600",
+      lineHeight: 18,
+      color: colors.ctaText,
+    } satisfies TextStyle,
+    navLabel: {
+      fontFamily: fontFamily(600),
+      fontSize: 11,
+      fontWeight: "600",
+      lineHeight: 13,
+    } satisfies TextStyle,
+    stepLabel: {
+      fontFamily: fontFamily(700),
+      fontSize: 12,
+      fontWeight: "700",
+      letterSpacing: 0.96,
+      textAlign: "center",
+      color: colors.muted,
+    } satisfies TextStyle,
+    button: {
+      fontFamily: fontFamily(700),
+      fontSize: 14,
+      fontWeight: "700",
+      color: colors.ctaText,
+    } satisfies TextStyle,
+    link: {
+      fontFamily: fontFamily(600),
+      fontSize: 12,
+      fontWeight: "600",
+      color: colors.link,
+    } satisfies TextStyle,
+    footnote: {
+      fontFamily: fontFamily(500),
+      fontSize: 10,
+      fontWeight: "500",
+      lineHeight: 14,
+      textAlign: "center",
+      color: colors.muted,
+    } satisfies TextStyle,
+    micro: {
+      fontFamily: fontFamily(500),
+      fontSize: 10,
+      fontWeight: "500",
+      lineHeight: 15,
+      color: colors.muted,
+    } satisfies TextStyle,
+    kpi: {
+      fontFamily: fontFamily(800),
+      fontSize: 17,
+      fontWeight: "800",
+      color: colors.ink,
+      fontVariant: ["tabular-nums"],
+    } satisfies TextStyle,
+  } as const;
+}
+
+export type ThemeTypography = ReturnType<typeof createType>;

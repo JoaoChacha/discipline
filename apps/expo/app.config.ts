@@ -25,14 +25,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     package: "com.discipline.app",
     adaptiveIcon: {
       foregroundImage: "./assets/icon-light.png",
-      backgroundColor: "#0F1115",
+      backgroundColor: "#0D0D0F",
     },
   },
-  // extra: {
-  //   eas: {
-  //     projectId: "your-eas-project-id",
-  //   },
-  // },
+  extra: {
+    eas: {
+      projectId: "21e04c5e-7eeb-4eb4-872f-33ec00f5aaaa",
+    },
+  },
   experiments: {
     tsconfigPaths: true,
     typedRoutes: true,
@@ -46,10 +46,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       "expo-splash-screen",
       {
-        backgroundColor: "#0F1115",
-        image: "./assets/icon-dark.png",
+        backgroundColor: "#F7F6FA",
+        image: "./assets/icon-light.png",
         dark: {
-          backgroundColor: "#0F1115",
+          backgroundColor: "#0D0D0F",
           image: "./assets/icon-dark.png",
         },
       },

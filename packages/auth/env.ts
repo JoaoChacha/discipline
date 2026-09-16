@@ -4,11 +4,11 @@ import { z } from "zod/v4";
 export function authEnv() {
   return createEnv({
     server: {
-      AUTH_APPLE_ID: z.string().min(1),
-      AUTH_APPLE_SECRET: z.string().min(1),
-      AUTH_APPLE_APP_BUNDLE_IDENTIFIER: z.string().min(1).optional(),
-      AUTH_GOOGLE_ID: z.string().min(1),
-      AUTH_GOOGLE_SECRET: z.string().min(1),
+      AUTH_GOOGLE_ID: z.string().optional(),
+      AUTH_GOOGLE_SECRET: z.string().optional(),
+      AUTH_APPLE_ID: z.string().optional(),
+      AUTH_APPLE_SECRET: z.string().optional(),
+      AUTH_APPLE_APP_BUNDLE_IDENTIFIER: z.string().optional(),
       AUTH_SECRET:
         process.env.NODE_ENV === "production"
           ? z.string().min(1)

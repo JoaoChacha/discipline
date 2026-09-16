@@ -1,103 +1,148 @@
 import type { ComponentProps } from "react";
 import { Text, View } from "react-native";
 
-import { colors } from "~/theme/tokens";
-import { type } from "~/theme/typography";
-import { BrandCard } from "../components/BrandCard";
+import { useTheme } from "~/theme/ThemeProvider";
+import { FeatureCard } from "~/ui/FeatureCard";
 import { OnboardingIcon } from "../components/OnboardingIcon";
 import { Reveal } from "../components/Reveal";
+import { ScreenCopy } from "../components/ScreenCopy";
 
 function PrivacyRow({
   icon,
-  iconColor,
+  title,
   body,
 }: {
   icon: ComponentProps<typeof OnboardingIcon>["name"];
-  iconColor: string;
+  title: string;
   body: string;
 }) {
+  const { colors, type } = useTheme();
+
   return (
-    <View style={{ flexDirection: "row", gap: 12 }}>
-      <View style={{ marginTop: 2 }}>
-        <OnboardingIcon name={icon} size={20} color={iconColor} />
+    <View
+      style={{
+        flexDirection: "row",
+        gap: 12,
+        paddingHorizontal: 17,
+        paddingVertical: 13,
+        borderTopWidth: 1,
+        borderTopColor: "rgba(127,127,127,0.24)",
+      }}
+    >
+      <OnboardingIcon name={icon} size={18} color={colors.featureText} />
+      <View style={{ flex: 1 }}>
+        <Text
+          style={{
+            ...type.callout,
+            fontSize: 12,
+            color: colors.featureText,
+          }}
+        >
+          {title}
+        </Text>
+        <Text
+          style={{
+            marginTop: 2,
+            fontFamily: type.caption.fontFamily,
+            fontSize: 12,
+            fontWeight: "500",
+            lineHeight: 17,
+            color: colors.featureMuted,
+          }}
+        >
+          {body}
+        </Text>
       </View>
-      <Text style={[type.bodyTight, { flex: 1, color: colors.label }]}>
-        {body}
-      </Text>
     </View>
   );
 }
 
 export function PrivacyScreen({ reduceMotion }: { reduceMotion: boolean }) {
+  const { colors, type } = useTheme();
+
   return (
     <View>
-      <Reveal reduceMotion={reduceMotion} style={{ marginBottom: 12 }}>
-        <Text style={type.eyebrow}>VERIFIED BY SOMEONE YOU TRUST</Text>
-      </Reveal>
-      <Reveal reduceMotion={reduceMotion} delay={90}>
-        <Text style={type.title}>Proof stays focused and private.</Text>
-      </Reveal>
-      <Reveal reduceMotion={reduceMotion} delay={90} style={{ marginTop: 12 }}>
-        <Text style={type.body}>
-          Your verifier sees only what they need for a fair decision.
-        </Text>
+      <Reveal reduceMotion={reduceMotion}>
+        <ScreenCopy
+          eyebrow="VERIFIED BY SOMEONE YOU TRUST"
+          title="Proof stays focused and private."
+          description="Your verifier sees only what they need to make a fair decision."
+        />
       </Reveal>
 
-      <Reveal reduceMotion={reduceMotion} delay={170} style={{ marginTop: 28 }}>
-        <BrandCard>
-          <View accessibilityLabel="Trusted verifier example">
+      <Reveal reduceMotion={reduceMotion} delay={140} style={{ marginTop: 20 }}>
+        <FeatureCard padded={false}>
+          <View
+            accessibilityLabel="Trusted verifier example"
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 12,
+              padding: 17,
+            }}
+          >
             <View
               style={{
-                flexDirection: "row",
+                height: 42,
+                width: 42,
+                borderRadius: 999,
+                backgroundColor: colors.lime,
                 alignItems: "center",
-                gap: 12,
-                paddingBottom: 16,
-                borderBottomWidth: 1,
-                borderBottomColor: colors.separator,
+                justifyContent: "center",
               }}
             >
-              <View
+              <Text
                 style={{
-                  height: 44,
-                  width: 44,
-                  borderRadius: 999,
-                  backgroundColor: colors.tintContainer,
-                  alignItems: "center",
-                  justifyContent: "center",
+                  fontFamily: type.brand.fontFamily,
+                  fontSize: 13,
+                  fontWeight: "800",
+                  color: "#0E0C0D",
                 }}
               >
-                <Text style={{ ...type.callout, color: colors.tint }}>AC</Text>
-              </View>
-              <View style={{ minWidth: 0, flex: 1 }}>
-                <Text style={type.headline}>Alex Chen</Text>
-                <Text style={type.footnote}>Trusted verifier</Text>
-              </View>
-              <OnboardingIcon
-                name="checkmark-circle"
-                size={22}
-                color={colors.success}
-              />
+                AC
+              </Text>
             </View>
-
-            <View style={{ marginTop: 16, gap: 16 }}>
-              <PrivacyRow
-                icon="eye-outline"
-                iconColor={colors.tint}
-                body="Sees your action, deadline, and submitted proof."
-              />
-              <PrivacyRow
-                icon="eye-off-outline"
-                iconColor={colors.secondaryLabel}
-                body="Never sees payment details or other activity."
-              />
-              <PrivacyRow
-                icon="person-circle-outline"
-                iconColor={colors.success}
-                body="You choose a verifier for each commitment."
-              />
+            <View style={{ minWidth: 0, flex: 1 }}>
+              <Text
+                style={{
+                  ...type.headline,
+                  fontSize: 16,
+                  color: colors.featureText,
+                }}
+              >
+                Alex Chen
+              </Text>
+              <Text
+                style={{
+                  ...type.caption,
+                  color: colors.featureMuted,
+                }}
+              >
+                Trusted verifier
+              </Text>
             </View>
+            <OnboardingIcon
+              name="checkmark-circle"
+              size={22}
+              color={colors.featureText}
+            />
           </View>
-        </BrandCard>
+          <PrivacyRow
+            icon="eye-outline"
+            title="Alex can see"
+            body="Action, deadline, proof, decision window"
+          />
+          <PrivacyRow
+            icon="eye-off-outline"
+            title="Alex cannot see"
+            body="Payments, other commitments, activity"
+          />
+          <PrivacyRow
+            icon="person-circle-outline"
+            title="You stay in control"
+            body="Choose a verifier for every commitment"
+          />
+        </FeatureCard>
       </Reveal>
     </View>
   );

@@ -26,8 +26,8 @@
     "lint:fix": "turbo run lint --continue -- --fix --cache --cache-location .cache/.eslintcache",
     "lint:ws": "pnpm dlx sherif@latest",
     "postinstall": "pnpm lint:ws",
-    "test": "pnpm -F @discipline/api test && pnpm -F @discipline/validators test",
     "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
     "ui-add": "turbo run ui-add",
     "android": "expo run:android",
     "ios": "expo run:ios"

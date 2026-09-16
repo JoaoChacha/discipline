@@ -19,11 +19,11 @@ export const auth = initAuth({
   baseUrl,
   productionUrl: `https://${env.VERCEL_PROJECT_PRODUCTION_URL ?? "localhost:3000"}`,
   secret: env.AUTH_SECRET,
+  googleClientId: env.AUTH_GOOGLE_ID,
+  googleClientSecret: env.AUTH_GOOGLE_SECRET,
   appleClientId: env.AUTH_APPLE_ID,
   appleClientSecret: env.AUTH_APPLE_SECRET,
   appleAppBundleIdentifier: env.AUTH_APPLE_APP_BUNDLE_IDENTIFIER,
-  googleClientId: env.AUTH_GOOGLE_ID,
-  googleClientSecret: env.AUTH_GOOGLE_SECRET,
   extraPlugins: [nextCookies()],
 });
 

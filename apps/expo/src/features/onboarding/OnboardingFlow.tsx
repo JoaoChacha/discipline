@@ -1,12 +1,5 @@
-import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
-import {
-  AccessibilityInfo,
-  Pressable,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import { AccessibilityInfo, Text } from "react-native";
 import Animated, {
   Easing,
   FadeInLeft,
@@ -14,13 +7,12 @@ import Animated, {
 } from "react-native-reanimated";
 import { useRouter } from "expo-router";
 
-import { colors, motion } from "~/theme/tokens";
-import { type } from "~/theme/typography";
+import { useTheme } from "~/theme/ThemeProvider";
+import { PhoneFrame } from "~/ui/PhoneFrame";
+import { ScreenScroll } from "~/ui/ScreenScroll";
 import { authClient } from "~/utils/auth";
-import { OnboardingIcon } from "./components/OnboardingIcon";
 import { OnboardingShell } from "./components/Shell";
 import {
-  FIRST_STEP,
   LAST_STEP,
   OnboardingProvider,
   useOnboarding,
@@ -32,13 +24,14 @@ import { MoneyScreen } from "./screens/MoneyScreen";
 import { PrivacyScreen } from "./screens/PrivacyScreen";
 import { PromiseScreen } from "./screens/PromiseScreen";
 import { WelcomeScreen } from "./screens/WelcomeScreen";
+import { useOnboardingGate } from "./useOnboardingGate";
 
 const TOTAL_STEPS = 5;
 
 const STEP_CTA = [
   "See how the stake works",
   "See charity choices",
-  "Continue",
+  "I understand",
   "Review and begin",
   "Create my first commitment",
 ] as const;
@@ -66,12 +59,14 @@ function StepContent({
 
 function OnboardingStepper() {
   const router = useRouter();
+  const { type, motion } = useTheme();
   const { data: session } = authClient.useSession();
-  const { step, next, back, skip, replay, consented, complete } =
+  const { step, next, back, skip, consented, stashConsent, complete } =
     useOnboarding();
+  const { clearPreview } = useOnboardingGate();
   const [reduceMotion, setReduceMotion] = useState(false);
   const [direction, setDirection] = useState(1);
-  const [signingIn, setSigningIn] = useState(false);
+  const [finishing, setFinishing] = useState(false);
 
   useEffect(() => {
     void AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion);
@@ -97,26 +92,14 @@ function OnboardingStepper() {
     skip();
   };
 
-  const finish = async () => {
-    await complete();
-    router.replace("/");
-  };
-
-  const signIn = async (provider: "apple" | "google") => {
-    if (session) {
-      await finish();
-      return;
-    }
-
-    setSigningIn(true);
+  const finishSignedIn = async () => {
+    setFinishing(true);
     try {
       await complete();
-      await authClient.signIn.social({
-        provider,
-        callbackURL: "/",
-      });
+      await clearPreview();
+      router.replace("/");
     } finally {
-      setSigningIn(false);
+      setFinishing(false);
     }
   };
 
@@ -134,16 +117,16 @@ function OnboardingStepper() {
     return (
       <WelcomeScreen
         reduceMotion={reduceMotion}
-        signingIn={signingIn}
         onStart={() => {
           setDirection(1);
           next();
         }}
-        onSignInApple={() => {
-          void signIn("apple");
-        }}
-        onSignInGoogle={() => {
-          void signIn("google");
+        onSignIn={() => {
+          if (session) {
+            void finishSignedIn();
+            return;
+          }
+          router.push("/login");
         }}
       />
     );
@@ -154,45 +137,33 @@ function OnboardingStepper() {
       step={step}
       total={TOTAL_STEPS}
       reduceMotion={reduceMotion}
-      leading={step === FIRST_STEP ? "close" : "back"}
+      leading="back"
       onLeading={goBack}
       onSkip={step === LAST_STEP ? undefined : goSkip}
       ctaLabel={STEP_CTA[step - 1] ?? STEP_CTA[0]}
-      ctaDisabled={step === LAST_STEP && !consented}
+      ctaDisabled={(step === LAST_STEP && !consented) || finishing}
       ctaTestID="onboarding-cta"
       footer={
         step === LAST_STEP ? (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Replay onboarding"
-            onPress={() => {
-              setDirection(-1);
-              replay();
-            }}
-            testID="onboarding-replay"
+          <Text
             style={{
-              marginTop: 12,
-              minHeight: 44,
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 8,
+              ...type.footnote,
+              marginTop: 8,
             }}
           >
-            <OnboardingIcon
-              name="refresh"
-              size={16}
-              color={colors.secondaryLabel}
-            />
-            <Text style={{ ...type.footnote, fontWeight: "600" }}>
-              Replay onboarding
-            </Text>
-          </Pressable>
+            No money is held until you confirm a commitment.
+          </Text>
         ) : null
       }
       onCta={() => {
         if (step === LAST_STEP) {
-          void finish();
+          if (session) {
+            void finishSignedIn();
+            return;
+          }
+          void stashConsent().then(() => {
+            router.push("/create-account");
+          });
           return;
         }
         goForward();
@@ -201,31 +172,13 @@ function OnboardingStepper() {
       <Animated.View
         key={step}
         entering={entering}
-        style={{ flex: 1, backgroundColor: colors.background }}
+        style={{ flex: 1, minHeight: 0 }}
       >
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ flexGrow: 1, paddingBottom: 16 }}
-        >
+        <ScreenScroll>
           <StepContent step={step} reduceMotion={reduceMotion} />
-        </ScrollView>
+        </ScreenScroll>
       </Animated.View>
     </OnboardingShell>
-  );
-}
-
-function PhoneFrame({ children }: { children: ReactNode }) {
-  return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: colors.background,
-        alignItems: "center",
-      }}
-    >
-      <View style={{ flex: 1, width: "100%", maxWidth: 390 }}>{children}</View>
-    </View>
   );
 }
 

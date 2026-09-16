@@ -20,29 +20,31 @@ export const queryClient = new QueryClient({
   },
 });
 
+export const trpcClient = createTRPCClient<AppRouter>({
+  links: [
+    loggerLink({
+      enabled: (opts) =>
+        process.env.NODE_ENV === "development" ||
+        (opts.direction === "down" && opts.result instanceof Error),
+      colorMode: "ansi",
+    }),
+    wsLink({
+      transformer: superjson,
+      client: createWSClient({
+        url: process.env.EXPO_PUBLIC_WS_URL ?? "ws://localhost:3001",
+        connectionParams: () => ({
+          cookie: authClient.getCookie(),
+        }),
+      }),
+    }),
+  ],
+});
+
 /**
  * A set of typesafe hooks for consuming your API.
  */
 export const trpc = createTRPCOptionsProxy<AppRouter>({
-  client: createTRPCClient({
-    links: [
-      loggerLink({
-        enabled: (opts) =>
-          process.env.NODE_ENV === "development" ||
-          (opts.direction === "down" && opts.result instanceof Error),
-        colorMode: "ansi",
-      }),
-      wsLink({
-        transformer: superjson,
-        client: createWSClient({
-          url: process.env.EXPO_PUBLIC_WS_URL ?? "ws://localhost:3001",
-          connectionParams: () => ({
-            cookie: authClient.getCookie(),
-          }),
-        }),
-      }),
-    ],
-  }),
+  client: trpcClient,
   queryClient,
 });
 

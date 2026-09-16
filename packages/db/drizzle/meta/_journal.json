@@ -12,8 +12,15 @@
     {
       "idx": 1,
       "version": "7",
-      "when": 1789572000000,
-      "tag": "0001_commitment_backend",
+      "when": 1789594556296,
+      "tag": "0001_onboarding_auth",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789600000000,
+      "tag": "0002_commitment_backend",
       "breakpoints": true
     }
   ]

@@ -22,8 +22,4 @@ export const auth = initAuth({
   baseUrl: "http://localhost:3000",
   productionUrl: "http://localhost:3000",
   secret: "secret",
-  appleClientId: "com.discipline.auth",
-  appleClientSecret: "apple-secret",
-  googleClientId: "google-client-id",
-  googleClientSecret: "google-client-secret",
 });

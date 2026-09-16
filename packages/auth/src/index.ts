@@ -5,6 +5,11 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { oAuthProxy } from "better-auth/plugins";
 
 import { db } from "@discipline/db/client";
+import { newUserProfileValues, profile } from "@discipline/db/schema";
+
+function configuredSecret(value: string | undefined): value is string {
+  return Boolean(value && value !== "replace-me");
+}
 
 export function initAuth<
   TExtraPlugins extends BetterAuthPlugin[] = [],
@@ -13,11 +18,11 @@ export function initAuth<
   productionUrl: string;
   secret: string | undefined;
 
-  appleClientId: string;
-  appleClientSecret: string;
+  googleClientId?: string;
+  googleClientSecret?: string;
+  appleClientId?: string;
+  appleClientSecret?: string;
   appleAppBundleIdentifier?: string;
-  googleClientId: string;
-  googleClientSecret: string;
   extraPlugins?: TExtraPlugins;
 }) {
   const config = {
@@ -33,20 +38,50 @@ export function initAuth<
       expo(),
       ...(options.extraPlugins ?? []),
     ],
-    socialProviders: {
-      apple: {
-        clientId: options.appleClientId,
-        clientSecret: options.appleClientSecret,
-        appBundleIdentifier: options.appleAppBundleIdentifier,
-        redirectURI: `${options.productionUrl}/api/auth/callback/apple`,
-      },
-      google: {
-        clientId: options.googleClientId,
-        clientSecret: options.googleClientSecret,
-        redirectURI: `${options.productionUrl}/api/auth/callback/google`,
+    databaseHooks: {
+      user: {
+        create: {
+          after: async (createdUser) => {
+            await db
+              .insert(profile)
+              .values(newUserProfileValues(createdUser.id))
+              .onConflictDoNothing();
+          },
+        },
       },
     },
-    trustedOrigins: ["discipline://", "exp://"],
+    socialProviders: {
+      ...(configuredSecret(options.googleClientId) &&
+      configuredSecret(options.googleClientSecret)
+        ? {
+            google: {
+              clientId: options.googleClientId,
+              clientSecret: options.googleClientSecret,
+              redirectURI: `${options.productionUrl}/api/auth/callback/google`,
+            },
+          }
+        : {}),
+      ...(configuredSecret(options.appleClientId) &&
+      configuredSecret(options.appleClientSecret)
+        ? {
+            apple: {
+              clientId: options.appleClientId,
+              clientSecret: options.appleClientSecret,
+              appBundleIdentifier: options.appleAppBundleIdentifier,
+              redirectURI: `${options.productionUrl}/api/auth/callback/apple`,
+            },
+          }
+        : {}),
+    },
+    emailAndPassword: {
+      enabled: true,
+    },
+    trustedOrigins: [
+      "discipline://",
+      "exp://",
+      "http://localhost:8081",
+      "http://localhost:19006",
+    ],
     onAPIError: {
       onError(error, ctx) {
         console.error("BETTER AUTH API ERROR", error, ctx);
