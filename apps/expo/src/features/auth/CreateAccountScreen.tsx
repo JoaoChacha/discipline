@@ -43,7 +43,7 @@ export function CreateAccountScreen() {
         setMessage(result.error.message ?? "Could not create this account.");
         return;
       }
-      await finish();
+      await finish({ first: true });
     } catch {
       setMessage("Could not create this account. Try again.");
     } finally {

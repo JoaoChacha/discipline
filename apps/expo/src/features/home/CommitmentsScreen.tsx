@@ -1,13 +1,22 @@
 import { Text, View } from "react-native";
 
+import { formatDeadline, formatEuro } from "~/features/commitment/format";
 import { useTheme } from "~/theme/ThemeProvider";
+import { CapsuleButton } from "~/ui/CapsuleButton";
 import { Chip } from "~/ui/Chip";
 import { ScreenScroll } from "~/ui/ScreenScroll";
 import { SurfaceCard } from "~/ui/SurfaceCard";
-import { ACTIVE_COMMITMENT } from "./data";
+import { useCommitments } from "./useCommitments";
 
-export function CommitmentsScreen({ bottomInset }: { bottomInset: number }) {
+export function CommitmentsScreen({
+  bottomInset,
+  onCreate,
+}: {
+  bottomInset: number;
+  onCreate: () => void;
+}) {
   const { type, spacing } = useTheme();
+  const { owned } = useCommitments();
 
   return (
     <ScreenScroll
@@ -16,30 +25,52 @@ export function CommitmentsScreen({ bottomInset }: { bottomInset: number }) {
     >
       <Text style={type.homeTitle}>Commitments</Text>
       <Text style={[type.body, { marginTop: 8 }]}>
-        One active stake is waiting for proof.
+        {owned.length === 0
+          ? "Create a commitment to put a stake on an action."
+          : owned.length === 1
+            ? "One stake is live."
+            : `${owned.length} stakes are live.`}
       </Text>
 
-      <SurfaceCard style={{ marginTop: 24 }}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            gap: 12,
-          }}
-        >
-          <Text style={[type.headline, { flex: 1 }]}>
-            {ACTIVE_COMMITMENT.detail}
-          </Text>
-          <Chip label="Proof due" />
+      {owned.length === 0 ? (
+        <View style={{ marginTop: 24 }}>
+          <CapsuleButton
+            label="Create a commitment"
+            onPress={onCreate}
+            testID="commitments-create"
+          />
         </View>
-        <Text style={[type.body, { marginTop: 10 }]}>
-          {ACTIVE_COMMITMENT.stake} held · {ACTIVE_COMMITMENT.deadline}
-        </Text>
-        <Text style={[type.caption, { marginTop: 6 }]}>
-          Verifier {ACTIVE_COMMITMENT.verifier}
-        </Text>
-      </SurfaceCard>
+      ) : (
+        owned.map((row) => {
+          const pending = row.status === "awaiting_verifier";
+          return (
+            <SurfaceCard key={row.id} style={{ marginTop: 16 }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                  gap: 12,
+                }}
+              >
+                <Text style={[type.headline, { flex: 1 }]}>{row.title}</Text>
+                <Chip label={pending ? "Waiting" : "Proof due"} />
+              </View>
+              <Text style={[type.body, { marginTop: 10 }]}>
+                {formatEuro(row.amountCents, row.currency)}{" "}
+                {row.stakeStatus === "held" ? "held" : "unheld"} ·{" "}
+                {formatDeadline(new Date(row.dueAt))}
+              </Text>
+              <Text style={[type.caption, { marginTop: 6 }]}>
+                Verifier{" "}
+                {row.verifier?.name ??
+                  row.pendingInvite?.displayName ??
+                  "pending"}
+              </Text>
+            </SurfaceCard>
+          );
+        })
+      )}
     </ScreenScroll>
   );
 }

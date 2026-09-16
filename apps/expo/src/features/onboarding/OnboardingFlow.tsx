@@ -18,6 +18,7 @@ import {
   useOnboarding,
   WELCOME_STEP,
 } from "./OnboardingProvider";
+import { getOnboardingSnapshot } from "./onboardingStore";
 import { CharitiesScreen } from "./screens/CharitiesScreen";
 import { ConsentScreen } from "./screens/ConsentScreen";
 import { MoneyScreen } from "./screens/MoneyScreen";
@@ -63,7 +64,7 @@ function OnboardingStepper() {
   const { data: session } = authClient.useSession();
   const { step, next, back, skip, consented, stashConsent, complete } =
     useOnboarding();
-  const { clearPreview } = useOnboardingGate();
+  const { ready, needsOnboarding, clearPreview } = useOnboardingGate();
   const [reduceMotion, setReduceMotion] = useState(false);
   const [direction, setDirection] = useState(1);
   const [finishing, setFinishing] = useState(false);
@@ -76,6 +77,12 @@ function OnboardingStepper() {
     );
     return () => subscription.remove();
   }, []);
+
+  useEffect(() => {
+    if (!ready || !session || needsOnboarding) return;
+    if (step !== WELCOME_STEP) return;
+    router.replace("/");
+  }, [needsOnboarding, ready, router, session, step]);
 
   const goForward = () => {
     setDirection(1);
@@ -95,9 +102,10 @@ function OnboardingStepper() {
   const finishSignedIn = async () => {
     setFinishing(true);
     try {
+      const preview = getOnboardingSnapshot().preview === true;
       await complete();
       await clearPreview();
-      router.replace("/");
+      router.replace(preview ? "/" : "/commitment/new?first=1");
     } finally {
       setFinishing(false);
     }

@@ -4,6 +4,16 @@ export const COMPANY_FEE_BPS = 1000;
 
 export const CURRENT_TERMS_VERSION = "2026-09-16";
 
+export function stakeOutcome(amountCents: number, feeBps = COMPANY_FEE_BPS) {
+  const feeCents = Math.round((amountCents * feeBps) / 10_000);
+  return {
+    amountCents,
+    feeCents,
+    causeCents: amountCents - feeCents,
+    returnedCents: amountCents,
+  };
+}
+
 export const handleSchema = z
   .string()
   .trim()
@@ -27,6 +37,21 @@ export const handleSearchSchema = z.object({
 export const createLinkInviteSchema = z.object({
   note: z.string().trim().max(80).optional(),
 });
+
+export const createEmailInviteSchema = z
+  .object({
+    displayName: z.string().trim().min(2).max(80),
+    email: z.string().trim().toLowerCase().max(254),
+  })
+  .superRefine((value, ctx) => {
+    if (!isValidEmail(value.email)) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Enter a valid email address.",
+        path: ["email"],
+      });
+    }
+  });
 
 export const requestByHandleSchema = z.object({
   handle: handleSchema,
@@ -63,6 +88,8 @@ export function assertCauseAllocations(
   }
 }
 
+export const paymentKindSchema = z.enum(["apple_pay", "card"]);
+
 export const createCommitmentSchema = z
   .object({
     title: z.string().trim().min(3).max(120),
@@ -72,8 +99,10 @@ export const createCommitmentSchema = z
     verifierId: z.string().min(1).optional(),
     invitationId: z.uuid().optional(),
     causes: z.array(causeAllocationSchema).min(1).max(8),
-    paymentMethodId: z.uuid(),
+    paymentMethodId: z.uuid().optional(),
+    paymentKind: paymentKindSchema,
     consented: z.literal(true),
+    termsVersion: z.literal(CURRENT_TERMS_VERSION),
   })
   .superRefine((value, ctx) => {
     const hasVerifier = Boolean(value.verifierId);

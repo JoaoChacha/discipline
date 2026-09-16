@@ -11,9 +11,15 @@ import { env } from "~/env";
 
 export const runtime = "nodejs";
 
-const stripe = new Stripe(env.STRIPE_SECRET_KEY);
-
 export async function POST(req: Request) {
+  if (!env.STRIPE_SECRET_KEY || !env.STRIPE_WEBHOOK_SECRET) {
+    return NextResponse.json(
+      { error: "Stripe is not configured." },
+      { status: 503 },
+    );
+  }
+
+  const stripe = new Stripe(env.STRIPE_SECRET_KEY);
   const signature = req.headers.get("stripe-signature");
   if (!signature) {
     return NextResponse.json({ error: "Missing signature" }, { status: 400 });

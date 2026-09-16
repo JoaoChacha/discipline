@@ -5,6 +5,7 @@ import { listCharities } from "../lib/reads";
 import { protectedProcedure } from "../trpc";
 
 export const charityRouter = {
+  list: protectedProcedure.query(({ ctx }) => listCharities(ctx.db)),
   onList: protectedProcedure.subscription(async function* ({ ctx, signal }) {
     yield* live(
       ctx.session.user.id,

@@ -3,6 +3,7 @@ import type { TRPCRouterRecord } from "@trpc/server";
 import {
   acceptIncomingInviteSchema,
   acceptInviteTokenSchema,
+  createEmailInviteSchema,
   createLinkInviteSchema,
   requestByHandleSchema,
 } from "@discipline/validators";
@@ -11,6 +12,7 @@ import { live } from "../lib/events";
 import {
   acceptIncomingInvite,
   acceptInviteToken,
+  createEmailInvite,
   createLinkInvite,
   requestByHandle,
 } from "../lib/invite";
@@ -18,6 +20,11 @@ import { listIncomingInvitations, listOutgoingInvitations } from "../lib/reads";
 import { protectedProcedure } from "../trpc";
 
 export const invitationRouter = {
+  createEmail: protectedProcedure
+    .input(createEmailInviteSchema)
+    .mutation(({ ctx, input }) =>
+      createEmailInvite(ctx.db, ctx.session.user.id, input),
+    ),
   createLink: protectedProcedure
     .input(createLinkInviteSchema)
     .mutation(({ ctx, input }) =>

@@ -4,8 +4,10 @@ import {
   assertCauseAllocations,
   completeOnboardingInput,
   createCommitmentSchema,
+  createEmailInviteSchema,
   CURRENT_TERMS_VERSION,
   handleSchema,
+  stakeOutcome,
   validateSignIn,
   validateSignUp,
 } from "./index";
@@ -35,6 +37,37 @@ describe("cause allocations", () => {
   });
 });
 
+describe("stakeOutcome", () => {
+  it("applies a 10% company fee", () => {
+    expect(stakeOutcome(2500)).toEqual({
+      amountCents: 2500,
+      feeCents: 250,
+      causeCents: 2250,
+      returnedCents: 2500,
+    });
+  });
+});
+
+describe("createEmailInviteSchema", () => {
+  it("requires a name and a valid email", () => {
+    expect(
+      createEmailInviteSchema.parse({
+        displayName: "Sam Rivera",
+        email: "sam@example.com",
+      }),
+    ).toEqual({
+      displayName: "Sam Rivera",
+      email: "sam@example.com",
+    });
+    expect(
+      createEmailInviteSchema.safeParse({
+        displayName: "S",
+        email: "not-an-email",
+      }).success,
+    ).toBe(false);
+  });
+});
+
 describe("createCommitmentSchema", () => {
   const future = new Date(Date.now() + 86_400_000);
 
@@ -43,8 +76,9 @@ describe("createCommitmentSchema", () => {
       title: "Run 5 km before work",
       dueAt: future,
       amountCents: 2500,
-      paymentMethodId: "11111111-1111-4111-8111-111111111111",
+      paymentKind: "apple_pay" as const,
       consented: true as const,
+      termsVersion: CURRENT_TERMS_VERSION,
       causes: [{ charityId: "water-org", percent: 100 }],
     };
 

@@ -11,7 +11,6 @@ import { authClient } from "~/utils/auth";
 import { useOnboardingGate } from "../onboarding/useOnboardingGate";
 import { BottomNav } from "./BottomNav";
 import { CommitmentsScreen } from "./CommitmentsScreen";
-import { NewCommitmentScreen } from "./NewCommitmentScreen";
 import { TodayScreen } from "./TodayScreen";
 import { YouScreen } from "./YouScreen";
 
@@ -42,13 +41,14 @@ export function HomeShell() {
               onSubmitProof={() => setTab("commitments")}
               onDetails={() => setTab("commitments")}
               onYou={() => setTab("you")}
+              onCreate={() => router.push("/commitment/new")}
             />
           ) : null}
           {tab === "commitments" ? (
-            <CommitmentsScreen bottomInset={bottomInset} />
-          ) : null}
-          {tab === "new" ? (
-            <NewCommitmentScreen bottomInset={bottomInset} />
+            <CommitmentsScreen
+              bottomInset={bottomInset}
+              onCreate={() => router.push("/commitment/new")}
+            />
           ) : null}
           {tab === "you" ? (
             <YouScreen
@@ -59,7 +59,16 @@ export function HomeShell() {
             />
           ) : null}
         </View>
-        <BottomNav active={tab} onChange={setTab} />
+        <BottomNav
+          active={tab}
+          onChange={(next) => {
+            if (next === "new") {
+              router.push("/commitment/new");
+              return;
+            }
+            setTab(next);
+          }}
+        />
       </ScreenWash>
     </PhoneFrame>
   );

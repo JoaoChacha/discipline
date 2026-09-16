@@ -60,7 +60,12 @@ export const onboardingStatus = pgEnum("onboarding_status", [
   "completed",
 ]);
 
-export const consentKind = pgEnum("consent_kind", ["onboarding"]);
+export const consentKind = pgEnum("consent_kind", [
+  "onboarding",
+  "commitment_confirm",
+]);
+
+export const paymentKind = pgEnum("payment_kind", ["apple_pay", "card"]);
 
 export const profile = pgTable(
   "profile",
@@ -125,6 +130,8 @@ export const invitation = pgTable(
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
     targetUserId: t.text().references(() => user.id, { onDelete: "set null" }),
+    email: t.text(),
+    displayName: t.text(),
     note: t.text(),
     tokenHash: t.text().notNull().unique(),
     status: invitationStatus().notNull().default("pending"),
@@ -229,6 +236,7 @@ export const action = pgTable(
     paymentMethodId: t.uuid().references(() => paymentMethod.id, {
       onDelete: "restrict",
     }),
+    paymentKind: paymentKind(),
     title: t.text().notNull(),
     dueAt: t.timestamp({ withTimezone: true }).notNull(),
     status: actionStatus().notNull().default("draft"),
