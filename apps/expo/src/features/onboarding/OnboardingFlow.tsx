@@ -1,6 +1,5 @@
-import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
-import { AccessibilityInfo, ScrollView, Text, View } from "react-native";
+import { AccessibilityInfo, ScrollView, Text } from "react-native";
 import Animated, {
   Easing,
   FadeInLeft,
@@ -9,6 +8,7 @@ import Animated, {
 import { useRouter } from "expo-router";
 
 import { useTheme } from "~/theme/ThemeProvider";
+import { PhoneFrame } from "~/ui/PhoneFrame";
 import { authClient } from "~/utils/auth";
 import { OnboardingShell } from "./components/Shell";
 import {
@@ -63,7 +63,6 @@ function OnboardingStepper() {
   const { step, next, back, skip, consented, complete } = useOnboarding();
   const [reduceMotion, setReduceMotion] = useState(false);
   const [direction, setDirection] = useState(1);
-  const [signingIn, setSigningIn] = useState(false);
 
   useEffect(() => {
     void AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion);
@@ -94,24 +93,6 @@ function OnboardingStepper() {
     router.replace("/");
   };
 
-  const signIn = async () => {
-    if (session) {
-      await finish();
-      return;
-    }
-
-    setSigningIn(true);
-    try {
-      await complete();
-      await authClient.signIn.social({
-        provider: "discord",
-        callbackURL: "/",
-      });
-    } finally {
-      setSigningIn(false);
-    }
-  };
-
   const entering = reduceMotion
     ? undefined
     : direction > 0
@@ -126,13 +107,16 @@ function OnboardingStepper() {
     return (
       <WelcomeScreen
         reduceMotion={reduceMotion}
-        signingIn={signingIn}
         onStart={() => {
           setDirection(1);
           next();
         }}
         onSignIn={() => {
-          void signIn();
+          if (session) {
+            void finish();
+            return;
+          }
+          router.push("/login");
         }}
       />
     );
@@ -165,7 +149,11 @@ function OnboardingStepper() {
       }
       onCta={() => {
         if (step === LAST_STEP) {
-          void finish();
+          if (session) {
+            void finish();
+            return;
+          }
+          router.push("/create-account");
           return;
         }
         goForward();
@@ -181,32 +169,6 @@ function OnboardingStepper() {
         </ScrollView>
       </Animated.View>
     </OnboardingShell>
-  );
-}
-
-function PhoneFrame({ children }: { children: ReactNode }) {
-  const { colors } = useTheme();
-
-  return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: colors.canvas,
-        alignItems: "center",
-      }}
-    >
-      <View
-        style={{
-          flex: 1,
-          width: "100%",
-          maxWidth: 390,
-          backgroundColor: colors.field,
-          overflow: "hidden",
-        }}
-      >
-        {children}
-      </View>
-    </View>
   );
 }
 

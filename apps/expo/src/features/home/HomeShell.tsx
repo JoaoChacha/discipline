@@ -61,6 +61,7 @@ export function HomeShell() {
             {tab === "you" ? (
               <YouScreen
                 bottomInset={bottomInset}
+                onSignIn={() => router.push("/login")}
                 onReplay={() => {
                   void replay().then(() => router.replace("/onboarding"));
                 }}
