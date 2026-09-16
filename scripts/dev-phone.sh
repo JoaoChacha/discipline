@@ -121,11 +121,11 @@ echo
 
 export EXPO_PUBLIC_API_URL="$API_URL"
 export EXPO_PACKAGER_PROXY_URL="$METRO_URL"
-export CI=1
+unset CI
 
 if curl -sf "http://127.0.0.1:8081/status" >/dev/null 2>&1; then
   echo "Metro already running on :8081 — reuse it (restart if the public host changed)."
   sleep infinity
 fi
 
-pnpm --filter @discipline/expo exec expo start --go --port 8081 --non-interactive
+pnpm --filter @discipline/expo exec expo start --go --port 8081
