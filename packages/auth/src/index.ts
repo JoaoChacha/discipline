@@ -37,7 +37,15 @@ export function initAuth<
         redirectURI: `${options.productionUrl}/api/auth/callback/discord`,
       },
     },
-    trustedOrigins: ["discipline://", "exp://"],
+    emailAndPassword: {
+      enabled: true,
+    },
+    trustedOrigins: [
+      "discipline://",
+      "exp://",
+      "http://localhost:8081",
+      "http://localhost:19006",
+    ],
     onAPIError: {
       onError(error, ctx) {
         console.error("BETTER AUTH API ERROR", error, ctx);
