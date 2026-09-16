@@ -10,8 +10,9 @@ marketing content.
 - A commitment has a specific action, deadline, monetary stake, selected cause,
   and trusted verifier.
 - Complete and verify: the full stake is released back to the user.
-- Miss: 80% goes to that commitment's selected charity or group; 20% is the
-  disclosed platform fee.
+- Miss: 100% of the stake goes to that commitment's selected charity or group.
+- A separate 10% company fee applies when a commitment is missed and is clearly
+  disclosed before confirmation.
 - Charity selection and group allocation happen separately for every
   commitment.
 - No money is held until the user reviews and confirms every term.
@@ -72,8 +73,8 @@ marketing content.
 - Brand row: black/ivory circular D mark and “Discipline”.
 - Eyebrow: `ACCOUNTABILITY, MADE CLEAR`.
 - Title: “Turn intention into action.”
-- Financial feature card: `€25.00`, “Example commitment”, and compact `80%
-  cause / 20% platform` pills.
+- Financial feature card: “Quit Smoking in 3 months”, `€250.00`, and no
+  allocation pills or overflow menu.
 - Lime supporting row: “Nothing is held until you confirm.”
 - Primary: “Get started”; secondary: “I already have an account”.
 - No onboarding progress appears before Get started.
@@ -89,10 +90,11 @@ marketing content.
 ### 02 — Money Rules
 
 - Title: “Your money follows the outcome.”
-- Dominant `€25.00` stake card.
-- Outcomes: `+€25.00` returned after verification; `€20 / €5` charity/platform
-  if missed.
-- Disclosure remains visible before CTA.
+- Dominant `€250.00` stake card.
+- Outcomes: `+€250.00` returned after verification; the full `€250.00` stake
+  goes to charity if missed.
+- A small information disclosure below the card explains that a separate 10%
+  company fee applies when a commitment is missed.
 - CTA: “See charity choices”.
 
 ### 03 — Per-commitment Causes
@@ -113,8 +115,9 @@ marketing content.
 ### 05 — Consent and Begin
 
 - Title: “Ready to make it real?”
-- Summary rows for action/deadline, 80/20 outcome, and cause/verifier.
-- Large consent capsule with checkbox.
+- Summary rows for action/deadline, the 100%-to-charity outcome with separate
+  10% company fee, and cause/verifier.
+- Large consent capsule with a circular checkbox.
 - CTA: “Create my first commitment”.
 - Footer disclosure: “No money is held until you confirm a commitment.”
 
