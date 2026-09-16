@@ -1,5 +1,5 @@
-import type { ComponentProps } from "react";
 import type { Ionicons } from "@expo/vector-icons";
+import type { ComponentProps } from "react";
 import { Text, View } from "react-native";
 
 import { useTheme } from "~/theme/ThemeProvider";
