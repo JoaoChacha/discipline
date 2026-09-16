@@ -75,14 +75,14 @@ Postgres is defined in `docker-compose.yml`. Drizzle lives in `packages/db`:
 
 ## Scripts
 
-| Command          | What it does                   |
-| ---------------- | ------------------------------ |
-| `pnpm dev`       | Expo + Next.js together        |
-| `pnpm dev:expo`  | Expo only                      |
-| `pnpm dev:next`  | Next.js / tRPC only            |
-| `pnpm typecheck` | TypeScript across the monorepo |
-| `pnpm lint`      | ESLint                         |
-| `pnpm format`    | Prettier check                 |
+| Command          | What it does                         |
+| ---------------- | ------------------------------------ |
+| `pnpm dev`       | Expo + Next.js together              |
+| `pnpm dev:expo`  | Expo only                            |
+| `pnpm dev:next`  | Next.js / tRPC only                  |
+| `pnpm typecheck` | TypeScript across the monorepo       |
+| `pnpm lint`      | ESLint                               |
+| `pnpm format`    | Prettier check                       |
 | `pnpm test`      | Vitest for API, auth, and onboarding |
 
 ## Production
