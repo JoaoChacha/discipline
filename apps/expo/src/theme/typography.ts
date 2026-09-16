@@ -14,10 +14,10 @@ const nativeFamilies: Record<Weight, string> = {
 };
 
 export function fontFamily(weight: Weight) {
-  return Platform.select({
-    web: "Plus Jakarta Sans",
-    default: nativeFamilies[weight],
-  });
+  if (Platform.OS === "web") {
+    return undefined;
+  }
+  return nativeFamilies[weight];
 }
 
 function tracking(value: number) {
