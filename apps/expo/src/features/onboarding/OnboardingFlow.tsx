@@ -64,7 +64,7 @@ function OnboardingStepper() {
   const { data: session } = authClient.useSession();
   const { step, next, back, skip, consented, stashConsent, complete } =
     useOnboarding();
-  const { clearPreview } = useOnboardingGate();
+  const { ready, needsOnboarding, clearPreview } = useOnboardingGate();
   const [reduceMotion, setReduceMotion] = useState(false);
   const [direction, setDirection] = useState(1);
   const [finishing, setFinishing] = useState(false);
@@ -77,6 +77,11 @@ function OnboardingStepper() {
     );
     return () => subscription.remove();
   }, []);
+
+  useEffect(() => {
+    if (!ready || !session || needsOnboarding) return;
+    router.replace("/");
+  }, [needsOnboarding, ready, router, session]);
 
   const goForward = () => {
     setDirection(1);
