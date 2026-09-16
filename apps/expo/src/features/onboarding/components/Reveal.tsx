@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import type { StyleProp, ViewStyle } from "react-native";
 import Animated, { Easing, FadeInDown } from "react-native-reanimated";
 
-import { motion } from "~/theme/tokens";
+import { useTheme } from "~/theme/ThemeProvider";
 
 export function Reveal({
   delay = 0,
@@ -15,6 +15,8 @@ export function Reveal({
   style?: StyleProp<ViewStyle>;
   children: ReactNode;
 }) {
+  const { motion } = useTheme();
+
   return (
     <Animated.View
       entering={

@@ -1,103 +1,111 @@
 import type { ComponentProps } from "react";
 import { Text, View } from "react-native";
 
-import { colors } from "~/theme/tokens";
-import { type } from "~/theme/typography";
-import { BrandCard } from "../components/BrandCard";
+import { useTheme } from "~/theme/ThemeProvider";
+import { FeatureCard } from "~/ui/FeatureCard";
+import { SurfaceCard } from "~/ui/SurfaceCard";
 import { OnboardingIcon } from "../components/OnboardingIcon";
 import { Reveal } from "../components/Reveal";
 
 function PrivacyRow({
   icon,
-  iconColor,
   body,
+  last = false,
 }: {
   icon: ComponentProps<typeof OnboardingIcon>["name"];
-  iconColor: string;
   body: string;
+  last?: boolean;
 }) {
+  const { colors, type } = useTheme();
+
   return (
-    <View style={{ flexDirection: "row", gap: 12 }}>
-      <View style={{ marginTop: 2 }}>
-        <OnboardingIcon name={icon} size={20} color={iconColor} />
-      </View>
-      <Text style={[type.bodyTight, { flex: 1, color: colors.label }]}>
-        {body}
-      </Text>
+    <View
+      style={{
+        flexDirection: "row",
+        gap: 12,
+        padding: 16,
+        borderBottomWidth: last ? 0 : 1,
+        borderBottomColor: colors.hairline,
+      }}
+    >
+      <OnboardingIcon name={icon} size={20} color={colors.ink} />
+      <Text style={[type.bodyInk, { flex: 1 }]}>{body}</Text>
     </View>
   );
 }
 
 export function PrivacyScreen({ reduceMotion }: { reduceMotion: boolean }) {
+  const { colors, type } = useTheme();
+
   return (
     <View>
-      <Reveal reduceMotion={reduceMotion} style={{ marginBottom: 12 }}>
-        <Text style={type.eyebrow}>VERIFIED BY SOMEONE YOU TRUST</Text>
-      </Reveal>
-      <Reveal reduceMotion={reduceMotion} delay={90}>
+      <Reveal reduceMotion={reduceMotion}>
         <Text style={type.title}>Proof stays focused and private.</Text>
       </Reveal>
-      <Reveal reduceMotion={reduceMotion} delay={90} style={{ marginTop: 12 }}>
+      <Reveal reduceMotion={reduceMotion} delay={80} style={{ marginTop: 12 }}>
         <Text style={type.body}>
           Your verifier sees only what they need for a fair decision.
         </Text>
       </Reveal>
 
-      <Reveal reduceMotion={reduceMotion} delay={170} style={{ marginTop: 28 }}>
-        <BrandCard>
-          <View accessibilityLabel="Trusted verifier example">
+      <Reveal reduceMotion={reduceMotion} delay={140} style={{ marginTop: 24 }}>
+        <FeatureCard>
+          <View
+            accessibilityLabel="Trusted verifier example"
+            style={{ flexDirection: "row", alignItems: "center", gap: 12 }}
+          >
             <View
               style={{
-                flexDirection: "row",
+                height: 48,
+                width: 48,
+                borderRadius: 999,
+                backgroundColor: colors.ghost,
                 alignItems: "center",
-                gap: 12,
-                paddingBottom: 16,
-                borderBottomWidth: 1,
-                borderBottomColor: colors.separator,
+                justifyContent: "center",
               }}
             >
-              <View
+              <Text
                 style={{
-                  height: 44,
-                  width: 44,
-                  borderRadius: 999,
-                  backgroundColor: colors.tintContainer,
-                  alignItems: "center",
-                  justifyContent: "center",
+                  ...type.callout,
+                  color: colors.featureText,
                 }}
               >
-                <Text style={{ ...type.callout, color: colors.tint }}>AC</Text>
-              </View>
-              <View style={{ minWidth: 0, flex: 1 }}>
-                <Text style={type.headline}>Alex Chen</Text>
-                <Text style={type.footnote}>Trusted verifier</Text>
-              </View>
-              <OnboardingIcon
-                name="checkmark-circle"
-                size={22}
-                color={colors.success}
-              />
+                AC
+              </Text>
             </View>
-
-            <View style={{ marginTop: 16, gap: 16 }}>
-              <PrivacyRow
-                icon="eye-outline"
-                iconColor={colors.tint}
-                body="Sees your action, deadline, and submitted proof."
-              />
-              <PrivacyRow
-                icon="eye-off-outline"
-                iconColor={colors.secondaryLabel}
-                body="Never sees payment details or other activity."
-              />
-              <PrivacyRow
-                icon="person-circle-outline"
-                iconColor={colors.success}
-                body="You choose a verifier for each commitment."
-              />
+            <View style={{ minWidth: 0, flex: 1 }}>
+              <Text style={{ ...type.headline, color: colors.featureText }}>
+                Alex Chen
+              </Text>
+              <Text style={{ ...type.caption, color: colors.featureMuted }}>
+                Trusted verifier
+              </Text>
             </View>
+            <OnboardingIcon
+              name="checkmark-circle"
+              size={22}
+              color={colors.lime}
+            />
           </View>
-        </BrandCard>
+        </FeatureCard>
+      </Reveal>
+
+      <Reveal reduceMotion={reduceMotion} delay={180} style={{ marginTop: 12 }}>
+        <SurfaceCard padded={false}>
+          <PrivacyRow
+            icon="eye-outline"
+            body="Sees your action, deadline, and submitted proof."
+          />
+          <PrivacyRow
+            icon="eye-off-outline"
+            body="Never sees payment details or other activity."
+          />
+          <PrivacyRow
+            icon="person-circle-outline"
+            body="You choose a verifier for each commitment."
+            last
+          />
+        </SurfaceCard>
       </Reveal>
     </View>
   );

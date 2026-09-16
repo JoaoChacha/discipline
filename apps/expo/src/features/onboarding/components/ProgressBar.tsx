@@ -7,7 +7,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import { colors, motion } from "~/theme/tokens";
+import { useTheme } from "~/theme/ThemeProvider";
 
 export function ProgressBar({
   step,
@@ -18,6 +18,7 @@ export function ProgressBar({
   total: number;
   reduceMotion: boolean;
 }) {
+  const { colors, motion } = useTheme();
   const progress = useSharedValue(step / total);
 
   useEffect(() => {
@@ -27,10 +28,13 @@ export function ProgressBar({
           duration: motion.duration,
           easing: Easing.bezier(...motion.easing),
         });
-  }, [progress, reduceMotion, step, total]);
+  }, [motion.duration, motion.easing, progress, reduceMotion, step, total]);
 
   const fillStyle = useAnimatedStyle(() => ({
     width: `${progress.value * 100}%`,
+  }));
+  const markerStyle = useAnimatedStyle(() => ({
+    left: `${progress.value * 100}%`,
   }));
 
   return (
@@ -40,19 +44,39 @@ export function ProgressBar({
       style={{
         marginTop: 12,
         height: 4,
-        overflow: "hidden",
-        borderRadius: 999,
-        backgroundColor: colors.separator,
+        justifyContent: "center",
       }}
     >
+      <View
+        style={{
+          height: 4,
+          overflow: "hidden",
+          borderRadius: 999,
+          backgroundColor: colors.hairline,
+        }}
+      >
+        <Animated.View
+          style={[
+            {
+              height: "100%",
+              borderRadius: 999,
+              backgroundColor: colors.lime,
+            },
+            fillStyle,
+          ]}
+        />
+      </View>
       <Animated.View
         style={[
           {
-            height: "100%",
+            position: "absolute",
+            height: 8,
+            width: 8,
+            marginLeft: -4,
             borderRadius: 999,
-            backgroundColor: colors.tint,
+            backgroundColor: colors.lime,
           },
-          fillStyle,
+          markerStyle,
         ]}
       />
     </View>

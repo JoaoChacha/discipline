@@ -1,12 +1,6 @@
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
-import {
-  AccessibilityInfo,
-  Pressable,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import { AccessibilityInfo, ScrollView, Text, View } from "react-native";
 import Animated, {
   Easing,
   FadeInLeft,
@@ -14,10 +8,8 @@ import Animated, {
 } from "react-native-reanimated";
 import { useRouter } from "expo-router";
 
-import { colors, motion } from "~/theme/tokens";
-import { type } from "~/theme/typography";
+import { useTheme } from "~/theme/ThemeProvider";
 import { authClient } from "~/utils/auth";
-import { OnboardingIcon } from "./components/OnboardingIcon";
 import { OnboardingShell } from "./components/Shell";
 import {
   FIRST_STEP,
@@ -38,7 +30,7 @@ const TOTAL_STEPS = 5;
 const STEP_CTA = [
   "See how the stake works",
   "See charity choices",
-  "Continue",
+  "I understand",
   "Review and begin",
   "Create my first commitment",
 ] as const;
@@ -66,9 +58,9 @@ function StepContent({
 
 function OnboardingStepper() {
   const router = useRouter();
+  const { colors, type, motion } = useTheme();
   const { data: session } = authClient.useSession();
-  const { step, next, back, skip, replay, consented, complete } =
-    useOnboarding();
+  const { step, next, back, skip, consented, complete } = useOnboarding();
   const [reduceMotion, setReduceMotion] = useState(false);
   const [direction, setDirection] = useState(1);
   const [signingIn, setSigningIn] = useState(false);
@@ -159,32 +151,16 @@ function OnboardingStepper() {
       ctaTestID="onboarding-cta"
       footer={
         step === LAST_STEP ? (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Replay onboarding"
-            onPress={() => {
-              setDirection(-1);
-              replay();
-            }}
-            testID="onboarding-replay"
+          <Text
             style={{
+              ...type.caption,
+              textAlign: "center",
               marginTop: 12,
-              minHeight: 44,
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 8,
+              color: colors.muted,
             }}
           >
-            <OnboardingIcon
-              name="refresh"
-              size={16}
-              color={colors.secondaryLabel}
-            />
-            <Text style={{ ...type.footnote, fontWeight: "600" }}>
-              Replay onboarding
-            </Text>
-          </Pressable>
+            No money is held until you confirm a commitment.
+          </Text>
         ) : null
       }
       onCta={() => {
@@ -195,11 +171,7 @@ function OnboardingStepper() {
         goForward();
       }}
     >
-      <Animated.View
-        key={step}
-        entering={entering}
-        style={{ flex: 1, backgroundColor: colors.background }}
-      >
+      <Animated.View key={step} entering={entering} style={{ flex: 1 }}>
         <ScrollView
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
@@ -213,15 +185,27 @@ function OnboardingStepper() {
 }
 
 function PhoneFrame({ children }: { children: ReactNode }) {
+  const { colors } = useTheme();
+
   return (
     <View
       style={{
         flex: 1,
-        backgroundColor: colors.background,
+        backgroundColor: colors.canvas,
         alignItems: "center",
       }}
     >
-      <View style={{ flex: 1, width: "100%", maxWidth: 390 }}>{children}</View>
+      <View
+        style={{
+          flex: 1,
+          width: "100%",
+          maxWidth: 390,
+          backgroundColor: colors.field,
+          overflow: "hidden",
+        }}
+      >
+        {children}
+      </View>
     </View>
   );
 }

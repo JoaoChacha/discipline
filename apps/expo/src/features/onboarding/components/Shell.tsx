@@ -2,10 +2,10 @@ import type { ReactNode } from "react";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { colors, spacing } from "~/theme/tokens";
-import { type } from "~/theme/typography";
+import { useTheme } from "~/theme/ThemeProvider";
+import { CapsuleButton } from "~/ui/CapsuleButton";
+import { ScreenWash } from "~/ui/ScreenWash";
 import { OnboardingIcon } from "./OnboardingIcon";
-import { PrimaryButton } from "./PrimaryButton";
 import { ProgressBar } from "./ProgressBar";
 
 export function OnboardingShell({
@@ -36,89 +36,90 @@ export function OnboardingShell({
   children: ReactNode;
 }) {
   const insets = useSafeAreaInsets();
+  const { colors, type, spacing } = useTheme();
+  const padded = String(total).padStart(2, "0");
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: colors.background,
-        paddingHorizontal: spacing.screenX,
-        paddingTop: Math.max(insets.top, spacing.screenTop),
-        paddingBottom: Math.max(insets.bottom, spacing.screenBottom),
-      }}
-    >
+    <ScreenWash>
       <View
         style={{
-          height: spacing.header,
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
+          flex: 1,
+          paddingHorizontal: spacing.screenX,
+          paddingTop: Math.max(insets.top, spacing.screenTop),
+          paddingBottom: Math.max(insets.bottom, spacing.screenBottom),
         }}
       >
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={leading === "close" ? "Close onboarding" : "Back"}
-          onPress={onLeading}
-          hitSlop={8}
-          testID="onboarding-back"
+        <View
           style={{
-            height: 44,
-            width: 44,
+            height: spacing.header,
+            flexDirection: "row",
             alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 999,
+            justifyContent: "space-between",
           }}
         >
-          <OnboardingIcon
-            name={leading === "close" ? "close" : "chevron-back"}
-            size={leading === "close" ? 22 : 26}
-            color={leading === "close" ? colors.secondaryLabel : colors.tint}
-          />
-        </Pressable>
-
-        <Text style={type.stepLabel}>
-          {step} of {total}
-        </Text>
-
-        {onSkip ? (
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Skip"
-            onPress={onSkip}
+            accessibilityLabel={
+              leading === "close" ? "Close onboarding" : "Back"
+            }
+            onPress={onLeading}
             hitSlop={8}
-            testID="onboarding-skip"
+            testID="onboarding-back"
             style={{
-              minHeight: 44,
+              height: 44,
+              width: 44,
+              alignItems: "center",
               justifyContent: "center",
-              paddingHorizontal: 8,
+              borderRadius: 999,
             }}
           >
-            <Text
-              style={{ ...type.callout, color: colors.tint, fontWeight: "400" }}
-            >
-              Skip
-            </Text>
+            <OnboardingIcon
+              name={leading === "close" ? "close" : "chevron-back"}
+              size={leading === "close" ? 22 : 26}
+              color={colors.ink}
+            />
           </Pressable>
-        ) : (
-          <View style={{ height: 44, width: 44 }} />
-        )}
-      </View>
 
-      <ProgressBar step={step} total={total} reduceMotion={reduceMotion} />
+          <Text style={type.stepLabel}>
+            {step} / {padded}
+          </Text>
 
-      <View style={{ flex: 1, paddingTop: spacing.contentTop }}>
-        {children}
-      </View>
+          {onSkip ? (
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Skip"
+              onPress={onSkip}
+              hitSlop={8}
+              testID="onboarding-skip"
+              style={{
+                minHeight: 44,
+                justifyContent: "center",
+                paddingHorizontal: 8,
+              }}
+            >
+              <Text style={{ ...type.callout, color: colors.muted }}>Skip</Text>
+            </Pressable>
+          ) : (
+            <View style={{ height: 44, width: 44 }} />
+          )}
+        </View>
 
-      <View>
-        <PrimaryButton
-          label={ctaLabel}
-          onPress={onCta}
-          disabled={ctaDisabled}
-          testID={ctaTestID}
-        />
-        {footer}
+        <ProgressBar step={step} total={total} reduceMotion={reduceMotion} />
+
+        <View style={{ flex: 1, paddingTop: spacing.contentTop }}>
+          {children}
+        </View>
+
+        <View>
+          <CapsuleButton
+            label={ctaLabel}
+            onPress={onCta}
+            disabled={ctaDisabled}
+            testID={ctaTestID}
+          />
+          {footer}
+        </View>
       </View>
-    </View>
+    </ScreenWash>
   );
 }
