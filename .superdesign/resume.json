@@ -70,7 +70,7 @@
       ],
       "fingerprints": {
         ".superdesign/design-system.md": "df9d3095e62eafbd900c4eb1dbb01bc624e8a663486206f5764f003f6d2e1b17",
-        ".superdesign/design-system-fintech.md": "4f0033cbbcca3e0cdd9a483678b14da260dd86f83c11c21be13da9017afe4aeb"
+        ".superdesign/design-system-fintech.md": "8af0a28f5b4e262414481dc837d308c52f9a6422a7ba198cba2f926bb2035777"
       },
       "components": [],
       "drafts": {
@@ -93,7 +93,7 @@
       ],
       "fingerprints": {
         ".superdesign/design-system.md": "df9d3095e62eafbd900c4eb1dbb01bc624e8a663486206f5764f003f6d2e1b17",
-        ".superdesign/design-system-fintech.md": "4f0033cbbcca3e0cdd9a483678b14da260dd86f83c11c21be13da9017afe4aeb"
+        ".superdesign/design-system-fintech.md": "8af0a28f5b4e262414481dc837d308c52f9a6422a7ba198cba2f926bb2035777"
       },
       "components": [],
       "drafts": {
@@ -233,7 +233,7 @@
       ],
       "fingerprints": {
         ".superdesign/design-system.md": "df9d3095e62eafbd900c4eb1dbb01bc624e8a663486206f5764f003f6d2e1b17",
-        ".superdesign/design-system-fintech.md": "4f0033cbbcca3e0cdd9a483678b14da260dd86f83c11c21be13da9017afe4aeb"
+        ".superdesign/design-system-fintech.md": "8af0a28f5b4e262414481dc837d308c52f9a6422a7ba198cba2f926bb2035777"
       },
       "components": [],
       "updatedAt": "2026-09-16T22:16:00.000Z",
@@ -259,7 +259,7 @@
       ],
       "fingerprints": {
         ".superdesign/design-system.md": "df9d3095e62eafbd900c4eb1dbb01bc624e8a663486206f5764f003f6d2e1b17",
-        ".superdesign/design-system-fintech.md": "4f0033cbbcca3e0cdd9a483678b14da260dd86f83c11c21be13da9017afe4aeb"
+        ".superdesign/design-system-fintech.md": "8af0a28f5b4e262414481dc837d308c52f9a6422a7ba198cba2f926bb2035777"
       },
       "components": [],
       "updatedAt": "2026-09-16T22:16:00.000Z",
@@ -274,6 +274,158 @@
           "currentVersion": 2
         }
       }
+    },
+    "commitment:fintech-light": {
+      "targetKind": "new-ui",
+      "projectId": "54813c85-ff34-4473-b1f7-549df56b85fd",
+      "sourceTarget": "onboarding:fintech-light",
+      "activeDraftId": "423d3227-3723-45ad-8fb9-9197cd2e72bd",
+      "designSystemPath": ".superdesign/design-system-fintech-commitment.md",
+      "contextFiles": [
+        ".superdesign/design-system-fintech-commitment.md",
+        ".superdesign/design-system-fintech-onboarding.md"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system-fintech-commitment.md": "ec716877f947f9a20f936d95d43dc0670372a49bbb3135313d6dfce871603441",
+        ".superdesign/design-system-fintech-onboarding.md": "4b09fa409ffc8c5f2c401ed9c433a018b96c25a4acdfd37ea56442bd2ff23b10"
+      },
+      "components": [],
+      "authoring": "import-design-draft (agent-authored HTML; Superdesign generation was unavailable: insufficient team credits)",
+      "drafts": {
+        "8b81ce65-dcbd-4510-b121-37ff75987975": {
+          "title": "Light \u00b7 01 \u2014 Action and deadline",
+          "visualDirection": "Light fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "762b60e1-51d6-4113-a82a-e38b5d225f09": {
+          "title": "Light \u00b7 02 \u2014 Stake",
+          "visualDirection": "Light fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "6bf8b5b1-cb96-4d94-ab95-9f39863458cc": {
+          "title": "Light \u00b7 03 \u2014 Cause",
+          "visualDirection": "Light fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "1050900a-a5c1-48d4-8105-f0af98c22d5a": {
+          "title": "Light \u00b7 04A \u2014 Verifier with friends",
+          "visualDirection": "Light fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "8680233a-869d-4fd9-a74f-2a180d23ef97": {
+          "title": "Light \u00b7 04B \u2014 Verifier, no friends",
+          "visualDirection": "Light fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "cfdbd091-82cc-489f-a17a-abd8b0b6f4c4": {
+          "title": "Light \u00b7 04C \u2014 Invite sheet",
+          "visualDirection": "Light fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "3e0436e9-af97-4203-ba19-b5ab95937bba": {
+          "title": "Light \u00b7 05 \u2014 Review and confirm",
+          "visualDirection": "Step 05 as chosen structure A: one dominant contract card (action, deadline, stake, complete/miss tiles), cause and verifier tiles, Apple Pay / card choice, consent capsule",
+          "currentVersion": 3
+        },
+        "78672599-c110-46f1-a0a3-262b80895ddd": {
+          "title": "Light \u00b7 05P \u2014 Review with pending invite",
+          "visualDirection": "Light fintech commitment-creation wizard",
+          "currentVersion": 3
+        },
+        "cb7adbb2-ba5a-4c08-bfe7-3025cf7a53a3": {
+          "title": "Light \u00b7 Held \u2014 Commitment is live",
+          "visualDirection": "Light fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "423d3227-3723-45ad-8fb9-9197cd2e72bd": {
+          "title": "Light \u00b7 Interactive Commitment Creation",
+          "visualDirection": "Light fintech commitment-creation wizard \u2014 interactive prototype (all steps, invite sheet, no-friends toggle, live stake math)",
+          "currentVersion": 4
+        },
+        "7515ebe0-84dd-45cb-9ee2-628f3edef3a9": {
+          "title": "Light \u00b7 05 \u00b7 Alt A \u2014 Contract card",
+          "visualDirection": "Chosen step 05 alternative (A). Same content as Light \u00b7 05 \u2014 Review and confirm from v3 onward",
+          "parentDraftId": "3e0436e9-af97-4203-ba19-b5ab95937bba",
+          "currentVersion": 2
+        },
+        "ff46cc53-7d58-4c6c-aa48-fd1b54b0e1ec": {
+          "title": "Light \u00b7 05 \u00b7 Alt B \u2014 Editable receipt",
+          "visualDirection": "Step 05 alternative B (not chosen): editable receipt with itemised ledger",
+          "parentDraftId": "3e0436e9-af97-4203-ba19-b5ab95937bba",
+          "currentVersion": 3
+        }
+      },
+      "updatedAt": "2026-09-16T21:05:00.000Z"
+    },
+    "commitment:fintech-dark": {
+      "targetKind": "new-ui",
+      "projectId": "54813c85-ff34-4473-b1f7-549df56b85fd",
+      "sourceTarget": "onboarding:fintech-dark",
+      "activeDraftId": "80bffda1-282f-44b7-846b-1f43c366aad9",
+      "designSystemPath": ".superdesign/design-system-fintech-commitment.md",
+      "contextFiles": [
+        ".superdesign/design-system-fintech-commitment.md",
+        ".superdesign/design-system-fintech-onboarding.md"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system-fintech-commitment.md": "ec716877f947f9a20f936d95d43dc0670372a49bbb3135313d6dfce871603441",
+        ".superdesign/design-system-fintech-onboarding.md": "4b09fa409ffc8c5f2c401ed9c433a018b96c25a4acdfd37ea56442bd2ff23b10"
+      },
+      "components": [],
+      "authoring": "import-design-draft (agent-authored HTML; Superdesign generation was unavailable: insufficient team credits)",
+      "drafts": {
+        "0ff76fc2-1022-44bf-873b-ab329639a9f1": {
+          "title": "Dark \u00b7 01 \u2014 Action and deadline",
+          "visualDirection": "Dark fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "3bf5335f-8120-4ec9-a315-24ff78a8e4e5": {
+          "title": "Dark \u00b7 02 \u2014 Stake",
+          "visualDirection": "Dark fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "6fca6617-e10d-4ed1-b055-32055f0fb79f": {
+          "title": "Dark \u00b7 03 \u2014 Cause",
+          "visualDirection": "Dark fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "2f41115a-f876-48c4-9ed0-6840f408d183": {
+          "title": "Dark \u00b7 04A \u2014 Verifier with friends",
+          "visualDirection": "Dark fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "e2268f5a-e931-4712-8283-28dca8936636": {
+          "title": "Dark \u00b7 04B \u2014 Verifier, no friends",
+          "visualDirection": "Dark fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "c446b216-b4d2-42bc-a7c1-a5834e175e46": {
+          "title": "Dark \u00b7 04C \u2014 Invite sheet",
+          "visualDirection": "Dark fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "28a2285e-bd89-4931-b0bf-3e83d088d7e0": {
+          "title": "Dark \u00b7 05 \u2014 Review and confirm",
+          "visualDirection": "Step 05 as chosen structure A: contract card with Apple Pay / card choice",
+          "currentVersion": 3
+        },
+        "c17eb8a5-0c9d-4500-af0c-a381319c4c9a": {
+          "title": "Dark \u00b7 05P \u2014 Review with pending invite",
+          "visualDirection": "Dark fintech commitment-creation wizard",
+          "currentVersion": 3
+        },
+        "d2005cb1-6575-465a-876b-730b23b5703f": {
+          "title": "Dark \u00b7 Held \u2014 Commitment is live",
+          "visualDirection": "Dark fintech commitment-creation wizard",
+          "currentVersion": 1
+        },
+        "80bffda1-282f-44b7-846b-1f43c366aad9": {
+          "title": "Dark \u00b7 Interactive Commitment Creation",
+          "visualDirection": "Dark fintech commitment-creation wizard \u2014 interactive prototype (all steps, invite sheet, no-friends toggle, live stake math)",
+          "currentVersion": 4
+        }
+      },
+      "updatedAt": "2026-09-16T21:05:00.000Z"
     }
   }
 }

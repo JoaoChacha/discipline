@@ -1,12 +1,16 @@
 import type { ReactNode } from "react";
 import { createContext, use, useCallback, useMemo, useState } from "react";
 
+import { CURRENT_TERMS_VERSION } from "@discipline/validators";
+
+import { completeAuthenticatedOnboarding } from "~/features/auth/completeEntry";
+import { publishOnboardingState } from "./onboardingStore";
 import {
   loadOnboardingState,
   resetOnboardingState,
   saveOnboardingState,
+  savePendingConsent,
 } from "./storage";
-import { publishOnboardingState } from "./useOnboardingGate";
 
 export const WELCOME_STEP = 0;
 export const FIRST_STEP = 1;
@@ -21,6 +25,7 @@ interface OnboardingContextValue {
   skip: () => void;
   replay: () => void;
   setConsented: (value: boolean) => void;
+  stashConsent: () => Promise<void>;
   complete: () => Promise<void>;
   dismiss: () => Promise<void>;
 }
@@ -52,14 +57,19 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
     setStep(WELCOME_STEP);
   }, []);
 
-  const complete = useCallback(async () => {
-    const nextState = { status: "completed" as const };
-    await saveOnboardingState(nextState);
+  const stashConsent = useCallback(async () => {
+    await savePendingConsent(CURRENT_TERMS_VERSION);
+    const nextState = await loadOnboardingState();
     publishOnboardingState(nextState);
   }, []);
 
+  const complete = useCallback(async () => {
+    await stashConsent();
+    await completeAuthenticatedOnboarding();
+  }, [stashConsent]);
+
   const dismiss = useCallback(async () => {
-    const nextState = { status: "dismissed" as const };
+    const nextState = { status: "pending" as const };
     await saveOnboardingState(nextState);
     publishOnboardingState(nextState);
   }, []);
@@ -74,10 +84,22 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
       skip,
       replay,
       setConsented,
+      stashConsent,
       complete,
       dismiss,
     }),
-    [back, complete, consented, dismiss, goTo, next, replay, skip, step],
+    [
+      back,
+      complete,
+      consented,
+      dismiss,
+      goTo,
+      next,
+      replay,
+      skip,
+      stashConsent,
+      step,
+    ],
   );
 
   return <OnboardingContext value={value}>{children}</OnboardingContext>;

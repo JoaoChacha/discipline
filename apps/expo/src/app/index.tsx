@@ -1,103 +1,21 @@
-import { Pressable, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Redirect, useRouter } from "expo-router";
+import { View } from "react-native";
+import { Redirect } from "expo-router";
 
+import { HomeShell } from "~/features/home/HomeShell";
 import { useOnboardingGate } from "~/features/onboarding/useOnboardingGate";
-import { colors } from "~/theme/tokens";
-import { authClient } from "~/utils/auth";
-
-function MobileAuth() {
-  const { data: session } = authClient.useSession();
-
-  return (
-    <View style={{ gap: 12 }}>
-      <Text
-        style={{
-          color: colors.label,
-          textAlign: "center",
-          fontSize: 20,
-          fontWeight: "600",
-        }}
-      >
-        {session?.user.name ? `Hello, ${session.user.name}` : "Not logged in"}
-      </Text>
-      <Pressable
-        onPress={() =>
-          session
-            ? authClient.signOut()
-            : authClient.signIn.social({
-                provider: "discord",
-                callbackURL: "/",
-              })
-        }
-        style={{
-          backgroundColor: colors.tint,
-          alignItems: "center",
-          borderRadius: 12,
-          paddingVertical: 12,
-        }}
-      >
-        <Text style={{ color: colors.white, fontSize: 17, fontWeight: "600" }}>
-          {session ? "Sign Out" : "Sign In With Discord"}
-        </Text>
-      </Pressable>
-    </View>
-  );
-}
+import { useTheme } from "~/theme/ThemeProvider";
 
 export default function Index() {
-  const router = useRouter();
-  const { ready, needsOnboarding, replay } = useOnboardingGate();
+  const { colors } = useTheme();
+  const { ready, needsOnboarding } = useOnboardingGate();
 
   if (!ready) {
-    return <View style={{ flex: 1, backgroundColor: colors.background }} />;
+    return <View style={{ flex: 1, backgroundColor: colors.field }} />;
   }
 
   if (needsOnboarding) {
     return <Redirect href="/onboarding" />;
   }
 
-  return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
-      <View style={{ flex: 1, padding: 20, justifyContent: "center", gap: 24 }}>
-        <Text
-          style={{
-            color: colors.label,
-            textAlign: "center",
-            fontSize: 40,
-            fontWeight: "700",
-            letterSpacing: -0.8,
-          }}
-        >
-          Discipline
-        </Text>
-        <Text
-          style={{
-            color: colors.secondaryLabel,
-            textAlign: "center",
-            fontSize: 15,
-            lineHeight: 22,
-          }}
-        >
-          Onboarding is complete. Commitment creation is next.
-        </Text>
-
-        <MobileAuth />
-
-        <Pressable
-          onPress={() => {
-            void replay().then(() => router.replace("/onboarding"));
-          }}
-          style={{
-            alignItems: "center",
-            paddingVertical: 12,
-          }}
-        >
-          <Text style={{ color: colors.tint, fontSize: 15, fontWeight: "600" }}>
-            Replay onboarding
-          </Text>
-        </Pressable>
-      </View>
-    </SafeAreaView>
-  );
+  return <HomeShell />;
 }

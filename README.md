@@ -27,7 +27,8 @@ nvm use
 pnpm install
 
 cp .env.example .env
-# Optional: set AUTH_DISCORD_ID / AUTH_DISCORD_SECRET for sign-in
+# Optional: set AUTH_GOOGLE_* / AUTH_APPLE_* for social sign-in.
+# Email and password work with AUTH_SECRET alone.
 
 pnpm db:up
 pnpm db:push
@@ -49,9 +50,9 @@ That starts:
 
 1. Next.js on port 3000
 2. A Cloudflare quick tunnel for the tRPC API (`EXPO_PUBLIC_API_URL`)
-3. A Cloudflare quick tunnel for Metro (`EXPO_PACKAGER_PROXY_URL`) so Expo Go can load the bundle off the LAN
+3. An `*.exp.direct` Metro tunnel (Expo's bundled ngrok, started directly)
 
-Scan the QR with [Expo Go](https://expo.dev/go) **SDK 57**. The JS bundle and API calls both go to that environment's `trycloudflare.com` URLs.
+Scan the QR with [Expo Go](https://expo.dev/go) **SDK 57**. Expo Go verifies the packager hostname and rejects `trycloudflare.com` with "Hostname could not be verified". `expo start --tunnel` hits the same ngrok account through a wrapper that currently crashes, so `dev:phone` starts ngrok itself and sets `EXPO_PACKAGER_PROXY_URL` to the `exp.direct` host.
 
 On your own Wi‑Fi (not a Cloud Agent), you can instead run `pnpm dev:next` plus `pnpm --filter @discipline/expo exec expo start --go --lan` and stay on the LAN.
 
@@ -82,6 +83,7 @@ Postgres is defined in `docker-compose.yml`. Drizzle lives in `packages/db`:
 | `pnpm typecheck` | TypeScript across the monorepo |
 | `pnpm lint` | ESLint |
 | `pnpm format` | Prettier check |
+| `pnpm test` | Vitest for auth / onboarding helpers |
 
 ## Production
 
