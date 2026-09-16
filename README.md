@@ -27,7 +27,8 @@ nvm use
 pnpm install
 
 cp .env.example .env
-# Optional: set AUTH_DISCORD_ID / AUTH_DISCORD_SECRET for sign-in
+# Optional: set AUTH_GOOGLE_* / AUTH_APPLE_* for social sign-in.
+# Email and password work with AUTH_SECRET alone.
 
 pnpm db:up
 pnpm db:push
@@ -82,6 +83,7 @@ Postgres is defined in `docker-compose.yml`. Drizzle lives in `packages/db`:
 | `pnpm typecheck` | TypeScript across the monorepo |
 | `pnpm lint` | ESLint |
 | `pnpm format` | Prettier check |
+| `pnpm test` | Vitest for auth / onboarding helpers |
 
 ## Production
 
