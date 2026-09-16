@@ -7,10 +7,12 @@
     <g fill="none" stroke="#1C1917" stroke-linecap="round" stroke-linejoin="round">
       <path d="M356 156a142 142 0 1 0 0 200" stroke-width="28"/>
       <path d="M314 198a82 82 0 1 0 0 116" stroke-width="28"/>
-      <path d="m286 226 81-81" stroke-width="24"/>
+      <path d="M279 233a32 32 0 1 0 0 46" stroke-width="22"/>
+      <path d="m282 230 83-83" stroke-width="20"/>
     </g>
-    <path d="m256 256 14-42 28 28Z" fill="#1C1917"/>
-    <path d="m360 152-11-34-23-25 24-24 8 42 24-24q16 6 21 21l-22 22 40 9-26 26Z" fill="#1C1917"/>
+    <path d="m256 256 13-36 23 23Z" fill="#1C1917"/>
+    <path d="m365 147-10-31 18-18 7 38Z" fill="#1C1917"/>
+    <path d="m365 147 31 10-18 18-22-21Z" fill="#1C1917"/>
   </g>
   <g fill="#1C1917">
     <text x="298" y="136" font-family="Avenir Next, Inter, ui-sans-serif, system-ui, sans-serif" font-size="52" font-weight="700" letter-spacing="-2.1">Disciplined Stakes</text>
