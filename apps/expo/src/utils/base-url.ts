@@ -5,7 +5,7 @@ import { isPreprod } from "./app-env";
 
 const PREPROD_API_URL =
   "https://discipline-git-preprod-joo-chchs-projects.vercel.app";
-const PROD_API_URL = "https://discipline.vercel.app";
+const PROD_API_URL = "https://discipline-joo-chchs-projects.vercel.app";
 
 /**
  * Resolve the tRPC / Better Auth host.

@@ -43,7 +43,7 @@
       "channel": "production",
       "env": {
         "APP_ENV": "production",
-        "EXPO_PUBLIC_API_URL": "https://discipline.vercel.app"
+        "EXPO_PUBLIC_API_URL": "https://discipline-joo-chchs-projects.vercel.app"
       }
     }
   },

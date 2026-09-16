@@ -90,11 +90,11 @@ Postgres is defined in `docker-compose.yml`. Drizzle lives in `packages/db`:
 
 Local Docker is not an environment. Hosted stacks:
 
-| | Pre-prod | Production |
-| --- | --- | --- |
-| API | Vercel project `discipline`, git branch `preprod` | Vercel project `discipline`, git branch `main` |
-| Database | Supabase `discipline-preprod` (`fwqqohaqmixgaqplumra`) | Supabase `discipline` (`bxaxnycbgrbhrdvkcuav`) |
-| Native | `eas build --profile preprod` (`com.discipline.app.preprod`) | `eas build --profile production` (`com.discipline.app`) |
+|          | Pre-prod                                                     | Production                                              |
+| -------- | ------------------------------------------------------------ | ------------------------------------------------------- |
+| API      | Vercel project `discipline`, git branch `preprod`            | Vercel project `discipline`, git branch `main`          |
+| Database | Supabase `discipline-preprod` (`fwqqohaqmixgaqplumra`)       | Supabase `discipline` (`bxaxnycbgrbhrdvkcuav`)          |
+| Native   | `eas build --profile preprod` (`com.discipline.app.preprod`) | `eas build --profile production` (`com.discipline.app`) |
 
 Vercel team: `joo-chchs-projects`. Project id: `prj_ur89Bv2yVbj0AIG3AEtoXQludVKz`.
 
@@ -104,7 +104,7 @@ Set these on Vercel (Production vs Preview scoped to `preprod`):
 
 - `POSTGRES_URL` — Supabase **transaction pooler** URI (`:6543`) from Project Settings → Database. Do not reuse the same database across envs.
 - `AUTH_SECRET` — `openssl rand -base64 32` (different per env)
-- `APP_URL` — the public HTTPS origin for that env
+- `APP_URL` — `https://discipline-joo-chchs-projects.vercel.app` for prod, or the `preprod` branch URL
 - `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
 - Optional Apple / Google OAuth. Register callbacks at `{APP_URL}/api/auth/callback/google` and `/apple`. For the pre-prod app use bundle id `com.discipline.app.preprod`.
 
