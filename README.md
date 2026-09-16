@@ -68,6 +68,22 @@ Postgres is defined in `docker-compose.yml`. Drizzle lives in `packages/db`:
 
 `POSTGRES_URL` can also point at Supabase, Neon, or any other Postgres host.
 
+Accountability tables in `packages/db/src/app-schema.ts`:
+
+| Table | Role |
+| --- | --- |
+| `profile` | Timezone, currency, and required onboarding status (1:1 with `user`) |
+| `charity` | Vetted nonprofit catalog |
+| `invitation` | Email invite for people who are not on the app yet |
+| `friendship` | Friend request / accepted pair |
+| `action` | Commitment + stake, with a frozen 80/20 split |
+| `action_charity_allocation` | Per-commitment charity split of the 80% donation pool |
+| `proof` | Evidence submitted by the owner |
+| `verdict` | Friend's classification of a proof |
+| `user_consent` | Onboarding and per-commitment term acceptance |
+
+Every new user gets a `profile` with `onboarding_status = required`. App surfaces should stay gated until that row is `completed`. Charity choice is stored on the commitment, not as a global preference.
+
 ## Why this starter
 
 [create-t3-turbo](https://github.com/t3-oss/create-t3-turbo) is the most maintained Expo + tRPC + Drizzle monorepo (6k+ stars, MIT). TanStack Start was removed so the repo stays native-first; Next.js stays as the type-safe backend the Expo app calls.

@@ -5,6 +5,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { oAuthProxy } from "better-auth/plugins";
 
 import { db } from "@discipline/db/client";
+import { newUserProfileValues, profile } from "@discipline/db/schema";
 
 export function initAuth<
   TExtraPlugins extends BetterAuthPlugin[] = [],
@@ -30,6 +31,18 @@ export function initAuth<
       expo(),
       ...(options.extraPlugins ?? []),
     ],
+    databaseHooks: {
+      user: {
+        create: {
+          after: async (createdUser) => {
+            await db
+              .insert(profile)
+              .values(newUserProfileValues(createdUser.id))
+              .onConflictDoNothing();
+          },
+        },
+      },
+    },
     socialProviders: {
       discord: {
         clientId: options.discordClientId,
