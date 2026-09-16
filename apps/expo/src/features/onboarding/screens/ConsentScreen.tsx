@@ -105,8 +105,8 @@ export function ConsentScreen({ reduceMotion }: { reduceMotion: boolean }) {
               width: 24,
               borderRadius: 999,
               borderWidth: 1.5,
-              borderColor: consented ? colors.ink : colors.hairline,
-              backgroundColor: consented ? colors.ink : "transparent",
+              borderColor: colors.ink,
+              backgroundColor: consented ? colors.ink : colors.surface,
               alignItems: "center",
               justifyContent: "center",
             }}
