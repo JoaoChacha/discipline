@@ -80,8 +80,9 @@ function OnboardingStepper() {
 
   useEffect(() => {
     if (!ready || !session || needsOnboarding) return;
+    if (step !== WELCOME_STEP) return;
     router.replace("/");
-  }, [needsOnboarding, ready, router, session]);
+  }, [needsOnboarding, ready, router, session, step]);
 
   const goForward = () => {
     setDirection(1);
