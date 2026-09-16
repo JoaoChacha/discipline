@@ -25,10 +25,11 @@
     "lint": "eslint --flag unstable_native_nodejs_ts_config",
     "generate": "pnpm with-env drizzle-kit generate",
     "push": "pnpm with-env drizzle-kit push",
+    "migrate": "pnpm with-env drizzle-kit migrate",
     "studio": "pnpm with-env drizzle-kit studio",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
     "test": "vitest run",
-    "with-env": "dotenv -e ../../.env --"
+    "with-env": "bash ../../scripts/with-root-env.sh"
   },
   "dependencies": {
     "drizzle-orm": "^0.44.7",

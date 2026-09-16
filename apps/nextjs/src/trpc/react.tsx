@@ -6,6 +6,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import {
   createTRPCClient,
   createWSClient,
+  httpBatchLink,
   loggerLink,
   wsLink,
 } from "@trpc/client";
@@ -16,6 +17,11 @@ import type { AppRouter } from "@discipline/api";
 
 import { env } from "~/env";
 import { createQueryClient } from "./query-client";
+
+const getBaseUrl = () => {
+  if (typeof window !== "undefined") return window.location.origin;
+  return "http://localhost:3000";
+};
 
 let clientQueryClientSingleton: QueryClient | undefined = undefined;
 const getQueryClient = () => {
@@ -41,15 +47,20 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
             env.NODE_ENV === "development" ||
             (op.direction === "down" && op.result instanceof Error),
         }),
-        wsLink({
-          transformer: SuperJSON,
-          client: createWSClient({
-            url: env.NEXT_PUBLIC_WS_URL,
-            connectionParams: () => ({
-              cookie: document.cookie,
+        env.NEXT_PUBLIC_WS_URL
+          ? wsLink({
+              transformer: SuperJSON,
+              client: createWSClient({
+                url: env.NEXT_PUBLIC_WS_URL,
+                connectionParams: () => ({
+                  cookie: document.cookie,
+                }),
+              }),
+            })
+          : httpBatchLink({
+              transformer: SuperJSON,
+              url: `${getBaseUrl()}/api/trpc`,
             }),
-          }),
-        }),
       ],
     }),
   );

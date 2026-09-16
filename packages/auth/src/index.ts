@@ -78,9 +78,12 @@ export function initAuth<
     },
     trustedOrigins: [
       "discipline://",
+      "discipline-preprod://",
       "exp://",
       "http://localhost:8081",
       "http://localhost:19006",
+      options.baseUrl,
+      options.productionUrl,
     ],
     onAPIError: {
       onError(error, ctx) {

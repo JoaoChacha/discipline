@@ -1,9 +1,16 @@
 import { Platform } from "react-native";
 import Constants from "expo-constants";
 
+import { isPreprod } from "./app-env";
+
+const PREPROD_API_URL =
+  "https://discipline-git-preprod-joo-chchs-projects.vercel.app";
+const PROD_API_URL = "https://discipline.vercel.app";
+
 /**
  * Resolve the tRPC / Better Auth host.
  *
+ * Hosted builds set `EXPO_PUBLIC_API_URL` in the EAS profile.
  * On a Cloud Agent the phone is not on the same network as the VM, so
  * `EXPO_PUBLIC_API_URL` must be a public tunnel (see `pnpm dev:phone`).
  * On your own LAN, Expo's host URI is reused and port 3000 is assumed.
@@ -18,22 +25,12 @@ export const getBaseUrl = () => {
     return "http://localhost:3000";
   }
 
-  /**
-   * Gets the IP address of your host-machine. If it cannot automatically find it,
-   * you'll have to manually set it. NOTE: Port 3000 should work for most but confirm
-   * you don't have anything else running on it, or you'd have to change it.
-   *
-   * **NOTE**: This is only for development. In production, you'll want to set the
-   * baseUrl to your production API URL.
-   */
   const debuggerHost = Constants.expoConfig?.hostUri;
   const localhost = debuggerHost?.split(":")[0];
 
-  if (!localhost) {
-    // return "https://your-production-api.example.com";
-    throw new Error(
-      "Failed to get localhost. Set EXPO_PUBLIC_API_URL or point to your production server.",
-    );
+  if (localhost) {
+    return `http://${localhost}:3000`;
   }
-  return `http://${localhost}:3000`;
+
+  return isPreprod ? PREPROD_API_URL : PROD_API_URL;
 };

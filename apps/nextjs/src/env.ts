@@ -28,7 +28,7 @@ export const env = createEnv({
    * For them to be exposed to the client, prefix them with `NEXT_PUBLIC_`.
    */
   client: {
-    NEXT_PUBLIC_WS_URL: z.string().min(1).default("ws://localhost:3001"),
+    NEXT_PUBLIC_WS_URL: z.string().optional(),
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1),
   },
   /**

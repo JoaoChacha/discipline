@@ -5,8 +5,8 @@
   },
   "build": {
     "base": {
-      "node": "22.12.0",
-      "pnpm": "9.15.4",
+      "node": "22.21.0",
+      "pnpm": "10.19.0",
       "ios": {
         "resourceClass": "m-medium"
       }
@@ -14,17 +14,37 @@
     "development": {
       "extends": "base",
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "APP_ENV": "development"
+      }
     },
     "preview": {
       "extends": "base",
       "distribution": "internal",
       "ios": {
         "simulator": true
+      },
+      "env": {
+        "APP_ENV": "development"
+      }
+    },
+    "preprod": {
+      "extends": "base",
+      "distribution": "internal",
+      "channel": "preprod",
+      "env": {
+        "APP_ENV": "preprod",
+        "EXPO_PUBLIC_API_URL": "https://discipline-git-preprod-joo-chchs-projects.vercel.app"
       }
     },
     "production": {
-      "extends": "base"
+      "extends": "base",
+      "channel": "production",
+      "env": {
+        "APP_ENV": "production",
+        "EXPO_PUBLIC_API_URL": "https://discipline.vercel.app"
+      }
     }
   },
   "submit": {

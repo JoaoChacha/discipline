@@ -9,7 +9,13 @@ if (!connectionString) {
   throw new Error("Missing POSTGRES_URL");
 }
 
-const client = postgres(connectionString);
+const isLocal = /localhost|127\.0\.0\.1/.test(connectionString);
+const isTransactionPooler = connectionString.includes(":6543");
+
+const client = postgres(connectionString, {
+  ssl: isLocal ? undefined : "require",
+  prepare: !isTransactionPooler,
+});
 
 export const db = drizzle({
   client,

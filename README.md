@@ -64,6 +64,7 @@ Postgres is defined in `docker-compose.yml`. Drizzle lives in `packages/db`:
 | ------------------ | --------------------------------------- |
 | `pnpm db:up`       | Start local Postgres                    |
 | `pnpm db:push`     | Push the Drizzle schema to the database |
+| `pnpm db:migrate`  | Apply SQL migrations (hosted + local)   |
 | `pnpm db:generate` | Generate a SQL migration                |
 | `pnpm db:studio`   | Open Drizzle Studio                     |
 
@@ -85,6 +86,40 @@ Postgres is defined in `docker-compose.yml`. Drizzle lives in `packages/db`:
 | `pnpm format`    | Prettier check                       |
 | `pnpm test`      | Vitest for API, auth, and onboarding |
 
-## Production
+## Environments
 
-Deploy `apps/nextjs` (the tRPC + auth + Stripe webhook host) to Vercel or any Node host, run the WebSocket server alongside it, set `POSTGRES_URL`, Better Auth, optional Apple/Google, and Stripe secrets, then point Expo `getBaseUrl()` and `EXPO_PUBLIC_WS_URL` at that environment before shipping with EAS.
+Local Docker is not an environment. Hosted stacks:
+
+| | Pre-prod | Production |
+| --- | --- | --- |
+| API | Vercel project `discipline`, git branch `preprod` | Vercel project `discipline`, git branch `main` |
+| Database | Supabase `discipline-preprod` (`fwqqohaqmixgaqplumra`) | Supabase `discipline` (`bxaxnycbgrbhrdvkcuav`) |
+| Native | `eas build --profile preprod` (`com.discipline.app.preprod`) | `eas build --profile production` (`com.discipline.app`) |
+
+Vercel team: `joo-chchs-projects`. Project id: `prj_ur89Bv2yVbj0AIG3AEtoXQludVKz`.
+
+After merge to `main`, create a long-lived `preprod` branch and push it so Vercel issues a stable preview URL (`https://discipline-git-preprod-joo-chchs-projects.vercel.app`). Point EAS `preprod` at that URL.
+
+Set these on Vercel (Production vs Preview scoped to `preprod`):
+
+- `POSTGRES_URL` — Supabase **transaction pooler** URI (`:6543`) from Project Settings → Database. Do not reuse the same database across envs.
+- `AUTH_SECRET` — `openssl rand -base64 32` (different per env)
+- `APP_URL` — the public HTTPS origin for that env
+- `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+- Optional Apple / Google OAuth. Register callbacks at `{APP_URL}/api/auth/callback/google` and `/apple`. For the pre-prod app use bundle id `com.discipline.app.preprod`.
+
+Leave `NEXT_PUBLIC_WS_URL` unset on Vercel. The hosted API uses HTTP tRPC at `/api/trpc`. The local WebSocket server still starts with `pnpm dev`.
+
+The Expo app does not talk to Supabase directly. Release builds read `EXPO_PUBLIC_API_URL` from [`apps/expo/eas.json`](apps/expo/eas.json).
+
+```bash
+# After setting POSTGRES_URL in your shell
+pnpm db:migrate
+
+# Native
+cd apps/expo
+eas build --profile preprod --platform all
+eas build --profile production --platform all
+```
+
+The app connects to Postgres as a server-side Drizzle client. Public tables have RLS enabled and `anon` / `authenticated` revoked so the Supabase Data API cannot read them. Copy the database password from the Supabase dashboard — it is not stored in this repo.
