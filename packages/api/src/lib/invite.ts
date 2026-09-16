@@ -9,10 +9,11 @@ import {
   profile,
   user,
 } from "@discipline/db/schema";
+import { isValidEmail } from "@discipline/validators";
 
 import type { DB } from "./reads";
 import { events } from "./events";
-import { holdStake } from "./hold";
+import { ensureStakeHeld } from "./hold";
 import { requireHandle } from "./profile";
 import {
   createInviteToken,
@@ -44,6 +45,48 @@ export async function createLinkInvite(
 
   events.publish([inviterId], "invitations");
   return { invitation: row, token, urls: inviteUrls(token, appUrl()) };
+}
+
+export async function createEmailInvite(
+  db: DB,
+  inviterId: string,
+  input: { displayName: string; email: string },
+) {
+  const email = input.email.trim().toLowerCase();
+  if (!isValidEmail(email)) {
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message: "Enter a valid email address.",
+    });
+  }
+
+  const { token, tokenHash } = createInviteToken();
+  const [row] = await db
+    .insert(invitation)
+    .values({
+      inviterId,
+      email,
+      displayName: input.displayName.trim(),
+      tokenHash,
+      expiresAt: inviteExpiry(),
+    })
+    .returning();
+
+  if (!row) {
+    throw new TRPCError({
+      code: "INTERNAL_SERVER_ERROR",
+      message: "Could not send that invite.",
+    });
+  }
+
+  events.publish([inviterId], "invitations");
+  return {
+    id: row.id,
+    displayName: row.displayName,
+    email: row.email,
+    token,
+    urls: inviteUrls(token, appUrl()),
+  };
 }
 
 export async function requestByHandle(
@@ -113,7 +156,6 @@ export async function requestByHandle(
 }
 
 export async function acceptInviteToken(db: DB, userId: string, token: string) {
-  await requireHandle(db, userId);
   const tokenHash = hashInviteToken(token);
   const [row] = await db
     .select()
@@ -132,7 +174,6 @@ export async function acceptIncomingInvite(
   userId: string,
   invitationId: string,
 ) {
-  await requireHandle(db, userId);
   const [row] = await db
     .select()
     .from(invitation)
@@ -196,8 +237,8 @@ async function acceptInvitation(
       .set({ verifierId: userId })
       .where(eq(action.id, current.id));
 
-    if (current.confirmedAt && current.paymentMethodId) {
-      await holdStake(db, current.id);
+    if (current.confirmedAt) {
+      await ensureStakeHeld(db, current.id);
       held.push(current.id);
     } else {
       events.publish([current.ownerId, userId], `commitment:${current.id}`);

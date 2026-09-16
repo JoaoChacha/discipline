@@ -7,32 +7,53 @@ import {
   action,
   actionCause,
   friendship,
+  hasCompletedOnboarding,
   invitation,
   paymentMethod,
+  profile,
+  userConsent,
 } from "@discipline/db/schema";
-import { COMPANY_FEE_BPS } from "@discipline/validators";
+import { COMPANY_FEE_BPS, CURRENT_TERMS_VERSION } from "@discipline/validators";
 
 import type { DB } from "./reads";
 import { events } from "./events";
-import { holdStake } from "./hold";
-import { requireHandle } from "./profile";
+import { ensureStakeHeld } from "./hold";
+import { ensureProfile } from "./onboarding";
 import { getCommitment } from "./reads";
+
+export async function requireCompletedOnboarding(db: DB, ownerId: string) {
+  await ensureProfile(db, ownerId);
+  const row = await db.query.profile.findFirst({
+    where: eq(profile.userId, ownerId),
+  });
+  if (!row || !hasCompletedOnboarding(row)) {
+    throw new TRPCError({
+      code: "PRECONDITION_FAILED",
+      message: "Finish onboarding before creating a commitment.",
+    });
+  }
+  return row;
+}
 
 export async function createCommitment(
   db: DB,
   ownerId: string,
   input: CreateCommitmentInput,
 ) {
-  await requireHandle(db, ownerId);
+  await requireCompletedOnboarding(db, ownerId);
 
-  const method = await db.query.paymentMethod.findFirst({
-    where: eq(paymentMethod.id, input.paymentMethodId),
-  });
-  if (method?.userId !== ownerId) {
-    throw new TRPCError({
-      code: "BAD_REQUEST",
-      message: "Choose one of your payment methods.",
+  let paymentMethodId: string | null = null;
+  if (input.paymentMethodId) {
+    const method = await db.query.paymentMethod.findFirst({
+      where: eq(paymentMethod.id, input.paymentMethodId),
     });
+    if (method?.userId !== ownerId) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "Choose one of your payment methods.",
+      });
+    }
+    paymentMethodId = method.id;
   }
 
   let verifierId: string | null = null;
@@ -56,7 +77,6 @@ export async function createCommitment(
         message: "Pick an accepted friend or send them an invite first.",
       });
     }
-    await requireHandle(db, input.verifierId);
     verifierId = input.verifierId;
   } else if (input.invitationId) {
     const [invite] = await db
@@ -84,7 +104,8 @@ export async function createCommitment(
       ownerId,
       verifierId,
       pendingInvitationId,
-      paymentMethodId: method.id,
+      paymentMethodId,
+      paymentKind: input.paymentKind,
       title: input.title,
       dueAt: input.dueAt,
       amountCents: input.amountCents,
@@ -110,8 +131,19 @@ export async function createCommitment(
     })),
   );
 
+  await db
+    .insert(userConsent)
+    .values({
+      userId: ownerId,
+      kind: "commitment_confirm",
+      termsVersion: input.termsVersion ?? CURRENT_TERMS_VERSION,
+    })
+    .onConflictDoNothing({
+      target: [userConsent.userId, userConsent.kind, userConsent.termsVersion],
+    });
+
   if (verifierId) {
-    await holdStake(db, created.id);
+    await ensureStakeHeld(db, created.id);
   } else {
     events.publish([ownerId], `commitment:${created.id}`);
     events.publish([ownerId], "commitments");

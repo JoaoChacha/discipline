@@ -17,6 +17,21 @@ export const commitmentRouter = {
     .mutation(({ ctx, input }) =>
       createCommitment(ctx.db, ctx.session.user.id, input),
     ),
+  list: protectedProcedure.query(({ ctx }) =>
+    listMine(ctx.db, ctx.session.user.id),
+  ),
+  get: protectedProcedure
+    .input(commitmentIdSchema)
+    .query(async ({ ctx, input }) => {
+      const row = await getCommitment(ctx.db, input.id, ctx.session.user.id);
+      if (!row) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Commitment not found.",
+        });
+      }
+      return row;
+    }),
   onGet: protectedProcedure
     .input(commitmentIdSchema)
     .subscription(async function* ({ ctx, input, signal }) {

@@ -119,3 +119,73 @@ export async function holdStake(
 
   return hold;
 }
+
+export async function applyLogicalHold(db: DB, actionId: string) {
+  const [current] = await db
+    .select()
+    .from(action)
+    .where(eq(action.id, actionId))
+    .limit(1);
+
+  if (!current) {
+    throw new TRPCError({
+      code: "NOT_FOUND",
+      message: "Commitment not found.",
+    });
+  }
+  if (!current.verifierId) {
+    throw new TRPCError({
+      code: "PRECONDITION_FAILED",
+      message: "A verifier must accept before the stake is held.",
+    });
+  }
+
+  await db
+    .update(action)
+    .set({
+      status: "active",
+      stakeStatus: "held",
+    })
+    .where(eq(action.id, actionId));
+
+  events.publish(
+    [current.ownerId, current.verifierId],
+    `commitment:${actionId}`,
+  );
+  events.publish([current.ownerId, current.verifierId], "commitments");
+
+  return current;
+}
+
+export async function ensureStakeHeld(db: DB, actionId: string) {
+  const [current] = await db
+    .select()
+    .from(action)
+    .where(eq(action.id, actionId))
+    .limit(1);
+
+  if (!current) {
+    throw new TRPCError({
+      code: "NOT_FOUND",
+      message: "Commitment not found.",
+    });
+  }
+
+  const canCharge =
+    Boolean(current.paymentMethodId) && Boolean(process.env.STRIPE_SECRET_KEY);
+
+  if (canCharge) {
+    const customer = await db.query.billingCustomer.findFirst({
+      where: eq(billingCustomer.userId, current.ownerId),
+    });
+    if (customer) {
+      try {
+        return await holdStake(db, actionId);
+      } catch {
+        return applyLogicalHold(db, actionId);
+      }
+    }
+  }
+
+  return applyLogicalHold(db, actionId);
+}

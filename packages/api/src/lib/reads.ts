@@ -13,6 +13,7 @@ import {
   stakeHold,
   user,
 } from "@discipline/db/schema";
+import { stakeOutcome } from "@discipline/validators";
 
 type DB = typeof Database;
 
@@ -146,7 +147,7 @@ export async function getCommitment(db: DB, id: string, userId: string) {
 
   if (!row) return null;
 
-  const [causes, hold] = await Promise.all([
+  const [causes, hold, pendingInvite, verifier] = await Promise.all([
     db
       .select({
         charityId: actionCause.charityId,
@@ -162,9 +163,44 @@ export async function getCommitment(db: DB, id: string, userId: string) {
     db.query.stakeHold.findFirst({
       where: eq(stakeHold.actionId, id),
     }),
+    row.pendingInvitationId
+      ? db.query.invitation.findFirst({
+          where: eq(invitation.id, row.pendingInvitationId),
+        })
+      : Promise.resolve(null),
+    row.verifierId
+      ? db
+          .select({
+            id: user.id,
+            name: user.name,
+            image: user.image,
+            handle: profile.handle,
+          })
+          .from(user)
+          .leftJoin(profile, eq(profile.userId, user.id))
+          .where(eq(user.id, row.verifierId))
+          .limit(1)
+          .then((rows) => rows[0] ?? null)
+      : Promise.resolve(null),
   ]);
 
-  return { ...row, causes, hold: hold ?? null };
+  const outcome = stakeOutcome(row.amountCents, row.feeBps);
+
+  return {
+    ...row,
+    causes,
+    hold: hold ?? null,
+    outcome,
+    verifier,
+    pendingInvite: pendingInvite
+      ? {
+          id: pendingInvite.id,
+          displayName: pendingInvite.displayName,
+          email: pendingInvite.email,
+          status: pendingInvite.status,
+        }
+      : null,
+  };
 }
 
 export async function listMine(db: DB, userId: string) {
@@ -174,7 +210,10 @@ export async function listMine(db: DB, userId: string) {
     .where(or(eq(action.ownerId, userId), eq(action.verifierId, userId)))
     .orderBy(desc(action.createdAt));
 
-  return Promise.all(rows.map((row) => getCommitment(db, row.id, userId)));
+  const loaded = await Promise.all(
+    rows.map((row) => getCommitment(db, row.id, userId)),
+  );
+  return loaded.filter((row): row is NonNullable<typeof row> => Boolean(row));
 }
 
 export async function requireBillingCustomer(db: DB, userId: string) {
