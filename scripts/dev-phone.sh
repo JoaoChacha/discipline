@@ -31,8 +31,12 @@ if ! command -v cloudflared >/dev/null 2>&1; then
   export PATH="$HOME/.local/bin:$PATH"
 fi
 
-if [ -f /tmp/expo-token ]; then
+# Prefer EXPO_TOKEN from the environment (Cloud Agent secret). Fall back to
+# /tmp/expo-token only when the env var is unset.
+if [ -z "${EXPO_TOKEN:-}" ] && [ -f /tmp/expo-token ]; then
   EXPO_TOKEN="$(tr -d '[:space:]' </tmp/expo-token)"
+fi
+if [ -n "${EXPO_TOKEN:-}" ]; then
   export EXPO_TOKEN
 fi
 
