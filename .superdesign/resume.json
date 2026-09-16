@@ -233,10 +233,10 @@
           "title": "Light \u00b7 Login",
           "visualDirection": "Light fintech sign-in after Welcome I already have an account",
           "parentDraftId": "bcb5b53d-4b73-40ad-bdd0-6461125a604b",
-          "currentVersion": 1
+          "currentVersion": 2
         }
       },
-      "updatedAt": "2026-09-16T14:27:00.000Z"
+      "updatedAt": "2026-09-16T14:32:00.000Z"
     },
     "/login:dark": {
       "targetKind": "new-ui",
@@ -257,10 +257,10 @@
           "title": "Dark \u00b7 Login",
           "visualDirection": "Dark fintech sign-in after Welcome I already have an account",
           "parentDraftId": "d437ee00-0a3a-4951-b5d8-4c149e676f6b",
-          "currentVersion": 1
+          "currentVersion": 2
         }
       },
-      "updatedAt": "2026-09-16T14:27:00.000Z"
+      "updatedAt": "2026-09-16T14:32:00.000Z"
     },
     "/create-account": {
       "targetKind": "new-ui",
@@ -281,10 +281,10 @@
           "title": "Light \u00b7 Before you create your first commitment",
           "visualDirection": "Light fintech account creation after consent",
           "parentDraftId": "93eb32de-fa6e-4cc2-a3a2-6be71432a06f",
-          "currentVersion": 1
+          "currentVersion": 2
         }
       },
-      "updatedAt": "2026-09-16T14:27:00.000Z"
+      "updatedAt": "2026-09-16T14:32:00.000Z"
     },
     "/create-account:dark": {
       "targetKind": "new-ui",
@@ -305,10 +305,10 @@
           "title": "Dark \u00b7 Before you create your first commitment",
           "visualDirection": "Dark fintech account creation after consent",
           "parentDraftId": "febf2a15-79a3-478d-8403-9de7e352d098",
-          "currentVersion": 1
+          "currentVersion": 2
         }
       },
-      "updatedAt": "2026-09-16T14:27:00.000Z"
+      "updatedAt": "2026-09-16T14:32:00.000Z"
     }
   }
 }

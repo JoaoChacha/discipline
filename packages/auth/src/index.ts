@@ -6,6 +6,10 @@ import { oAuthProxy } from "better-auth/plugins";
 
 import { db } from "@discipline/db/client";
 
+function configuredSecret(value: string | undefined): value is string {
+  return Boolean(value && value !== "replace-me");
+}
+
 export function initAuth<
   TExtraPlugins extends BetterAuthPlugin[] = [],
 >(options: {
@@ -15,6 +19,11 @@ export function initAuth<
 
   discordClientId: string;
   discordClientSecret: string;
+  googleClientId?: string;
+  googleClientSecret?: string;
+  appleClientId?: string;
+  appleClientSecret?: string;
+  appleAppBundleIdentifier?: string;
   extraPlugins?: TExtraPlugins;
 }) {
   const config = {
@@ -36,6 +45,27 @@ export function initAuth<
         clientSecret: options.discordClientSecret,
         redirectURI: `${options.productionUrl}/api/auth/callback/discord`,
       },
+      ...(configuredSecret(options.googleClientId) &&
+      configuredSecret(options.googleClientSecret)
+        ? {
+            google: {
+              clientId: options.googleClientId,
+              clientSecret: options.googleClientSecret,
+              redirectURI: `${options.productionUrl}/api/auth/callback/google`,
+            },
+          }
+        : {}),
+      ...(configuredSecret(options.appleClientId) &&
+      configuredSecret(options.appleClientSecret)
+        ? {
+            apple: {
+              clientId: options.appleClientId,
+              clientSecret: options.appleClientSecret,
+              appBundleIdentifier: options.appleAppBundleIdentifier,
+              redirectURI: `${options.productionUrl}/api/auth/callback/apple`,
+            },
+          }
+        : {}),
     },
     emailAndPassword: {
       enabled: true,

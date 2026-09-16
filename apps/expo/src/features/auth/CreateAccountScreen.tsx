@@ -10,22 +10,18 @@ import { authClient } from "~/utils/auth";
 import { AuthField } from "./AuthField";
 import { AuthMessage } from "./AuthMessage";
 import { AuthScreen } from "./AuthScreen";
-import { completeAuthenticatedEntry } from "./completeEntry";
+import { SocialAuthButtons } from "./SocialAuthButtons";
+import { useSocialSignIn } from "./useSocialSignIn";
 import { validateSignUp } from "./validation";
 
 export function CreateAccountScreen() {
   const router = useRouter();
   const { colors, type } = useTheme();
+  const { busy, setBusy, message, setMessage, finish, signInWith } =
+    useSocialSignIn();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [busy, setBusy] = useState<"email" | "discord" | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
-
-  const finish = async () => {
-    await completeAuthenticatedEntry();
-    router.replace("/");
-  };
 
   const createAccount = async () => {
     const nextMessage = validateSignUp({ name, email, password });
@@ -54,21 +50,6 @@ export function CreateAccountScreen() {
     }
   };
 
-  const continueWithDiscord = async () => {
-    setBusy("discord");
-    setMessage(null);
-    try {
-      await completeAuthenticatedEntry();
-      await authClient.signIn.social({
-        provider: "discord",
-        callbackURL: "/",
-      });
-    } catch {
-      setMessage("Could not open Discord sign-in.");
-      setBusy(null);
-    }
-  };
-
   return (
     <AuthScreen
       eyebrow="ALMOST THERE"
@@ -90,17 +71,6 @@ export function CreateAccountScreen() {
             }}
             disabled={busy !== null}
             testID="create-account-submit"
-          />
-          <CapsuleButton
-            variant="ghost"
-            label={
-              busy === "discord" ? "Opening Discord…" : "Continue with Discord"
-            }
-            onPress={() => {
-              void continueWithDiscord();
-            }}
-            disabled={busy !== null}
-            testID="create-account-discord"
           />
           <CapsuleButton
             variant="link"
@@ -133,6 +103,15 @@ export function CreateAccountScreen() {
             </Text>
           </View>
         </SurfaceCard>
+        <SocialAuthButtons
+          busy={busy}
+          onGoogle={() => {
+            void signInWith("google");
+          }}
+          onApple={() => {
+            void signInWith("apple");
+          }}
+        />
         <AuthField
           label="Name"
           value={name}

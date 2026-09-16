@@ -8,21 +8,17 @@ import { authClient } from "~/utils/auth";
 import { AuthField } from "./AuthField";
 import { AuthMessage } from "./AuthMessage";
 import { AuthScreen } from "./AuthScreen";
-import { completeAuthenticatedEntry } from "./completeEntry";
+import { SocialAuthButtons } from "./SocialAuthButtons";
+import { useSocialSignIn } from "./useSocialSignIn";
 import { validateSignIn } from "./validation";
 
 export function LoginScreen() {
   const router = useRouter();
   const { colors, type } = useTheme();
+  const { busy, setBusy, message, setMessage, finish, signInWith } =
+    useSocialSignIn();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [busy, setBusy] = useState<"email" | "discord" | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
-
-  const finish = async () => {
-    await completeAuthenticatedEntry();
-    router.replace("/");
-  };
 
   const signInWithEmail = async () => {
     const nextMessage = validateSignIn({ email, password });
@@ -50,21 +46,6 @@ export function LoginScreen() {
     }
   };
 
-  const signInWithDiscord = async () => {
-    setBusy("discord");
-    setMessage(null);
-    try {
-      await completeAuthenticatedEntry();
-      await authClient.signIn.social({
-        provider: "discord",
-        callbackURL: "/",
-      });
-    } catch {
-      setMessage("Could not open Discord sign-in.");
-      setBusy(null);
-    }
-  };
-
   return (
     <AuthScreen
       eyebrow="WELCOME BACK"
@@ -88,17 +69,6 @@ export function LoginScreen() {
             testID="login-submit"
           />
           <CapsuleButton
-            variant="ghost"
-            label={
-              busy === "discord" ? "Opening Discord…" : "Continue with Discord"
-            }
-            onPress={() => {
-              void signInWithDiscord();
-            }}
-            disabled={busy !== null}
-            testID="login-discord"
-          />
-          <CapsuleButton
             variant="link"
             label="Need an account? Get started"
             onPress={() => router.replace("/onboarding")}
@@ -109,6 +79,15 @@ export function LoginScreen() {
       }
     >
       <View style={{ gap: 16 }}>
+        <SocialAuthButtons
+          busy={busy}
+          onGoogle={() => {
+            void signInWith("google");
+          }}
+          onApple={() => {
+            void signInWith("apple");
+          }}
+        />
         <AuthField
           label="Email"
           value={email}
