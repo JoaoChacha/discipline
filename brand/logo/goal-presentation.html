@@ -6,8 +6,8 @@
     <title>Disciplined Stakes — Goal Mark</title>
     <style>
       :root {
-        color: #1c1917;
-        background: #e9e5dc;
+        color: #18181b;
+        background: #e8e4df;
         font-family: "Avenir Next", Inter, ui-sans-serif, system-ui, sans-serif;
       }
       * {
@@ -24,8 +24,8 @@
         height: 100%;
         padding: 44px;
         background:
-          radial-gradient(circle at 0 0, #fffdf7 0, transparent 30%),
-          #e9e5dc;
+          radial-gradient(circle at 0 0, #fdfcfb 0, transparent 30%),
+          #e8e4df;
       }
       header {
         display: flex;
@@ -42,7 +42,7 @@
       }
       .meta {
         margin-bottom: 6px;
-        color: #756d5c;
+        color: #716a78;
         font: 650 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
         letter-spacing: 2px;
       }
@@ -59,8 +59,8 @@
         overflow: hidden;
         padding: 50px;
         border-radius: 30px;
-        background: #ffd84d;
-        color: #1c1917;
+        background: #ffffff;
+        color: #18181b;
       }
       .hero-icon {
         align-self: center;
@@ -76,7 +76,7 @@
         display: flex;
         justify-content: space-between;
         margin-top: 10px;
-        color: #66510a;
+        color: #716a78;
         font: 650 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
         letter-spacing: 1.7px;
       }
@@ -89,13 +89,13 @@
         overflow: hidden;
         border: 1px solid rgb(28 25 23 / 10%);
         border-radius: 26px;
-        background: #fffdf7;
+        background: #fdfcfb;
       }
       .panel-label {
         display: flex;
         justify-content: space-between;
         padding: 20px 22px 0;
-        color: #756d5c;
+        color: #716a78;
         font: 650 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
         letter-spacing: 1.7px;
       }
@@ -127,14 +127,14 @@
         display: grid;
         justify-items: center;
         gap: 10px;
-        color: #756d5c;
+        color: #716a78;
         font: 600 9px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
       }
       .size-box {
         display: grid;
         place-items: center;
         border-radius: 22%;
-        background: #ffd84d;
+        background: #ffffff;
       }
       .size-box svg {
         width: 100%;
@@ -157,8 +157,8 @@
         gap: 10px;
       }
       .mono .dark {
-        background: #1c1917;
-        color: #fffdf7;
+        background: #18181b;
+        color: #fdfcfb;
       }
       .mono svg {
         width: 42px;
@@ -174,19 +174,26 @@
   <body>
     <div class="canvas">
       <header>
-        <h1>Disciplined Stakes <span style="color:#e6ad00">/</span> goal mark</h1>
-        <div class="meta">ORIGINAL VECTOR · REFERENCE-INSPIRED</div>
+        <h1>Disciplined Stakes <span style="color:#dc2626">/</span> goal mark</h1>
+        <div class="meta">EXACT REFERENCE MATCH</div>
       </header>
 
       <div class="layout">
         <section class="hero">
           <svg class="hero-icon" viewBox="0 0 512 512" aria-label="Disciplined Stakes target and arrow goal mark">
-            <g fill="none" stroke="#1C1917" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M156 156A142 142 0 1 0 356 356" stroke-width="28"/>
-              <path d="M198 198A82 82 0 1 0 314 314" stroke-width="28"/>
-              <path d="m256 256 118-118" stroke-width="24"/>
+            <g fill="none" stroke="#DC2626" stroke-width="44">
+              <circle cx="256" cy="256" r="156"/>
+              <circle cx="256" cy="256" r="92"/>
             </g>
-            <circle cx="256" cy="256" r="34" fill="#1C1917"/>
+            <g transform="translate(256 256) rotate(-45)">
+              <line x1="0" y1="0" x2="220" y2="0" stroke="#FFFFFF" stroke-width="44" stroke-linecap="round"/>
+            </g>
+            <circle cx="256" cy="256" r="44" fill="#DC2626"/>
+            <g transform="translate(256 256) rotate(-45)">
+              <line x1="0" y1="0" x2="200" y2="0" stroke="#18181B" stroke-width="28" stroke-linecap="round"/>
+              <polygon points="130,-14 165,-55 195,-55 160,-14" fill="#18181B"/>
+              <polygon points="130,14 165,55 195,55 160,14" fill="#18181B"/>
+            </g>
             <path d="m360 152-11-47 26-27 7 46 22-23q15 5 21 20l-21 21 43 8-27 27-46-14Z" fill="#1C1917"/>
           </svg>
           <div>
@@ -200,9 +207,20 @@
             <div class="panel-label"><span>PRIMARY LOCKUP</span><span>HORIZONTAL</span></div>
             <div class="lockup">
               <svg viewBox="0 0 512 512">
-                <rect width="512" height="512" rx="112" fill="#FFD84D"/>
-                <g fill="none" stroke="#1C1917" stroke-linecap="round" stroke-linejoin="round"><path d="M156 156A142 142 0 1 0 356 356" stroke-width="28"/><path d="M198 198A82 82 0 1 0 314 314" stroke-width="28"/><path d="m256 256 118-118" stroke-width="24"/></g>
-                <circle cx="256" cy="256" r="34" fill="#1C1917"/><path d="m360 152-11-47 26-27 7 46 22-23q15 5 21 20l-21 21 43 8-27 27-46-14Z" fill="#1C1917"/>
+                <rect width="512" height="512" rx="112" fill="#FFFFFF"/>
+                <g fill="none" stroke="#DC2626" stroke-width="44">
+              <circle cx="256" cy="256" r="156"/>
+              <circle cx="256" cy="256" r="92"/>
+            </g>
+            <g transform="translate(256 256) rotate(-45)">
+              <line x1="0" y1="0" x2="220" y2="0" stroke="#FFFFFF" stroke-width="44" stroke-linecap="round"/>
+            </g>
+            <circle cx="256" cy="256" r="44" fill="#DC2626"/>
+            <g transform="translate(256 256) rotate(-45)">
+              <line x1="0" y1="0" x2="200" y2="0" stroke="#18181B" stroke-width="28" stroke-linecap="round"/>
+              <polygon points="130,-14 165,-55 195,-55 160,-14" fill="#18181B"/>
+              <polygon points="130,14 165,55 195,55 160,14" fill="#18181B"/>
+            </g><path d="m360 152-11-47 26-27 7 46 22-23q15 5 21 20l-21 21 43 8-27 27-46-14Z" fill="#1C1917"/>
               </svg>
               <span>Disciplined Stakes</span>
             </div>
@@ -211,10 +229,58 @@
           <div class="panel">
             <div class="panel-label"><span>APP ICON</span><span>SMALL-SIZE TEST</span></div>
             <div class="sizes">
-              <div class="size"><div class="size-box s24"><svg viewBox="0 0 512 512"><g fill="none" stroke="#1C1917" stroke-linecap="round" stroke-linejoin="round"><path d="M156 156A142 142 0 1 0 356 356" stroke-width="38"/><path d="M198 198A82 82 0 1 0 314 314" stroke-width="38"/><path d="m256 256 118-118" stroke-width="32"/></g><circle cx="256" cy="256" r="34" fill="#1C1917"/><path d="m360 152-11-47 26-27 7 46 22-23q15 5 21 20l-21 21 43 8-27 27-46-14Z" fill="#1C1917"/></svg></div><span>24</span></div>
-              <div class="size"><div class="size-box s32"><svg viewBox="0 0 512 512"><g fill="none" stroke="#1C1917" stroke-linecap="round" stroke-linejoin="round"><path d="M156 156A142 142 0 1 0 356 356" stroke-width="34"/><path d="M198 198A82 82 0 1 0 314 314" stroke-width="34"/><path d="m256 256 118-118" stroke-width="29"/></g><circle cx="256" cy="256" r="34" fill="#1C1917"/><path d="m360 152-11-47 26-27 7 46 22-23q15 5 21 20l-21 21 43 8-27 27-46-14Z" fill="#1C1917"/></svg></div><span>32</span></div>
-              <div class="size"><div class="size-box s48"><svg viewBox="0 0 512 512"><g fill="none" stroke="#1C1917" stroke-linecap="round" stroke-linejoin="round"><path d="M156 156A142 142 0 1 0 356 356" stroke-width="31"/><path d="M198 198A82 82 0 1 0 314 314" stroke-width="31"/><path d="m256 256 118-118" stroke-width="26"/></g><circle cx="256" cy="256" r="34" fill="#1C1917"/><path d="m360 152-11-47 26-27 7 46 22-23q15 5 21 20l-21 21 43 8-27 27-46-14Z" fill="#1C1917"/></svg></div><span>48</span></div>
-              <div class="size"><div class="size-box s96"><svg viewBox="0 0 512 512"><g fill="none" stroke="#1C1917" stroke-linecap="round" stroke-linejoin="round"><path d="M156 156A142 142 0 1 0 356 356" stroke-width="28"/><path d="M198 198A82 82 0 1 0 314 314" stroke-width="28"/><path d="m256 256 118-118" stroke-width="24"/></g><circle cx="256" cy="256" r="34" fill="#1C1917"/><path d="m360 152-11-47 26-27 7 46 22-23q15 5 21 20l-21 21 43 8-27 27-46-14Z" fill="#1C1917"/></svg></div><span>96</span></div>
+              <div class="size"><div class="size-box s24"><svg viewBox="0 0 512 512"><g fill="none" stroke="#DC2626" stroke-width="44">
+              <circle cx="256" cy="256" r="156"/>
+              <circle cx="256" cy="256" r="92"/>
+            </g>
+            <g transform="translate(256 256) rotate(-45)">
+              <line x1="0" y1="0" x2="220" y2="0" stroke="#FFFFFF" stroke-width="44" stroke-linecap="round"/>
+            </g>
+            <circle cx="256" cy="256" r="44" fill="#DC2626"/>
+            <g transform="translate(256 256) rotate(-45)">
+              <line x1="0" y1="0" x2="200" y2="0" stroke="#18181B" stroke-width="38" stroke-linecap="round"/>
+              <polygon points="130,-14 165,-55 195,-55 160,-14" fill="#18181B"/>
+              <polygon points="130,14 165,55 195,55 160,14" fill="#18181B"/>
+            </g><path d="m360 152-11-47 26-27 7 46 22-23q15 5 21 20l-21 21 43 8-27 27-46-14Z" fill="#1C1917"/></svg></div><span>24</span></div>
+              <div class="size"><div class="size-box s32"><svg viewBox="0 0 512 512"><g fill="none" stroke="#DC2626" stroke-width="44">
+              <circle cx="256" cy="256" r="156"/>
+              <circle cx="256" cy="256" r="92"/>
+            </g>
+            <g transform="translate(256 256) rotate(-45)">
+              <line x1="0" y1="0" x2="220" y2="0" stroke="#FFFFFF" stroke-width="44" stroke-linecap="round"/>
+            </g>
+            <circle cx="256" cy="256" r="44" fill="#DC2626"/>
+            <g transform="translate(256 256) rotate(-45)">
+              <line x1="0" y1="0" x2="200" y2="0" stroke="#18181B" stroke-width="34" stroke-linecap="round"/>
+              <polygon points="130,-14 165,-55 195,-55 160,-14" fill="#18181B"/>
+              <polygon points="130,14 165,55 195,55 160,14" fill="#18181B"/>
+            </g><path d="m360 152-11-47 26-27 7 46 22-23q15 5 21 20l-21 21 43 8-27 27-46-14Z" fill="#1C1917"/></svg></div><span>32</span></div>
+              <div class="size"><div class="size-box s48"><svg viewBox="0 0 512 512"><g fill="none" stroke="#DC2626" stroke-width="44">
+              <circle cx="256" cy="256" r="156"/>
+              <circle cx="256" cy="256" r="92"/>
+            </g>
+            <g transform="translate(256 256) rotate(-45)">
+              <line x1="0" y1="0" x2="220" y2="0" stroke="#FFFFFF" stroke-width="44" stroke-linecap="round"/>
+            </g>
+            <circle cx="256" cy="256" r="44" fill="#DC2626"/>
+            <g transform="translate(256 256) rotate(-45)">
+              <line x1="0" y1="0" x2="200" y2="0" stroke="#18181B" stroke-width="31" stroke-linecap="round"/>
+              <polygon points="130,-14 165,-55 195,-55 160,-14" fill="#18181B"/>
+              <polygon points="130,14 165,55 195,55 160,14" fill="#18181B"/>
+            </g><path d="m360 152-11-47 26-27 7 46 22-23q15 5 21 20l-21 21 43 8-27 27-46-14Z" fill="#1C1917"/></svg></div><span>48</span></div>
+              <div class="size"><div class="size-box s96"><svg viewBox="0 0 512 512"><g fill="none" stroke="#DC2626" stroke-width="44">
+              <circle cx="256" cy="256" r="156"/>
+              <circle cx="256" cy="256" r="92"/>
+            </g>
+            <g transform="translate(256 256) rotate(-45)">
+              <line x1="0" y1="0" x2="220" y2="0" stroke="#FFFFFF" stroke-width="44" stroke-linecap="round"/>
+            </g>
+            <circle cx="256" cy="256" r="44" fill="#DC2626"/>
+            <g transform="translate(256 256) rotate(-45)">
+              <line x1="0" y1="0" x2="200" y2="0" stroke="#18181B" stroke-width="28" stroke-linecap="round"/>
+              <polygon points="130,-14 165,-55 195,-55 160,-14" fill="#18181B"/>
+              <polygon points="130,14 165,55 195,55 160,14" fill="#18181B"/>
+            </g><path d="m360 152-11-47 26-27 7 46 22-23q15 5 21 20l-21 21 43 8-27 27-46-14Z" fill="#1C1917"/></svg></div><span>96</span></div>
             </div>
           </div>
 
@@ -222,11 +288,35 @@
             <div class="panel-label"><span>ONE COLOR</span><span>LIGHT + DARK</span></div>
             <div class="mono">
               <div>
-                <svg viewBox="0 0 512 512"><g fill="none" stroke="#1C1917" stroke-linecap="round" stroke-linejoin="round"><path d="M156 156A142 142 0 1 0 356 356" stroke-width="28"/><path d="M198 198A82 82 0 1 0 314 314" stroke-width="28"/><path d="m256 256 118-118" stroke-width="24"/></g><circle cx="256" cy="256" r="34" fill="#1C1917"/><path d="m360 152-11-47 26-27 7 46 22-23q15 5 21 20l-21 21 43 8-27 27-46-14Z" fill="#1C1917"/></svg>
+                <svg viewBox="0 0 512 512"><g fill="none" stroke="#18181B" stroke-width="44">
+              <circle cx="256" cy="256" r="156"/>
+              <circle cx="256" cy="256" r="92"/>
+            </g>
+            <g transform="translate(256 256) rotate(-45)">
+              <line x1="0" y1="0" x2="220" y2="0" stroke="#FFFFFF" stroke-width="44" stroke-linecap="round"/>
+            </g>
+            <circle cx="256" cy="256" r="44" fill="#18181B"/>
+            <g transform="translate(256 256) rotate(-45)">
+              <line x1="0" y1="0" x2="200" y2="0" stroke="#18181B" stroke-width="28" stroke-linecap="round"/>
+              <polygon points="130,-14 165,-55 195,-55 160,-14" fill="#18181B"/>
+              <polygon points="130,14 165,55 195,55 160,14" fill="#18181B"/>
+            </g><path d="m360 152-11-47 26-27 7 46 22-23q15 5 21 20l-21 21 43 8-27 27-46-14Z" fill="#1C1917"/></svg>
                 <span>Disciplined Stakes</span>
               </div>
               <div class="dark">
-                <svg viewBox="0 0 512 512"><g fill="none" stroke="#FFFDF7" stroke-linecap="round" stroke-linejoin="round"><path d="M156 156A142 142 0 1 0 356 356" stroke-width="28"/><path d="M198 198A82 82 0 1 0 314 314" stroke-width="28"/><path d="m256 256 118-118" stroke-width="24"/></g><circle cx="256" cy="256" r="34" fill="#FFFDF7"/><path d="m360 152-11-47 26-27 7 46 22-23q15 5 21 20l-21 21 43 8-27 27-46-14Z" fill="#FFFDF7"/></svg>
+                <svg viewBox="0 0 512 512"><g fill="none" stroke="#FFFFFF" stroke-width="44">
+              <circle cx="256" cy="256" r="156"/>
+              <circle cx="256" cy="256" r="92"/>
+            </g>
+            <g transform="translate(256 256) rotate(-45)">
+              <line x1="0" y1="0" x2="220" y2="0" stroke="#18181B" stroke-width="44" stroke-linecap="round"/>
+            </g>
+            <circle cx="256" cy="256" r="44" fill="#FFFFFF"/>
+            <g transform="translate(256 256) rotate(-45)">
+              <line x1="0" y1="0" x2="200" y2="0" stroke="#FFFFFF" stroke-width="28" stroke-linecap="round"/>
+              <polygon points="130,-14 165,-55 195,-55 160,-14" fill="#FFFFFF"/>
+              <polygon points="130,14 165,55 195,55 160,14" fill="#FFFFFF"/>
+            </g><path d="m360 152-11-47 26-27 7 46 22-23q15 5 21 20l-21 21 43 8-27 27-46-14Z" fill="#FFFDF7"/></svg>
                 <span>Disciplined Stakes</span>
               </div>
             </div>

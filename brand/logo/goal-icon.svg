@@ -1,12 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title description">
   <title id="title">Disciplined Stakes goal app icon</title>
-  <desc id="description">A charcoal target and forward arrow on a warm yellow field.</desc>
-  <rect width="512" height="512" rx="112" fill="#FFD84D"/>
-  <g fill="none" stroke="#1C1917" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M156 156A142 142 0 1 0 356 356" stroke-width="28"/>
-    <path d="M198 198A82 82 0 1 0 314 314" stroke-width="28"/>
+  <desc id="description">A red target and black forward arrow.</desc>
+  <rect width="512" height="512" rx="112" fill="#FFFFFF"/>
+  <g fill="none" stroke="#DC2626" stroke-width="44">
+    <circle cx="256" cy="256" r="156"/>
+    <circle cx="256" cy="256" r="92"/>
   </g>
-  <circle cx="256" cy="256" r="34" fill="#1C1917"/>
-  <path d="m256 256 118-118" fill="none" stroke="#1C1917" stroke-width="26" stroke-linecap="round"/>
-  <path d="m360 152-11-47 26-27 7 46 22-23q15 5 21 20l-21 21 43 8-27 27-46-14Z" fill="#1C1917"/>
+  <g transform="translate(256 256) rotate(-45)">
+    <line x1="0" y1="0" x2="220" y2="0" stroke="#FFFFFF" stroke-width="44" stroke-linecap="round"/>
+  </g>
+  <circle cx="256" cy="256" r="44" fill="#DC2626"/>
+  <g transform="translate(256 256) rotate(-45)">
+    <line x1="0" y1="0" x2="200" y2="0" stroke="#18181B" stroke-width="28" stroke-linecap="round"/>
+    <polygon points="130,-14 165,-55 195,-55 160,-14" fill="#18181B"/>
+    <polygon points="130,14 165,55 195,55 160,14" fill="#18181B"/>
+  </g>
 </svg>
