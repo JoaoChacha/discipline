@@ -10,9 +10,9 @@ marketing content.
 - A commitment has a specific action, deadline, monetary stake, selected cause,
   and trusted verifier.
 - Complete and verify: the full stake is released back to the user.
-- Miss: 100% of the stake goes to that commitment's selected charity or group.
-- A separate 10% company fee applies when a commitment is missed and is clearly
-  disclosed before confirmation.
+- Miss: a 10% company fee is deducted from the stake and the remainder goes to
+  that commitment's selected charity or group.
+- The fee and charity outcome are clearly disclosed before confirmation.
 - Charity selection and group allocation happen separately for every
   commitment.
 - No money is held until the user reviews and confirms every term.
@@ -91,10 +91,11 @@ marketing content.
 
 - Title: “Your money follows the outcome.”
 - Dominant `€250.00` stake card.
-- Outcomes: `+€250.00` returned after verification; the full `€250.00` stake
-  goes to charity if missed.
-- A small information disclosure below the card explains that a separate 10%
-  company fee applies when a commitment is missed.
+- Outcomes: `+€250.00` returned after verification; the `€250.00` stake is
+  allocated after the company fee if missed.
+- A small information icon appears beside the missed stake amount. The
+  disclosure below explains that a 10% company fee is applied to the stake and
+  the rest is donated to the selected charity or charities.
 - CTA: “See charity choices”.
 
 ### 03 — Per-commitment Causes
@@ -115,9 +116,10 @@ marketing content.
 ### 05 — Consent and Begin
 
 - Title: “Ready to make it real?”
-- Summary rows for action/deadline, the 100%-to-charity outcome with separate
-  10% company fee, and cause/verifier.
-- Large consent capsule with a circular checkbox.
+- Summary rows for action/deadline, the charity outcome after the 10% company
+  fee, and cause/verifier.
+- Large consent capsule with a circular checkbox. Its selected state uses a
+  clear checkmark, and the control is vertically centered with the label text.
 - CTA: “Create my first commitment”.
 - Footer disclosure: “No money is held until you confirm a commitment.”
 
