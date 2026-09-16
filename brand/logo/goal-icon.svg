@@ -1,18 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title description">
   <title id="title">Disciplined Stakes goal app icon</title>
-  <desc id="description">A red target and black forward arrow.</desc>
+  <desc id="description">A golden-yellow target and black forward dart.</desc>
   <rect width="512" height="512" rx="112" fill="#FFFFFF"/>
-  <g fill="none" stroke="#DC2626" stroke-width="44">
+  <g fill="none" stroke="#F4C430" stroke-width="30">
     <circle cx="256" cy="256" r="156"/>
     <circle cx="256" cy="256" r="92"/>
   </g>
   <g transform="translate(256 256) rotate(-45)">
-    <line x1="0" y1="0" x2="220" y2="0" stroke="#FFFFFF" stroke-width="44" stroke-linecap="round"/>
+    <line x1="0" y1="0" x2="220" y2="0" stroke="#FFFFFF" stroke-width="34" stroke-linecap="round"/>
   </g>
-  <circle cx="256" cy="256" r="44" fill="#DC2626"/>
-  <g transform="translate(256 256) rotate(-45)">
+  <circle cx="256" cy="256" r="36" fill="#F4C430"/>
+  <g transform="translate(256 256) rotate(-45)" fill="#18181B">
     <line x1="0" y1="0" x2="200" y2="0" stroke="#18181B" stroke-width="28" stroke-linecap="round"/>
-    <polygon points="130,-14 165,-55 195,-55 160,-14" fill="#18181B"/>
-    <polygon points="130,14 165,55 195,55 160,14" fill="#18181B"/>
+    <path d="M132-13 158-50Q176-60 194-50L166-13Z"/>
+    <path d="M158-13 192-33Q207-25 214-10L180 13Z"/>
+    <path d="M132 13H166L194 50Q176 60 158 50Z"/>
   </g>
 </svg>
