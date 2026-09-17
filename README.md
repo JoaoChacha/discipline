@@ -100,13 +100,16 @@ Vercel team: `joo-chchs-projects`. Project id: `prj_ur89Bv2yVbj0AIG3AEtoXQludVKz
 
 After merge to `main`, create a long-lived `preprod` branch and push it so Vercel issues a stable preview URL (`https://discipline-git-preprod-joo-chchs-projects.vercel.app`). Point EAS `preprod` at that URL.
 
-Set these on Vercel (Production vs Preview scoped to `preprod`):
+Set these on Vercel → Project Settings → Environment Variables.
+Use **Production** for `main` and **Preview** for every other branch (including `preprod`):
 
-- `POSTGRES_URL` — Supabase **transaction pooler** URI (`:6543`) from Project Settings → Database. Do not reuse the same database across envs.
+- `POSTGRES_URL` — Supabase **transaction pooler** URI (`:6543`) from Project Settings → Database. Production gets `discipline` (`bxaxnycbgrbhrdvkcuav`); Preview gets `discipline-preprod` (`fwqqohaqmixgaqplumra`). Do not reuse the same database across envs.
 - `AUTH_SECRET` — `openssl rand -base64 32` (different per env)
-- `APP_URL` — `https://discipline-joo-chchs-projects.vercel.app` for prod, or the `preprod` branch URL
-- `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+- `APP_URL` — `https://discipline-joo-chchs-projects.vercel.app` for Production, `https://discipline-git-preprod-joo-chchs-projects.vercel.app` for Preview
+- Optional Stripe: `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` (test keys on Preview, live keys on Production)
 - Optional Apple / Google OAuth. Register callbacks at `{APP_URL}/api/auth/callback/google` and `/apple`. For the pre-prod app use bundle id `com.discipline.app.preprod`.
+
+The first successful API deploy only needs `POSTGRES_URL`, `AUTH_SECRET`, and `APP_URL`. Copy each pooler URI from Supabase (the database password is only in the dashboard). After those are set, Redeploy on Vercel or push a commit.
 
 Leave `NEXT_PUBLIC_WS_URL` unset on Vercel. The hosted API uses HTTP tRPC at `/api/trpc`. The local WebSocket server still starts with `pnpm dev`.
 

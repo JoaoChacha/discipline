@@ -19,8 +19,8 @@ export const env = createEnv({
     POSTGRES_URL: z.url(),
     APP_URL: z.url().default("http://localhost:3000"),
     WS_PORT: z.coerce.number().int().positive().default(3001),
-    STRIPE_SECRET_KEY: z.string().min(1),
-    STRIPE_WEBHOOK_SECRET: z.string().min(1),
+    STRIPE_SECRET_KEY: z.string().optional(),
+    STRIPE_WEBHOOK_SECRET: z.string().optional(),
   },
 
   /**
@@ -29,7 +29,7 @@ export const env = createEnv({
    */
   client: {
     NEXT_PUBLIC_WS_URL: z.string().optional(),
-    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1),
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
   },
   /**
    * Destructure all variables from `process.env` to make sure they aren't tree-shaken away.
