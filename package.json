@@ -15,6 +15,7 @@
     "db:down": "docker compose down",
     "db:generate": "pnpm -F @discipline/db generate",
     "db:push": "turbo -F @discipline/db push",
+    "db:migrate": "pnpm -F @discipline/db migrate",
     "db:studio": "turbo -F @discipline/db studio",
     "dev": "turbo watch dev --continue",
     "dev:next": "turbo watch dev -F @discipline/nextjs...",

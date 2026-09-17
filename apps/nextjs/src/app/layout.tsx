@@ -10,18 +10,21 @@ import { TRPCReactProvider } from "~/trpc/react";
 
 import "~/app/styles.css";
 
+const siteUrl =
+  env.APP_URL && env.APP_URL !== "http://localhost:3000"
+    ? env.APP_URL
+    : env.VERCEL_ENV === "production" && env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "http://localhost:3000";
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    env.VERCEL_ENV === "production"
-      ? "https://discipline.app"
-      : "http://localhost:3000",
-  ),
+  metadataBase: new URL(siteUrl),
   title: "Discipline",
   description: "Native-first app with Expo, tRPC, and Drizzle",
   openGraph: {
     title: "Discipline",
     description: "Native-first app with Expo, tRPC, and Drizzle",
-    url: "http://localhost:3000",
+    url: siteUrl,
     siteName: "Discipline",
   },
 };

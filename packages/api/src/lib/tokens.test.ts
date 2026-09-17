@@ -15,4 +15,13 @@ describe("invite tokens", () => {
       app: "discipline://i/abc",
     });
   });
+
+  it("uses a pre-prod scheme when provided", () => {
+    expect(
+      inviteUrls("abc", "https://preprod.example/", "discipline-preprod"),
+    ).toEqual({
+      https: "https://preprod.example/i/abc",
+      app: "discipline-preprod://i/abc",
+    });
+  });
 });

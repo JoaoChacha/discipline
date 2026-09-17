@@ -1,10 +1,13 @@
 import type { ConfigContext, ExpoConfig } from "expo/config";
 
+const appEnv = process.env.APP_ENV ?? "development";
+const isPreprod = appEnv === "preprod";
+
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: "Discipline",
+  name: isPreprod ? "Discipline Preprod" : "Discipline",
   slug: "discipline",
-  scheme: "discipline",
+  scheme: isPreprod ? "discipline-preprod" : "discipline",
   version: "0.1.0",
   orientation: "portrait",
   icon: "./assets/icon-light.png",
@@ -14,7 +17,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   assetBundlePatterns: ["**/*"],
   ios: {
-    bundleIdentifier: "com.discipline.app",
+    bundleIdentifier: isPreprod
+      ? "com.discipline.app.preprod"
+      : "com.discipline.app",
     supportsTablet: true,
     icon: {
       light: "./assets/icon-light.png",
@@ -22,7 +27,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
   },
   android: {
-    package: "com.discipline.app",
+    package: isPreprod ? "com.discipline.app.preprod" : "com.discipline.app",
     adaptiveIcon: {
       foregroundImage: "./assets/icon-light.png",
       backgroundColor: "#0D0D0F",
@@ -32,6 +37,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     eas: {
       projectId: "21e04c5e-7eeb-4eb4-872f-33ec00f5aaaa",
     },
+    appEnv,
   },
   experiments: {
     tsconfigPaths: true,

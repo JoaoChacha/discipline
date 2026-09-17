@@ -40,6 +40,9 @@
       "cache": false,
       "interactive": true
     },
+    "migrate": {
+      "cache": false
+    },
     "studio": {
       "cache": false,
       "persistent": true
@@ -58,7 +61,10 @@
     "AUTH_APPLE_APP_BUNDLE_IDENTIFIER",
     "AUTH_REDIRECT_PROXY_URL",
     "AUTH_SECRET",
+    "APP_ENV",
+    "APP_SCHEME",
     "APP_URL",
+    "EXPO_PUBLIC_API_URL",
     "WS_PORT",
     "NEXT_PUBLIC_WS_URL",
     "EXPO_PUBLIC_WS_URL",

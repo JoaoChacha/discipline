@@ -9,11 +9,15 @@ export function hashInviteToken(token: string) {
   return createHash("sha256").update(token).digest("hex");
 }
 
-export function inviteUrls(token: string, appUrl: string) {
+export function inviteUrls(
+  token: string,
+  appUrl: string,
+  scheme = process.env.APP_SCHEME ?? "discipline",
+) {
   const origin = appUrl.replace(/\/$/, "");
   return {
     https: `${origin}/i/${token}`,
-    app: `discipline://i/${token}`,
+    app: `${scheme}://i/${token}`,
   };
 }
 
